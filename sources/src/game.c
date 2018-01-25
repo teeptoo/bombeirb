@@ -12,7 +12,7 @@
 
 struct game {
 	struct map** maps;       // the game's map
-	short max_levels;            // nb maps of the game
+	short max_levels;        // nb maps of the game
 	short current_level;
 	struct player* player;
 };
