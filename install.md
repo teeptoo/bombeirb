@@ -69,7 +69,7 @@ placer à la racine de `C:` et exécuter la commande
 
 ### Run configuration
 
-Après avoir lancé la compilation du projet, l’exécutable `bomberman`
+Après avoir lancé la compilation du projet, l’exécutable `bombeirb`
 doit apparaitre dans le dossier `bin`. Afin de pouvoir lancer son
 exécution depuis l’interface d’Eclipse, il faut ajouter une
 configuration de lancement au projet : clic droit sur le projet,

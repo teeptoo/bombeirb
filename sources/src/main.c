@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * This file is part of Bombeirb.
+ * Copyright (C) 2018 by Laurent Réveillère
+ ******************************************************************************/
 #include <SDL/SDL.h>
 
 #include <constant.h>
@@ -15,8 +19,8 @@ int main(int argc, char *argv[]) {
 
 	struct game* game = game_new();
 
-	window_create(SIZE_BLOC * MAP_WIDTH,
-	SIZE_BLOC * MAP_HEIGHT + BANNER_HEIGHT + LINE_HEIGHT);
+	window_create(SIZE_BLOC * STATIC_MAP_WIDTH,
+	SIZE_BLOC * STATIC_MAP_HEIGHT + BANNER_HEIGHT + LINE_HEIGHT);
 
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 

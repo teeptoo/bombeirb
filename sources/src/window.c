@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * This file is part of Bombeirb.
+ * Copyright (C) 2018 by Laurent Réveillère
+ ******************************************************************************/
 #include <SDL/SDL_image.h> // IMG_Load
 #include <assert.h>
 

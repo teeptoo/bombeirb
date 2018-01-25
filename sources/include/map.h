@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * This file is part of Bombeirb.
+ * Copyright (C) 2018 by Laurent Réveillère
+ ******************************************************************************/
 #ifndef MAP_H_
 #define MAP_H_
 
@@ -9,8 +13,7 @@ enum cell_type {
 	CELL_KEY=0x40,       	//  0100 0000
 	CELL_BONUS=0x50, 		// 	0101 0000
 	CELL_MONSTER=0x60, 		// 	0110 0000
-	CELL_BOMB=0x70, 	   	// 	0111 0000
-	CELL_PLAYER=0x80 		// 	1000 0000
+	CELL_BOMB=0x70 	   		// 	0111 0000
 
 };
 
@@ -24,8 +27,8 @@ enum bonus_type {
 };
 
 enum scenery_type {
-	SCENERY_TREE,      // 0000 0000
-	SCENERY_STONE,     // 0001 0000
+	SCENERY_STONE,     // 0000 0000
+	SCENERY_TREE,      // 0010 0000
 	SCENERY_PRINCESS   // 0010 0000
 };
 
@@ -62,8 +65,8 @@ void  map_set_cell_type(struct map* map, int x, int y, enum cell_type type);
 // Test if (x,y) is within the map
 int map_is_inside(struct map* map, int x, int y);
 
-// Return a default 12x12 static map
-struct map* map_get_default();
+// Return a default static map
+struct map* map_get_static();
 
 // Display the map on the screen
 void map_display(struct map* map);

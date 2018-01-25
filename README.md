@@ -69,7 +69,6 @@ cellule avec le codage suivant :
 -  **5** : Bonus / Malus
 -  **6** : Monstre
 -  **7** : Bombe
--  **8** : Joueur
 
  
 
@@ -78,7 +77,7 @@ cellule ou des informations complémentaires.
 
 #### Décor
 
-Les bit b3 à b2 codent le type de décor: **0** pour un arbre, **1** pour une pierre et **2** pour la princesse. Les bits b1 à b0 sont inutilisés.
+Les bits b3 à b2 codent le type de décor: **0** pour une pierre, **1** pour un arbre et **2** pour la princesse. Les bits b1 à b0 sont inutilisés.
 
 #### Caisse
 
@@ -121,8 +120,8 @@ suivantes :
 -   Les cartes sont stockées sous forme de fichiers texte afin de
     pouvoir les créer et les modifier avec un simple éditeur de texte ;
 -   Le nom de fichier d’une carte est de la forme `map_N` ou `N` est le
-    numéro de niveau;
--   La première ligne du fichier, de la forme *width:height*,
+    numéro du niveau;
+-   La première ligne du fichier, de la forme `width x height`,
     représente la largeur et la hauteur de la carte (valeurs décimales);
 -   La case en haut à gauche de la carte correspond aux coordonnées
     `(0,0)` ;
@@ -137,7 +136,7 @@ suivantes :
 Comme nous n’utilisons que 3 bits pour coder les différentes carte du jeu, il y a un maximum de 8 niveaux possibles. Le premier niveau est toujours le niveau **0**. L’exemple ci-dessous illustre le codage d’une carte de 3 par 2. Le symbole `_` représente un espace.
 
 <pre>
-3 : 2
+3 x 2
 2 _ 0 _ _ 1 7
 0 _ 5 9 _ 0 _
 </pre>
@@ -145,17 +144,27 @@ Comme nous n’utilisons que 3 bits pour coder les différentes carte du jeu, il
 ### Chargement des cartes
 
 Écrire les fonctions permettant de charger une carte à l’écran à partir
-d’un fichier.
+d’un fichier. Pour représenter une partie, nous utiliserons un fichier supplémentaire, lui aussi au format texte, dans le répertoire data. Ce fichier aura le format suivant :
+
+- La première ligne contient le numéro de niveaux
+- La seconde ligne indique la position du joueur sous la forme `level : x, y` où *level* est le numéro du monde, x* et *y* sont les coordonnées sur la carte correspondante.
+- La troisième ligne indique le préfixe des fichiers cartes correspondants dans le répertoire *map*. L'exemple ci-dessous représente une partie avec 3 mondes dont chaque carte est de la forme `easy_N`. Le joueur se trouve sur la case en haut à gauche du premier niveau. Au chargement de la partie, il faut afficher le niveau sur lequel se trouve le joueur.
+
+```
+3
+0:0,0
+easy
+```
 
 ### Gestion des portes
 
 Lorsque le joueur arrive sur la case d’une porte ouverte, il passe
 automatiquement au niveau correspondant à cette porte (niveau supérieur
-ou inférieur). Il se retrouve automatiquement sur la porte du niveau
+ou inférieur). Seul le niveau *0* n'a qu'une seule porte (on ne peut pas passer au niveau inférieur). Il se retrouve automatiquement sur la porte du niveau
 correspondant. Si la porte est fermée, le joueur doit utiliser une des
 clefs de son inventaire. Une fois utilisée, la clé disparait de
 l’inventaire. Chaque clef peut ouvrir indifféremment n’importe quelle
-porte.
+porte. Une fois qu'une porte est ouverte, elle le reste pour toute la partie du jeu.
 
 ### Gestion du panneau d’informations
 

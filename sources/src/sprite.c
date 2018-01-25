@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * This file is part of Bombeirb.
+ * Copyright (C) 2018 by Laurent Réveillère
+ ******************************************************************************/
 #include <SDL/SDL_image.h>
 #include <assert.h>
 
@@ -18,17 +22,17 @@
 #define BANNER_LINE		"sprite/banner_line.png"
 #define BANNER_LIFE		"sprite/banner_life.png"
 #define BANNER_BOMB		"sprite/bomb3.png"
-#define BANNER_RANGE	"sprite/banner_range.png"
-#define BANNER_0		"sprite/banner_0.jpg"
-#define BANNER_1		"sprite/banner_1.jpg"
-#define BANNER_2		"sprite/banner_2.jpg"
-#define BANNER_3		"sprite/banner_3.jpg"
-#define BANNER_4		"sprite/banner_4.jpg"
-#define BANNER_5		"sprite/banner_5.jpg"
-#define BANNER_6		"sprite/banner_6.jpg"
-#define BANNER_7		"sprite/banner_7.jpg"
-#define BANNER_8		"sprite/banner_8.jpg"
-#define BANNER_9		"sprite/banner_9.jpg"
+#define BANNER_RANGE		"sprite/banner_range.png"
+#define BANNER_0			"sprite/banner_0.jpg"
+#define BANNER_1			"sprite/banner_1.jpg"
+#define BANNER_2			"sprite/banner_2.jpg"
+#define BANNER_3			"sprite/banner_3.jpg"
+#define BANNER_4			"sprite/banner_4.jpg"
+#define BANNER_5			"sprite/banner_5.jpg"
+#define BANNER_6			"sprite/banner_6.jpg"
+#define BANNER_7			"sprite/banner_7.jpg"
+#define BANNER_8			"sprite/banner_8.jpg"
+#define BANNER_9			"sprite/banner_9.jpg"
 
 // Sprites of Bombs
 #define BOMB_TTL1       "sprite/bomb1.png"

@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * This file is part of Bombeirb.
+ * Copyright (C) 2018 by Laurent Réveillère
+ ******************************************************************************/
 #include <assert.h>
 #include <time.h>
 
@@ -8,22 +12,24 @@
 
 struct game {
 	struct map** maps;       // the game's map
-	short levels;            // nb maps of the game
-	short current;
+	short max_levels;            // nb maps of the game
+	short current_level;
 	struct player* player;
 };
 
-struct game* game_new(void) {
+struct game*
+game_new(void) {
 	sprite_load(); // load sprites into process memory
 
 	struct game* game = malloc(sizeof(*game));
 	game->maps = malloc(sizeof(struct game));
-	game->maps[0] = map_get_default();
-	game->levels = 1;
-	game->current = 0;
+	game->maps[0] = map_get_static();
+	game->max_levels = 1;
+	game->current_level = 0;
 
 	game->player = player_init(1);
-	player_from_map(game->player, game->maps[0]); // get x,y of the player on the first map
+	// Set default location of the player
+	player_set_position(game->player, 1, 0);
 
 	return game;
 }
@@ -32,13 +38,13 @@ void game_free(struct game* game) {
 	assert(game);
 
 	player_free(game->player);
-	for (int i = 0; i < game->levels; i++)
+	for (int i = 0; i < game->max_levels; i++)
 		map_free(game->maps[i]);
 }
 
 struct map* game_get_current_map(struct game* game) {
 	assert(game);
-	return game->maps[game->current];
+	return game->maps[game->current_level];
 }
 
 

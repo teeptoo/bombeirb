@@ -1,3 +1,7 @@
+/*******************************************************************************
+ * This file is part of Bombeirb.
+ * Copyright (C) 2018 by Laurent Réveillère
+ ******************************************************************************/
 #include <SDL/SDL_image.h>
 #include <assert.h>
 
@@ -23,6 +27,14 @@ struct player* player_init(int bomb_number) {
 
 	return player;
 }
+
+
+void player_set_position(struct player *player, int x, int y) {
+	assert(player);
+	player->x = x;
+	player->y = y;
+}
+
 
 void player_free(struct player* player) {
 	assert(player);
@@ -59,21 +71,6 @@ void player_dec_nb_bomb(struct player* player) {
 	player->nb_bombs -= 1;
 }
 
-void player_from_map(struct player* player, struct map* map) {
-	assert(player);
-	assert(map);
-
-	int i, j;
-	for (i = 0; i < map_get_width(map); i++) {
-	  for (j = 0; j < map_get_height(map); j++) {	
-	    if (map_get_cell_type(map, i, j) == CELL_PLAYER) {
-	      player->x = i;
-	      player->y = j;
-	    }
-	  }
-	}
-}
-
 static int player_move_aux(struct player* player, struct map* map, int x, int y) {
 
 	if (!map_is_inside(map, x, y))
@@ -92,9 +89,6 @@ static int player_move_aux(struct player* player, struct map* map, int x, int y)
 		break;
 
 	case CELL_MONSTER:
-		break;
-
-	case CELL_PLAYER:
 		break;
 
 	default:
@@ -142,7 +136,6 @@ int player_move(struct player* player, struct map* map) {
 
 	if (move) {
 		map_set_cell_type(map, x, y, CELL_EMPTY);
-		map_set_cell_type(map, player->x, player->y, CELL_PLAYER);
 	}
 	return move;
 }
