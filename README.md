@@ -180,11 +180,11 @@ perd une vie. Les explosions n’ont aucun effet sur les portes et les
 clefs. Lorsque une bombe explose, une nouvelle bombe est ajoutée à
 l’inventaire du joueur.
 
-##### Exemple d’explosions d’une bombe de portée 1 sans obstacle
+#### Exemple d’explosions d’une bombe de portée 1 sans obstacle
 ![explosion](img/explosion.png)
 
  
-##### Exemple d’explosions d’une bombe de portée 1 avec obstacle
+#### Exemple d’explosions d’une bombe de portée 1 avec obstacle
 ![explosion](img/explosion2.png)
 
  
