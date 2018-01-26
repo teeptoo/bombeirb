@@ -2,6 +2,16 @@
 
 Réalisation d'un jeu vidéo 2D : **bombeirb**.
 
+
+## Organisation
+
+Le travail est à réaliser en équipe de un à deux étudiants appartenant au même groupe (A, B ou C). Vous devez au préalable former les équipes et les nommer de la forme *GA-T1* pour l'equipe *1* du groupe *A. 
+
+Nous utiliserons la plateforme GitHub pour héberger vos projets. Pour ce faire, vous devez créer un compte utilisateur sur GitHub si vous n'en posséder pas. Cliquer ensuite sur le lien [suivant](https://classroom.github.com/g/xY-oPa2P) pour créer votre équipe. Utiliser la convention de nommage précédente. 
+
+Vous avez les droits administrateur sur votre dépôt et celui-ci est privé. Il devrait être initialisé avec le contenu de ce dépôt. 
+
+
 ## Principes du jeu
 
 Une princesse est détenue prisonnière par de méchants monstres verts. Votre mission, si vous l'acceptez, est d'aller la délivrer. Pour cela, vous devrez traverser plusieurs mondes, plus effrayants les uns que les autres. Des portes vous permettront de passer de mondes en mondes. Certaines portes seront fermées à clés et nécessiterons d'avoir une clé dans votre inventaire. Vous êtes un expert en explosif et utiliserez vos bombes pour détruire les obstacles devant vous et tuer les monstres qui vous attaquerons.
