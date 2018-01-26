@@ -5,11 +5,11 @@ Réalisation d'un jeu vidéo 2D : **bombeirb**.
 
 ## Organisation
 
-Le travail est à réaliser en équipe de un à deux étudiants appartenant au même groupe (A, B ou C). Vous devez au préalable former les équipes et les nommer de la forme *GA-T1* pour l'equipe *1* du groupe *A. 
+Le travail est à réaliser en équipe de un à deux étudiants appartenant au même groupe (A, B ou C). Vous devez au préalable former les équipes et les nommer de la forme *GA-T1* pour l'equipe *1* du groupe *A*. 
 
-Nous utiliserons la plateforme GitHub pour héberger vos projets. Pour ce faire, vous devez créer un compte utilisateur sur GitHub si vous n'en posséder pas. Cliquer ensuite sur le lien [suivant](https://classroom.github.com/g/xY-oPa2P) pour créer votre équipe. Utiliser la convention de nommage précédente. 
+Nous utilisons la plateforme GitHub pour héberger vos projets. Pour ce faire, vous devez créer un compte utilisateur sur GitHub si vous n'en possédez pas encore. Cliquer ensuite sur le lien [suivant](https://classroom.github.com/g/xY-oPa2P) pour créer votre équipe. Utiliser la convention de nommage précédente. 
 
-Vous avez les droits administrateur sur votre dépôt et celui-ci est privé. Il devrait être initialisé avec le contenu de ce dépôt. 
+Vous avez les droits administrateur sur votre dépôt et celui-ci est privé (GitHub education). Ajouter l'autre membre du groupe. Le dépôt devrait être initialisé avec le contenu de ce dépôt. Vous pouvez maintenant commencer à travailler.
 
 
 ## Principes du jeu
