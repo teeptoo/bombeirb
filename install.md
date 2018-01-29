@@ -16,8 +16,14 @@ Le projet utilise les bibliothèque `SDL` et `SDL image` en version 1.2
 dessin 2D. Sous Linux, SDL et SDL image peuvent être installés via le
 gestionnaire de paquet de votre distribution
 (`sudo apt-get install libsdl1.2-dev libsdl-image1.2-dev`) sous
-Debian/Ubuntu/Mint). Sous MacOS vous pouvez utiliser un gestionnaire de
-paquet tel que `homebrew`.
+Debian/Ubuntu/Mint). 
+
+Sous MacOS vous devez installer dans un premier temps le gestionnaire de paquets `homebrew`. Taper ensuite les commandes suivantes dans un terminal
+
+```
+$ brew install sdl
+$ brew install sdl_image
+```
 
 ## Windows
 
