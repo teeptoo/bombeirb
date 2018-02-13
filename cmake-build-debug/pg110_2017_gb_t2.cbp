@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="pg110_2017_gb_t2"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pg110_2017_gb_t2">
+				<Option output="/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/pg110_2017_gb_t2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 pg110_2017_gb_t2"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="pg110_2017_gb_t2/fast">
+				<Option output="/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/pg110_2017_gb_t2" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 pg110_2017_gb_t2/fast"/>
+					<CompileFile command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j2 -f &quot;/home/julien/Bombeirb/pg110-2017-gb-t2/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/README.md">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/img/bombeirb.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/img/explosion.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/img/explosion2.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/install.md">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/Makefile">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/include/constant.h">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/include/game.h">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/include/map.h">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/include/misc.h">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/include/player.h">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/include/sprite.h">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/include/window.h">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_0.jpg">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_1.jpg">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_2.jpg">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_3.jpg">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_4.jpg">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_5.jpg">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_6.jpg">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_7.jpg">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_8.jpg">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_9.jpg">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_life.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_line.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/banner_range.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/bomb1.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/bomb2.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/bomb3.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/bomb4.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/bomberwoman.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/bonus_bomb_nb_dec.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/bonus_bomb_nb_inc.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/bonus_bomb_range_dec.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/bonus_bomb_range_inc.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/closed_door.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/door.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/door_closed.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/door_opened.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/explosion.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/flag.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/key.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/monster_down.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/monster_left.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/monster_right.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/monster_up.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/player_down.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/player_left.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/player_right.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/player_up.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/stone.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/tree.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/sprite/wood_box.png">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/src/game.c">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/src/main.c">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/src/map.c">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/src/misc.c">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/src/player.c">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/src/sprite.c">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/sources/src/window.c">
+			<Option target="pg110_2017_gb_t2"/>
+		</Unit>
+		<Unit filename="/home/julien/Bombeirb/pg110-2017-gb-t2/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

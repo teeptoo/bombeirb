@@ -49,8 +49,16 @@ struct map* map_new(int width, int height)
 
 int map_is_inside(struct map* map, int x, int y)
 {
+	//fonction : savoir si le joueur est dans la map ou dehors
+	int width=map->width;
+	int height=map->height;
+	if ((0<x)&&(x<width)&&(0<y)(y<height))
+	{
+		assert(map);
+		return 1;
+	}
 	assert(map);
-	return 1;
+	return 0;
 }
 
 void map_free(struct map *map)
