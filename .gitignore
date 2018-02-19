@@ -2,3 +2,7 @@
 sources/bin/
 sources/.obj/
 .project
+
+sources/\.cproject
+
+sources/\.settings/language\.settings\.xml
