@@ -50,7 +50,9 @@ struct map* map_new(int width, int height)
 int map_is_inside(struct map* map, int x, int y)
 {
 	assert(map);
-	return 1;
+	if( (x >= 0) && (x < map->width) && (y >= 0) && (y < map->height) )
+		return 1;
+	return 0;
 }
 
 void map_free(struct map *map)
