@@ -28,4 +28,9 @@ enum direction {
 	EAST //3
 };
 
+// Splashscreen size
+#define SPLASH_WIDTH 	800
+#define SPLASH_HEIGHT	500
+#define SPLASH_MARGIN	50 // size between elements
+
 #endif /* CONSTANT */

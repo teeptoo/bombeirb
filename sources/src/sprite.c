@@ -52,6 +52,10 @@
 #define PLAYER_RIGHT    "sprite/player_right.png"
 #define PLAYER_DOWN     "sprite/player_down.png"
 
+// Sprites of Menu
+#define MENU_LOGO		"sprite/logo.jpg"
+#define MENU_CREDITS 	"sprite/credits.jpg"
+
 // banner
 SDL_Surface* numbers[10];
 SDL_Surface* banner_life;
@@ -74,6 +78,10 @@ SDL_Surface* bonus[NB_BONUS + 1];
 
 // player
 SDL_Surface* player_img[4];
+
+// menu elements
+SDL_Surface* logo;
+SDL_Surface* credits;
 
 static void banner_load() {
 	// numbers imgs
@@ -149,9 +157,23 @@ static void player_load() {
 	player_img[SOUTH] = load_image(PLAYER_DOWN);
 }
 
+
+
 static void player_unload() {
 	for (int i = 0; i < 4; i++)
 		SDL_FreeSurface(player_img[i]);
+}
+
+static void menu_load()
+{
+	logo = load_image(MENU_LOGO);
+	credits = load_image(MENU_CREDITS);
+}
+
+static void menu_unload()
+{
+	SDL_FreeSurface(logo);
+	SDL_FreeSurface(credits);
 }
 
 void sprite_load() {
@@ -159,6 +181,8 @@ void sprite_load() {
 	bonus_load();
 	banner_load();
 	player_load();
+	menu_load();
+
 }
 
 void sprite_free() {
@@ -166,6 +190,7 @@ void sprite_free() {
 	bonus_unload();
 	banner_unload();
 	player_unload();
+	menu_unload();
 }
 
 SDL_Surface* sprite_get_number(short number) {
@@ -231,4 +256,16 @@ SDL_Surface* sprite_get_door_opened() {
 SDL_Surface* sprite_get_door_closed() {
 	assert(door_closed);
 	return door_closed;
+}
+
+SDL_Surface* sprite_get_logo()
+{
+	assert(logo);
+	return logo;
+}
+
+SDL_Surface* sprite_get_credits()
+{
+	assert(credits);
+	return credits;
 }
