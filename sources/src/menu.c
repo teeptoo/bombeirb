@@ -17,19 +17,22 @@ void splashScreen(void)
 {
 	sprite_load(); // load sprites into process memory
 
-
 	window_create(SPLASH_WIDTH, SPLASH_HEIGHT);
 	window_clear();
+
 	// logo
 	int x = SPLASH_WIDTH/2 - (sprite_get_logo()->w)/2; // centering logo
 	window_display_image(sprite_get_logo(), x, SPLASH_MARGIN);
-	// map level
+
+	// map level number
 	x = SPLASH_WIDTH/2 - (sprite_get_number(0)->w)/2; // centering map number in both direction
 	int y = SPLASH_HEIGHT/2 - (sprite_get_number(0)->h)/2;
 	window_display_image(sprite_get_number(0), x,y);
+
 	// credits
 	x = SPLASH_WIDTH/2 - (sprite_get_credits()->w)/2;
 	window_display_image(sprite_get_credits(), x, SPLASH_HEIGHT-SPLASH_MARGIN); // centering credits
+
 	window_refresh();
 	SDL_Delay(3000);
 }

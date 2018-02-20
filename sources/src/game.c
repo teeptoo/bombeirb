@@ -17,8 +17,7 @@ struct game {
 	struct player* player;
 };
 
-struct game*
-game_new(void) {
+struct game* game_new(void) {
 	struct game* game = malloc(sizeof(*game));
 	game->maps = malloc(sizeof(struct game));
 	game->maps[0] = map_get_static();
