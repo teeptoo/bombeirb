@@ -10,6 +10,10 @@
 
 // Abstract data type
 struct game;
+struct game_infos;
+
+// Get infos from config file
+struct game_infos* game_get_config(char * file);
 
 // Create a new game
 struct game* game_new();

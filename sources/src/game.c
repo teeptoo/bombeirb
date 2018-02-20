@@ -4,6 +4,8 @@
  ******************************************************************************/
 #include <assert.h>
 #include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include <game.h>
 #include <misc.h>
@@ -17,7 +19,39 @@ struct game {
 	struct player* player;
 };
 
+struct game_infos
+{
+	int max_levels;
+	int current_level;
+	int current_x;
+	int current_y;
+	char * map_prefix;
+};
+
+struct game_infos* game_get_config(char * file)
+{
+	struct game_infos* game_infos = malloc(sizeof(*game_infos));
+	char map_prefix_temp[10];
+
+	// open file
+	FILE* game_config_file = NULL;
+	game_config_file=fopen(file, "r");
+	assert(game_config_file);
+
+	// read nb levels
+	assert(fscanf(game_config_file, "%d", &game_infos->max_levels));
+
+	// read current level and pos
+	assert(fscanf(game_config_file, "%i:%d,%d", &game_infos->current_level, &game_infos->current_x, &game_infos->current_y));
+
+	// read map prefix
+
+	fclose(game_config_file);
+	return game_infos;
+}
+
 struct game* game_new(void) {
+
 	struct game* game = malloc(sizeof(*game));
 	game->maps = malloc(sizeof(struct game));
 	game->maps[0] = map_get_static();
