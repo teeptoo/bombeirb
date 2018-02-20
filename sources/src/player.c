@@ -82,7 +82,7 @@ static int player_move_aux(struct player* player, struct map* map, int x, int y)
 		break;
 
 	case CELL_BOX:
-		return 0;
+		return 1;
 		break;
 
 	case CELL_BONUS:
@@ -103,11 +103,14 @@ int player_move(struct player* player, struct map* map) {
 	int x = player->x;
 	int y = player->y;
 	int move = 0;
+	int box_movement_x = x;
+	int box_movement_y = y;
 
 	switch (player->current_direction) {
 	case NORTH:
 		if (player_move_aux(player, map, x, y - 1)) {
 			player->y--;
+			box_movement_y = player->y - 1;
 			move = 1;
 		}
 		break;
@@ -115,6 +118,7 @@ int player_move(struct player* player, struct map* map) {
 	case SOUTH:
 		if (player_move_aux(player, map, x, y + 1)) {
 			player->y++;
+			box_movement_y = player->y + 1;
 			move = 1;
 		}
 		break;
@@ -122,6 +126,7 @@ int player_move(struct player* player, struct map* map) {
 	case WEST:
 		if (player_move_aux(player, map, x - 1, y)) {
 			player->x--;
+			box_movement_x = player->x - 1;
 			move = 1;
 		}
 		break;
@@ -129,12 +134,32 @@ int player_move(struct player* player, struct map* map) {
 	case EAST:
 		if (player_move_aux(player, map, x + 1, y)) {
 			player->x++;
+			box_movement_x = player->x + 1;
 			move = 1;
 		}
 		break;
 	}
-
-	if (move) {
+	if (move)
+	{
+		if (map_get_cell_type(map, player->x, player->y) == CELL_BOX)
+		{
+			if (!map_is_inside(map,box_movement_x, box_movement_y))
+			{//on verifie qu'on ne pousse pas une box en dehors de la map
+					player->x=x;
+					player->y=y;
+					move=0;
+					return move;
+			}
+			if (map_get_cell_type(map, box_movement_x, box_movement_y) != CELL_EMPTY)
+			{//on verifie qu'on ne deplace la box que sur des case vides
+					player->x=x;
+					player->y=y;
+					move=0;
+					return move;
+			}
+			map_set_cell_type(map, box_movement_x, box_movement_y, CELL_BOX);
+		}
+		map_set_cell_type(map, player->x, player->y, CELL_EMPTY);
 		map_set_cell_type(map, x, y, CELL_EMPTY);
 	}
 	return move;
