@@ -4,17 +4,41 @@
  ******************************************************************************/
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 
 #include <constant.h>
 #include <game.h>
 #include <window.h>
 #include <menu.h>
+#include <sprite.h>
+#include <misc.h>
+
+void splashScreen(void)
+{
+	sprite_load(); // load sprites into process memory
+
+
+	window_create(SPLASH_WIDTH, SPLASH_HEIGHT);
+	window_clear();
+	// logo
+	int x = SPLASH_WIDTH/2 - (sprite_get_logo()->w)/2; // centering logo
+	window_display_image(sprite_get_logo(), x, SPLASH_MARGIN);
+	// map level
+	x = SPLASH_WIDTH/2 - (sprite_get_number(0)->w)/2; // centering map number in both direction
+	int y = SPLASH_HEIGHT/2 - (sprite_get_number(0)->h)/2;
+	window_display_image(sprite_get_number(0), x,y);
+	// credits
+	x = SPLASH_WIDTH/2 - (sprite_get_credits()->w)/2;
+	window_display_image(sprite_get_credits(), x, SPLASH_HEIGHT-SPLASH_MARGIN); // centering credits
+	window_refresh();
+	SDL_Delay(3000);
+}
 
 void launchGame(void)
 {
 	struct game* game = game_new();
 
-	window_create(SIZE_BLOC * STATIC_MAP_WIDTH,
+	window_resize(SIZE_BLOC * STATIC_MAP_WIDTH,
 	SIZE_BLOC * STATIC_MAP_HEIGHT + BANNER_HEIGHT + LINE_HEIGHT);
 
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);

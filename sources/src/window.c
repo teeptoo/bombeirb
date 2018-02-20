@@ -23,6 +23,14 @@ void window_create(int width, int height) {
 	}
 }
 
+void window_resize(int width, int height)
+{
+	assert(width > 0 && height > 0);
+	assert(window);
+
+	window = SDL_SetVideoMode(width, height, 0, SDL_HWSURFACE);
+}
+
 void window_display_image(SDL_Surface* sprite, int x, int y) {
 	assert(window);
 	assert(sprite);

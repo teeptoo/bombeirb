@@ -19,8 +19,6 @@ struct game {
 
 struct game*
 game_new(void) {
-	sprite_load(); // load sprites into process memory
-
 	struct game* game = malloc(sizeof(*game));
 	game->maps = malloc(sizeof(struct game));
 	game->maps[0] = map_get_static();
