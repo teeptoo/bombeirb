@@ -42,7 +42,7 @@ void launchGame(void)
 	free(game_infos);
 
 	window_resize(SIZE_BLOC * STATIC_MAP_WIDTH,
-	SIZE_BLOC * STATIC_MAP_HEIGHT + BANNER_HEIGHT + LINE_HEIGHT);
+	SIZE_BLOC * STATIC_MAP_HEIGHT + BANNER_HEIGHT + LINE_HEIGHT); // TO DEBUG -> taille non prise en compte
 
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 

@@ -65,9 +65,6 @@ void  map_set_cell_type(struct map* map, int x, int y, enum cell_type type);
 // Test if (x,y) is within the map
 int map_is_inside(struct map* map, int x, int y);
 
-// Return a default static map
-struct map* map_get_static();
-
 // Return the map from specified file
 struct map* map_get_from_file(char* file);
 
