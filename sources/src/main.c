@@ -9,6 +9,7 @@
 #include <window.h>
 #include <misc.h>
 #include <menu.h>
+#include <sprite.h>
 
 
 int main(int argc, char *argv[]) {
