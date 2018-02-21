@@ -28,13 +28,16 @@ struct game_infos
 	char * map_prefix[];
 };
 
-struct game_infos* game_get_config(char * file)
+struct game_infos* game_get_config_from_file(char * file)
 {
 	struct game_infos* game_infos = malloc(sizeof(*game_infos));
+	assert(game_infos);
+
 	// open file
 	FILE* game_config_file = NULL;
 	game_config_file=fopen(file, "r");
 	assert(game_config_file);
+
 	// read nb levels
 	assert(fscanf(game_config_file, "%d\n", (int *)&game_infos->max_levels));
 
@@ -48,17 +51,21 @@ struct game_infos* game_get_config(char * file)
 	return game_infos;
 }
 
-struct game* game_new(void) {
-
+struct game* game_new(struct game_infos* game_infos) {
 	struct game* game = malloc(sizeof(*game));
-	game->maps = malloc(sizeof(struct game));
-	game->maps[0] = map_get_static();
-	game->max_levels = 1;
-	game->current_level = 0;
+	assert(game);
 
+	game->maps = malloc(sizeof(struct game));
+	// load game infos
+	game->max_levels = game_infos->max_levels;
+	game->current_level = game_infos->current_level;
+	// load maps
+	game->maps[0] = map_get_from_file("data/maps/map_0.txt");
+
+	// load player infos
 	game->player = player_init(1);
-	// Set default location of the player
-	player_set_position(game->player, 1, 0);
+	// set location of the player
+	player_set_position(game->player, game_infos->current_x, game_infos->current_y);
 
 	return game;
 }
@@ -69,6 +76,8 @@ void game_free(struct game* game) {
 	player_free(game->player);
 	for (int i = 0; i < game->max_levels; i++)
 		map_free(game->maps[i]);
+
+	free(game);
 }
 
 struct map* game_get_current_map(struct game* game) {

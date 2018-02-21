@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 #include <map.h>
 #include <constant.h>
@@ -179,5 +180,44 @@ struct map* map_get_static(void)
 	for (int i = 0; i < STATIC_MAP_WIDTH * STATIC_MAP_HEIGHT; i++)
 		map->grid[i] = themap[i];
 
+	return map;
+}
+
+struct map* map_get_from_file(char* file)
+{
+	int map_width=0, map_height=0, pos_line, pos_elt;
+	char *line_temp=NULL, *token=NULL;
+
+	// open file
+	FILE* map_file = NULL;
+	map_file=fopen(file, "r");
+	assert(map_file);
+
+	// get map's size
+	assert(fscanf(map_file, "%d x %d\n", &map_width, &map_height));
+
+	// init pointers
+	line_temp = malloc(3 * (map_width+1) * sizeof(char)); // 2 digits and 1 blank max per grid element + 3*1 for delimiters (\n and \0)
+	assert(line_temp);
+
+	// init map
+	struct map* map = map_new(map_width, map_height);
+	assert(map);
+
+	// get map's content
+	for (pos_line=0; pos_line<map->height; pos_line++)
+	{
+		// for each line, read it from file, then split, then filling map grid
+		assert(fgets(line_temp, 3*(map->width+1)*sizeof(char), map_file)); // current line
+		token = strtok(line_temp, " "); // split with spaces
+		for(pos_elt=0; pos_elt<map->width; pos_elt++)
+		{
+			map->grid[pos_line*map->width + pos_elt]=(unsigned char)atoi(token); // filling map grip
+			token=strtok(NULL, " "); // grab next occurrence
+		} // END for(pos_elt=0; pos_elt<map_width; pos_elt++)
+	} // END for (pos_line=O; pos_line<map_height; pos_line++)
+
+	fclose(map_file);
+	free(line_temp);
 	return map;
 }

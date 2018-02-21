@@ -68,6 +68,9 @@ int map_is_inside(struct map* map, int x, int y);
 // Return a default static map
 struct map* map_get_static();
 
+// Return the map from specified file
+struct map* map_get_from_file(char* file);
+
 // Display the map on the screen
 void map_display(struct map* map);
 

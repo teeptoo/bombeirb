@@ -37,8 +37,9 @@ void splashScreen(void)
 
 void launchGame(void)
 {
-	game_get_config("data/games/default.txt");
-	struct game* game = game_new();
+	struct game_infos* game_infos = game_get_config_from_file("data/games/default.txt");
+	struct game* game = game_new(game_infos);
+	free(game_infos);
 
 	window_resize(SIZE_BLOC * STATIC_MAP_WIDTH,
 	SIZE_BLOC * STATIC_MAP_HEIGHT + BANNER_HEIGHT + LINE_HEIGHT);
