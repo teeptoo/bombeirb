@@ -44,7 +44,7 @@ struct game_infos* game_get_config_from_file(char * file)
 	assert(fscanf(game_config_file, "%d\n", (int *)&game_infos->max_levels));
 
 	// read current level and pos
-	assert(fscanf(game_config_file, "%i:%d,%d\n", (int *)&game_infos->current_level, &game_infos->current_x, &game_infos->current_y));
+	assert(fscanf(game_config_file, "%d:%d,%d\n", (int *)&game_infos->current_level, &game_infos->current_x, &game_infos->current_y));
 
 	// read map prefix
 	assert(fscanf(game_config_file, "%s", (char *)game_infos->map_prefix));
