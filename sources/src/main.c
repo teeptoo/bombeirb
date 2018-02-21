@@ -18,6 +18,8 @@ int main(int argc, char *argv[]) {
 		exit(EXIT_FAILURE);
 	}
 
+	sprite_load(); // load sprites into process memory
+
 	splashScreen();
 
 	launchGame();

@@ -21,30 +21,28 @@ struct game {
 
 struct game_infos
 {
-	int max_levels;
-	int current_level;
+	short max_levels;
+	short current_level;
 	int current_x;
 	int current_y;
-	char * map_prefix;
+	char * map_prefix[];
 };
 
 struct game_infos* game_get_config(char * file)
 {
 	struct game_infos* game_infos = malloc(sizeof(*game_infos));
-	char map_prefix_temp[10];
-
 	// open file
 	FILE* game_config_file = NULL;
 	game_config_file=fopen(file, "r");
 	assert(game_config_file);
-
 	// read nb levels
-	assert(fscanf(game_config_file, "%d", &game_infos->max_levels));
+	assert(fscanf(game_config_file, "%d\n", (int *)&game_infos->max_levels));
 
 	// read current level and pos
-	assert(fscanf(game_config_file, "%i:%d,%d", &game_infos->current_level, &game_infos->current_x, &game_infos->current_y));
+	assert(fscanf(game_config_file, "%i:%d,%d\n", (int *)&game_infos->current_level, &game_infos->current_x, &game_infos->current_y));
 
 	// read map prefix
+	assert(fscanf(game_config_file, "%s", (char *)game_infos->map_prefix));
 
 	fclose(game_config_file);
 	return game_infos;

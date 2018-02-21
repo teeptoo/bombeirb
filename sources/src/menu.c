@@ -15,8 +15,6 @@
 
 void splashScreen(void)
 {
-	sprite_load(); // load sprites into process memory
-
 	window_create(SPLASH_WIDTH, SPLASH_HEIGHT);
 	window_clear();
 
