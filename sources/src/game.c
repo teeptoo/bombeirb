@@ -11,6 +11,7 @@
 #include <misc.h>
 #include <window.h>
 #include <sprite.h>
+#include <constant.h>
 
 struct game {
 	struct map** maps;       // the game's map
@@ -25,12 +26,13 @@ struct game_infos
 	short current_level;
 	int current_x;
 	int current_y;
-	char * map_prefix[];
+	char * map_prefix;
 };
 
 struct game_infos* game_get_config_from_file(char * file)
 {
 	struct game_infos* game_infos = malloc(sizeof(*game_infos));
+	game_infos->map_prefix=malloc(MAP_PREFIX_MAX_LENGTH*sizeof(char));
 	assert(game_infos);
 
 	// open file
@@ -78,6 +80,13 @@ void game_free(struct game* game) {
 		map_free(game->maps[i]);
 
 	free(game);
+}
+
+void game_infos_free(struct game_infos* game_infos)
+{
+	assert(game_infos);
+	free(game_infos->map_prefix);
+	free(game_infos);
 }
 
 struct map* game_get_current_map(struct game* game) {

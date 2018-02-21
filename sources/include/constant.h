@@ -20,6 +20,7 @@
 // map size
 #define STATIC_MAP_WIDTH  12
 #define STATIC_MAP_HEIGHT 12
+#define MAP_PREFIX_MAX_LENGTH	10
 
 enum direction {
 	NORTH = 0,

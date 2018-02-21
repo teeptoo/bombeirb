@@ -39,7 +39,7 @@ void launchGame(void)
 {
 	struct game_infos* game_infos = game_get_config_from_file("data/games/default.txt");
 	struct game* game = game_new(game_infos);
-	free(game_infos);
+	game_infos_free(game_infos);
 
 	window_resize(SIZE_BLOC * STATIC_MAP_WIDTH,
 	SIZE_BLOC * STATIC_MAP_HEIGHT + BANNER_HEIGHT + LINE_HEIGHT); // TO DEBUG -> taille non prise en compte
