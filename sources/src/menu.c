@@ -15,7 +15,7 @@
 
 void splashScreen(void)
 {
-	window_create(SPLASH_WIDTH, SPLASH_HEIGHT);
+	window_resize(SPLASH_WIDTH, SPLASH_HEIGHT);
 	window_clear();
 
 	// logo
