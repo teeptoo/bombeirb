@@ -39,6 +39,7 @@
 #define BOMB_TTL2       "sprite/bomb2.png"
 #define BOMB_TTL3       "sprite/bomb3.png"
 #define BOMB_TTL4       "sprite/bomb4.png"
+//explosion à faire
 
 // Sprites of Bonus
 #define IMG_BONUS_BOMB_RANGE_INC  "sprite/bonus_bomb_range_inc.png"
@@ -71,6 +72,8 @@ SDL_Surface* door_opened;
 SDL_Surface* door_closed;
 SDL_Surface* stone;
 SDL_Surface* tree;
+
+//BOMB surface à faire : 2(bomb tableau de 4, explosion)
 
 // bonus
 #define NB_BONUS 4
@@ -115,6 +118,8 @@ static void banner_unload() {
 	SDL_FreeSurface(banner_range);
 	SDL_FreeSurface(banner_life);
 }
+// static void bomb_load et bomb_unload (cf banner laod)
+//idem pour explosion load (cf logo load)
 
 static void map_load() {
 	// Sprite loading
@@ -135,6 +140,7 @@ static void map_unload() {
 	SDL_FreeSurface(door_opened);
 	SDL_FreeSurface(door_closed);
 }
+
 
 static void bonus_load() {
 	bonus[0] = NULL;
@@ -182,6 +188,7 @@ void sprite_load() {
 	banner_load();
 	player_load();
 	menu_load();
+	//bomb_load();
 
 }
 
