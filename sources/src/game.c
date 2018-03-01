@@ -14,7 +14,7 @@
 #include <constant.h>
 
 struct game {
-	struct map** maps;       // the game's map
+	struct map** maps;       // the game's map - tableau des maps
 	short max_levels;        // nb maps of the game
 	short current_level;
 	struct player* player;
