@@ -18,6 +18,7 @@ struct game {
 	short max_levels;        // nb maps of the game
 	short current_level;
 	struct player* player;
+	struct bomb* bombs;
 };
 
 struct game_infos
@@ -94,10 +95,14 @@ struct map* game_get_current_map(struct game* game) {
 	return game->maps[game->current_level];
 }
 
-
 struct player* game_get_player(struct game* game) {
 	assert(game);
 	return game->player;
+}
+
+struct bomb* game_get_bombs(struct game* game) {
+	assert(game);
+	return game->bombs;
 }
 
 void game_banner_display(struct game* game) {
@@ -139,6 +144,7 @@ void game_display(struct game* game) {
 	game_banner_display(game);
 	map_display(game_get_current_map(game));
 	player_display(game->player);
+	bomb_display(game->bombs);
 
 	window_refresh();
 }
@@ -147,6 +153,7 @@ static short input_keyboard(struct game* game) {
 	SDL_Event event;
 	struct player* player = game_get_player(game);
 	struct map* map = game_get_current_map(game);
+	struct bomb* bombs=game_get_bombs(game);
 
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
@@ -173,6 +180,7 @@ static short input_keyboard(struct game* game) {
 				player_move(player, map);
 				break;
 			case SDLK_SPACE:
+				bombs_placed(player->x, player->y, map, bombs);
 				break;
 			default:
 				break;

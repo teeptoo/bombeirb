@@ -163,4 +163,3 @@ void player_display(struct player* player) {
 	window_display_image(sprite_get_player(player->current_direction),
 			player->x * SIZE_BLOC, player->y * SIZE_BLOC);
 }
-
