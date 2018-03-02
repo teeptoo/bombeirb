@@ -32,7 +32,7 @@ void splashScreen(void)
 	window_display_image(sprite_get_credits(), x, SPLASH_HEIGHT-SPLASH_MARGIN); // centering credits
 
 	window_refresh();
-	SDL_Delay(3000);
+	SDL_Delay(SPLASH_DELAY);
 }
 
 void launchGame(void)
@@ -41,8 +41,8 @@ void launchGame(void)
 	struct game* game = game_new(game_infos);
 	game_infos_free(game_infos);
 
-	window_resize(SIZE_BLOC * STATIC_MAP_WIDTH,
-	SIZE_BLOC * STATIC_MAP_HEIGHT + BANNER_HEIGHT + LINE_HEIGHT); // TO DEBUG -> taille non prise en compte
+	window_resize(SIZE_BLOC * map_get_width(game_get_current_map(game)),
+	SIZE_BLOC * map_get_height(game_get_current_map(game)) + BANNER_HEIGHT + LINE_HEIGHT);
 
 	SDL_EnableKeyRepeat(SDL_DEFAULT_REPEAT_DELAY, SDL_DEFAULT_REPEAT_INTERVAL);
 
