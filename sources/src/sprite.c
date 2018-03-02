@@ -39,7 +39,9 @@
 #define BOMB_TTL2       "sprite/bomb2.png"
 #define BOMB_TTL3       "sprite/bomb3.png"
 #define BOMB_TTL4       "sprite/bomb4.png"
-//explosion à faire
+
+//explosion
+#define EXPLOSION       "sprite/explosion.png"
 
 // Sprites of Bonus
 #define IMG_BONUS_BOMB_RANGE_INC  "sprite/bonus_bomb_range_inc.png"
@@ -74,6 +76,9 @@ SDL_Surface* stone;
 SDL_Surface* tree;
 
 //BOMB surface à faire : 2(bomb tableau de 4, explosion)
+#define NB_BOMBS 4
+SDL_Surface* bombs[NB_BOMBS + 1];
+SDL_Surface* explosion;
 
 // bonus
 #define NB_BONUS 4
@@ -119,7 +124,28 @@ static void banner_unload() {
 	SDL_FreeSurface(banner_life);
 }
 // static void bomb_load et bomb_unload (cf banner laod)
+static void bombs_load() {
+	bombs[0] = NULL;
+	bombs[1] = load_image(BOMB_TTL1);
+	bombs[2] = load_image(BOMB_TTL2);
+	bombs[3] = load_image(BOMB_TTL3);
+	bombs[4] = load_image(BOMB_TTL4);
+}
+
+static void bombs_unload() {
+	for (int i = 0; i <= 4; i++) {
+			SDL_FreeSurface(bombs[i]);
+		}
+}
+
 //idem pour explosion load (cf logo load)
+static void explosion_load() {
+	explosion = load_image(EXPLOSION);
+}
+
+static void explosion_unload() {
+	SDL_FreeSurface(explosion);
+}
 
 static void map_load() {
 	// Sprite loading
@@ -186,9 +212,9 @@ void sprite_load() {
 	map_load();
 	bonus_load();
 	banner_load();
+	bombs_load();
 	player_load();
 	menu_load();
-	//bomb_load();
 
 }
 
@@ -196,6 +222,7 @@ void sprite_free() {
 	map_unload();
 	bonus_unload();
 	banner_unload();
+	bombs_unload();
 	player_unload();
 	menu_unload();
 }
