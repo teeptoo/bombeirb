@@ -141,6 +141,7 @@ int player_move(struct player* player, struct map* map) {
 	}
 	if (move)
 	{
+		//sliding box
 		if (map_get_cell_type(map, player->x, player->y) == CELL_BOX)
 		{
 			if ((!map_is_inside(map,box_movement_x, box_movement_y))||((map_get_cell_type(map, box_movement_x, box_movement_y) != CELL_EMPTY)))
@@ -154,6 +155,20 @@ int player_move(struct player* player, struct map* map) {
 		}
 		map_set_cell_type(map, player->x, player->y, CELL_EMPTY);
 		map_set_cell_type(map, x, y, CELL_EMPTY);
+		//sliding bomb
+		if (map_get_cell_type(map, player->x, player->y) == CELL_BOMB)
+				{
+					if ((!map_is_inside(map,box_movement_x, box_movement_y))||((map_get_cell_type(map, box_movement_x, box_movement_y) != CELL_EMPTY)))
+					{// check box outside map || check to not push box on another box
+							player->x=x;
+							player->y=y;
+							move=0;
+							return move;
+					}
+					map_set_cell_type(map, box_movement_x, box_movement_y, CELL_BOMB);
+				}
+				map_set_cell_type(map, player->x, player->y, CELL_EMPTY);
+				map_set_cell_type(map, x, y, CELL_EMPTY);
 	}
 	return move;
 }
