@@ -11,7 +11,6 @@
 #include <misc.h>
 #include <constant.h>
 
-
 struct bomb{
   int range;
   int x, y;
@@ -21,7 +20,7 @@ struct bomb{
 };
 
 
-struct bomb *create_bombs(int x, int y, struct map* map){
+struct bomb* create_bombs(int x, int y, struct map* map){
 	struct bomb *bomb;
 	bomb = malloc(sizeof(*bomb));
 	// besoin de l'allocation dynamique pour chaque élément?
@@ -30,6 +29,7 @@ struct bomb *create_bombs(int x, int y, struct map* map){
 	bomb->map = map;
 	bomb->state = 0;
 	bomb->next = NULL;
+	map_set_cell_type(map, x, y, CELL_BOMB);
 
 	return bomb;
 }
@@ -48,23 +48,46 @@ int bomb_get_size_list(struct bomb *list)
   return size;
 }
 
-struct bomb *bomb_add(struct bomb *list,struct bomb *bomb)
+void bomb_add(struct bomb *list,struct bomb *bomb)
 {
     bomb->next=list;
-    return bomb;
+    *list=*bomb;
 }
 
-struct bomb *bomb_placed(int x, int y, struct map* map,, struct bomb *list){
-	struct bomb *bomb;
+struct bomb* bomb_init(struct map* map){
+	struct bomb* bomb = malloc(sizeof(*bomb));
+		if (!bomb)
+			error("Memory error");
+
+		bomb->x = 5;
+		bomb->y = 1;
+		bomb->range=1;
+		bomb->map=map;
+		bomb->state=0;
+		bomb->next=NULL;
+
+		return bomb;
+}
+
+void bomb_placed(int x, int y, struct map* map, struct bomb* list){
+	struct bomb* bomb;
 	bomb=create_bombs(x, y, map);
-	if (bomb_get_size_liste(list)==0){
-		return(bomb);
+	/*if (bomb_get_size_list(list)==0)
+	{
+		*list=*bomb;
 	}
-	return(bomb_add(list,bomb));
+	else
+	{
+		bomb_add(list,bomb);
+	}*/
+	bomb_add(list,bomb);
 }
 
 
-void bomb_display(struct bomb* bomb) {
-	assert(bomb);
-	window_display_image(sprite_get_bomb(),bomb->x * SIZE_BLOC, bomb->y * SIZE_BLOC);
+void bomb_display(struct bomb* bombs) {
+	assert(bombs);
+	while (bombs != NULL){
+		window_display_image(sprite_get_bomb(),bombs->x * SIZE_BLOC, bombs->y * SIZE_BLOC);
+		bombs=bombs->next;
+	}
 }
