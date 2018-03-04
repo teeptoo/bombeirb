@@ -27,7 +27,7 @@ struct bomb* create_bombs(int x, int y, struct map* map){
 	bomb->x = x;
 	bomb->y = y;
 	bomb->map = map;
-	bomb->state = 0;
+	bomb->state = 1;
 	bomb->next = NULL;
 	map_set_cell_type(map, x, y, CELL_BOMB);
 
@@ -47,6 +47,9 @@ int bomb_get_size_list(struct bomb *list)
   }
   return size;
 }
+int bomb_get_state(struct bomb* bomb){
+	return (bomb->state);
+}
 
 void bomb_add(struct bomb *list,struct bomb *bomb)
 {
@@ -60,34 +63,30 @@ struct bomb* bomb_init(struct map* map){
 			error("Memory error");
 
 		bomb->x = 5;
-		bomb->y = 1;
+		bomb->y = 0;
 		bomb->range=1;
 		bomb->map=map;
-		bomb->state=0;
+		bomb->state=1;
 		bomb->next=NULL;
+		//map_set_cell_type(map, bomb->x, bomb->y, CELL_BOMB);
 
 		return bomb;
 }
 
 void bomb_placed(int x, int y, struct map* map, struct bomb* list){
+	assert(list);
 	struct bomb* bomb;
 	bomb=create_bombs(x, y, map);
-	/*if (bomb_get_size_list(list)==0)
-	{
-		*list=*bomb;
-	}
-	else
-	{
-		bomb_add(list,bomb);
-	}*/
+	//on considère que le 1er maillon de la liste existe déjà
 	bomb_add(list,bomb);
 }
 
 
 void bomb_display(struct bomb* bombs) {
 	assert(bombs);
+	int state=bomb_get_state(bombs);
 	while (bombs != NULL){
-		window_display_image(sprite_get_bomb(),bombs->x * SIZE_BLOC, bombs->y * SIZE_BLOC);
+		window_display_image(sprite_get_bomb(state),bombs->x * SIZE_BLOC, bombs->y * SIZE_BLOC);
 		bombs=bombs->next;
 	}
 }

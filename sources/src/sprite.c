@@ -257,9 +257,27 @@ SDL_Surface* sprite_get_banner_range() {
 	return banner_range;
 }
 
-SDL_Surface* sprite_get_bomb() {
-	assert(bombs[1]);
-	return bombs[1];
+SDL_Surface* sprite_get_bomb(int state) {
+	SDL_Surface* bomb;
+	switch (state){
+	case 1:
+		assert(bombs[1]);
+		bomb = bombs[1];
+		break;
+	case 2:
+		assert(bombs[2]);
+		bomb = bombs[2];
+		break;
+	case 3:
+		assert(bombs[3]);
+		bomb = bombs[3];
+		break;
+	case 4:
+		assert(bombs[4]);
+		bomb = bombs[4];
+		break;
+	}
+	return bomb;
 }
 
 SDL_Surface* sprite_get_bonus(enum bonus_type bonus_type) {
