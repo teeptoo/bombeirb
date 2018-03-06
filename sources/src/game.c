@@ -71,7 +71,7 @@ struct game* game_new(struct game_infos* game_infos) {
 	player_set_position(game->player, game_infos->current_x, game_infos->current_y);
 
 	// set list bombs
-	game->bombs=bomb_init(game->maps);
+	game->bombs=bombs_init(game->maps);
 
 	return game;
 }
@@ -182,7 +182,6 @@ static short input_keyboard(struct game* game) {
 				player_move(player, map);
 				break;
 			case SDLK_SPACE:
-				bomb_placed(player_get_x(player), player_get_y(player), map, bombs);
 				break;
 			default:
 				break;

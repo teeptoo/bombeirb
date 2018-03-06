@@ -20,7 +20,7 @@ struct bomb {
 };
 
 
-struct bomb* bomb_create(struct map* map, int x, int y){ // SET CELL TYPE
+struct bomb* bomb_create(struct map* map, int x, int y){
 	struct bomb *bomb;
 	bomb = malloc(sizeof(*bomb));
 	bomb->x = x;
@@ -28,7 +28,7 @@ struct bomb* bomb_create(struct map* map, int x, int y){ // SET CELL TYPE
 	bomb->state = 3;
 	bomb->next = NULL;
 
-	map_set_cell_type(CELL_BOMB);
+	 // map_set_cell_type(map, x, y CELL_BOMB);
 
 	return bomb;
 }
@@ -46,7 +46,6 @@ struct bomb* bombs_init(){
 }
 
 void bomb_display(struct bomb* bombs) {
-	assert(bombs);
 	int state;
 	while (bombs != NULL){
 		state=bomb_get_state(bombs);
