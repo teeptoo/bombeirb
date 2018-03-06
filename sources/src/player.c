@@ -91,6 +91,9 @@ static int player_move_aux(struct player* player, struct map* map, int x, int y)
 	case CELL_MONSTER:
 		break;
 
+	case CELL_BOMB:
+		break;
+
 	default:
 		break;
 	}

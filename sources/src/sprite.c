@@ -125,11 +125,10 @@ static void banner_unload() {
 }
 // static void bomb_load et bomb_unload (cf banner laod)
 static void bombs_load() {
-	bombs[0] = NULL;
-	bombs[1] = load_image(BOMB_TTL1);
-	bombs[2] = load_image(BOMB_TTL2);
-	bombs[3] = load_image(BOMB_TTL3);
-	bombs[4] = load_image(BOMB_TTL4);
+	bombs[0] = load_image(BOMB_TTL1);
+	bombs[1] = load_image(BOMB_TTL2);
+	bombs[2] = load_image(BOMB_TTL3);
+	bombs[3] = load_image(BOMB_TTL4);
 }
 
 static void bombs_unload() {
