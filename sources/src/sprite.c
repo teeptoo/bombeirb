@@ -75,7 +75,7 @@ SDL_Surface* door_closed;
 SDL_Surface* stone;
 SDL_Surface* tree;
 
-//BOMB surface à faire : 2(bomb tableau de 4, explosion)
+// bombs
 #define NB_BOMBS 4
 SDL_Surface* bombs[NB_BOMBS + 1];
 SDL_Surface* explosion;
@@ -213,9 +213,9 @@ void sprite_load() {
 	bonus_load();
 	banner_load();
 	bombs_load();
+	explosion_load();
 	player_load();
 	menu_load();
-
 }
 
 void sprite_free() {
@@ -223,6 +223,7 @@ void sprite_free() {
 	bonus_unload();
 	banner_unload();
 	bombs_unload();
+	explosion_unload();
 	player_unload();
 	menu_unload();
 }
