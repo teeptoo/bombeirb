@@ -33,5 +33,6 @@ enum direction {
 #define SPLASH_WIDTH 	800
 #define SPLASH_HEIGHT	500
 #define SPLASH_MARGIN	50 // size between elements
+#define SPLASH_DELAY	3000 // in ms
 
 #endif /* CONSTANT */
