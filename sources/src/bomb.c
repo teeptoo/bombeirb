@@ -42,8 +42,12 @@ struct bomb* bomb_create(struct game* game, int x, int y){
 
 
 struct bomb* bombs_add_bomb(struct bomb *bombs, struct game* game, int x, int y){
+	if (player_get_nb_bomb(game_get_player(game))==0){
+		return bombs;
+	}
 	struct bomb* bomb = bomb_create(game, x, y);
 	bomb->next = bombs;
+	player_dec_nb_bomb(game_get_player(game));
 	return bomb;
 }
 
