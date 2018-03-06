@@ -280,6 +280,11 @@ SDL_Surface* sprite_get_bomb(int state) {
 	return bomb;
 }
 
+SDL_Surface* sprite_get_explosion(){
+	assert(explosion);
+	return explosion;
+}
+
 SDL_Surface* sprite_get_bonus(enum bonus_type bonus_type) {
 	assert(bonus[bonus_type]);
 	return bonus[bonus_type];

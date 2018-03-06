@@ -108,6 +108,11 @@ struct bomb* game_get_bombs(struct game* game) {
 	return game->bombs;
 }
 
+short game_get_current_level(struct game* game) {
+	assert(game);
+	return game->current_level;
+}
+
 void game_banner_display(struct game* game) {
 	assert(game);
 
@@ -182,6 +187,7 @@ static short input_keyboard(struct game* game) {
 				player_move(player, map);
 				break;
 			case SDLK_SPACE:
+				game->bombs = bombs_add_bomb(bombs, game, player_get_x(player), player_get_y(player));
 				break;
 			default:
 				break;

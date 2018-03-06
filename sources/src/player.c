@@ -92,6 +92,7 @@ static int player_move_aux(struct player* player, struct map* map, int x, int y)
 		break;
 
 	case CELL_BOMB:
+		return 0;
 		break;
 
 	default:
@@ -156,7 +157,6 @@ int player_move(struct player* player, struct map* map) {
 			map_set_cell_type(map, box_movement_x, box_movement_y, CELL_BOX);
 		}
 		map_set_cell_type(map, player->x, player->y, CELL_EMPTY);
-		map_set_cell_type(map, x, y, CELL_EMPTY);
 	}
 	return move;
 }

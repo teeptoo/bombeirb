@@ -1,14 +1,15 @@
 #ifndef BOMB_H_
 #define BOMB_H_
 #include <map.h>
+#include <game.h>
 
 struct bomb;
 
-struct bomb* bomb_create(struct map* map, int x, int y);
-
-void bombs_add_bomb(struct bomb *bombs, struct bomb *bomb);
-
 struct bomb* bombs_init();
+
+struct bomb* bomb_create(struct game* game, int x, int y);
+
+struct bomb* bombs_add_bomb(struct bomb *bomb, struct game* , int x, int y);
 
 void bomb_display(struct bomb* bombs);
 
