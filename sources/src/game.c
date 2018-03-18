@@ -151,7 +151,7 @@ void game_display(struct game* game) {
 	game_banner_display(game);
 	map_display(game_get_current_map(game));
 	player_display(game->player);
-	bomb_display(game->bombs);
+	bomb_display(game->bombs, game);
 
 	window_refresh();
 }

@@ -11,7 +11,9 @@ struct bomb* bomb_create(struct game* game, int x, int y);
 
 struct bomb* bombs_add_bomb(struct bomb *bomb, struct game* , int x, int y);
 
-void bomb_display(struct bomb* bombs);
+void bomb_update(struct bomb* bombs);
+
+void bomb_display(struct bomb* bombs, struct game* game);
 
 int bomb_get_state(struct bomb* bomb);
 
