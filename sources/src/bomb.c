@@ -87,7 +87,6 @@ void bomb_display(struct bomb* bombs, struct game* game) {
 	}
 }
 
-}
 int bomb_get_state(struct bomb* bomb){
 	return (bomb->state);
 }
