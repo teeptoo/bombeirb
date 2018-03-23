@@ -87,7 +87,6 @@ void bomb_display(struct bomb* bombs, struct game* game) {
 	}
 }
 
-	window_display_image(sprite_get_explosion(),bomb->x * SIZE_BLOC, bomb->y * SIZE_BLOC);
 }
 int bomb_get_state(struct bomb* bomb){
 	return (bomb->state);
