@@ -260,6 +260,10 @@ SDL_Surface* sprite_get_banner_range() {
 SDL_Surface* sprite_get_bomb(int state) {
 	SDL_Surface* bomb;
 	switch (state){
+	case 0:
+		assert(bombs[0]);
+		bomb = bombs[0];
+		break;
 	case 1:
 		assert(bombs[1]);
 		bomb = bombs[1];
@@ -272,10 +276,9 @@ SDL_Surface* sprite_get_bomb(int state) {
 		assert(bombs[3]);
 		bomb = bombs[3];
 		break;
-	case 4:
-		assert(bombs[4]);
-		bomb = bombs[4];
-		break;
+	case -1:
+		assert(explosion);
+		bomb = explosion;
 	}
 	return bomb;
 }
