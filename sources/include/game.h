@@ -34,6 +34,9 @@ struct map* game_get_current_map(struct game* game);
 // Return the current level
 short game_get_current_level(struct game* game);
 
+// Update the bombs list
+void game_set_bomb(struct game * game, struct bomb * bombs);
+
 // Display the game on the screen
 void game_display(struct game* game);
 

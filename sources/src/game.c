@@ -113,6 +113,10 @@ short game_get_current_level(struct game* game) {
 	return game->current_level;
 }
 
+void game_set_bomb(struct game * game, struct bomb * bombs){
+	game->bombs = bombs;
+}
+
 void game_banner_display(struct game* game) {
 	assert(game);
 
