@@ -83,11 +83,22 @@ void bomb_update(struct bomb *bombs, struct game* game){
 
 void bomb_display(struct bomb* bombs, struct game* game) {
 	int state;
-	bomb_update(bombs);
-	while (bombs != NULL){
-		state=bomb_get_state(bombs);
-		window_display_image(sprite_get_bomb(state),bombs->x * SIZE_BLOC, bombs->y * SIZE_BLOC);
-		bombs=bombs->next;
+	bomb_update(bombs, game);
+	struct bomb* temp_bomb = bombs;
+
+	while (temp_bomb != NULL){
+		state=bomb_get_state(temp_bomb);
+		switch (state){
+		case -1:
+			bomb_explosion(temp_bomb, game);
+			break;
+		case -2:
+			bomb_destruction(bombs, game);
+			break;
+		default:
+			window_display_image(sprite_get_bomb(state),temp_bomb->x * SIZE_BLOC, temp_bomb->y * SIZE_BLOC);
+		}
+		temp_bomb=temp_bomb->next;
 	}
 }
 
