@@ -66,7 +66,7 @@ struct game* game_new(struct game_infos* game_infos) {
 	game->maps[0] = map_get_from_file("data/maps/map_0.txt");
 
 	// load player infos
-	game->player = player_init(1);
+	game->player = player_init(4);
 	// set location of the player
 	player_set_position(game->player, game_infos->current_x, game_infos->current_y);
 
