@@ -102,6 +102,38 @@ void bomb_display(struct bomb* bombs, struct game* game) {
 	}
 }
 
+void bomb_explosion(struct bomb* bomb, struct game* game){
+	window_display_image(sprite_get_explosion(),bomb->x * SIZE_BLOC, bomb->y * SIZE_BLOC);
+	map_set_cell_type(game_get_current_map(game),bomb->x,bomb->y,CELL_EMPTY);
+}
+
+void bomb_destruction(struct bomb* bombs, struct game* game){
+	// remove the last item from the bombs' list
+	  if (bombs->next == NULL)
+	  {
+	    free(bombs);
+	    game_set_bomb(game, NULL);
+	  }
+	  else
+	  {
+
+		  struct bomb* temp = bombs;
+		  struct bomb* before = bombs;
+
+		  while (temp->next != NULL)
+		  {
+			before = temp;
+			temp = temp->next;
+		  }
+		  before->next = NULL;
+		  free(temp);
+		  temp = NULL;
+		  game_set_bomb(game, bombs);
+	  }
+
+}
+
+
 int bomb_get_state(struct bomb* bomb){
 	return (bomb->state);
 }
