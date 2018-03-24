@@ -53,10 +53,11 @@ struct bomb* bombs_add_bomb(struct bomb *bombs, struct game* game, int x, int y)
 	return bomb;
 }
 
-void bomb_update(struct bomb* bombs){
+void bomb_update(struct bomb *bombs, struct game* game){
 	unsigned int time_live;
 	while (bombs != NULL){
 			time_live = SDL_GetTicks() - bombs->time_init;
+			// time in milliseconds
 			if(time_live < 1000){
 				bombs->state=3;
 			}
@@ -69,8 +70,11 @@ void bomb_update(struct bomb* bombs){
 			else if((time_live < 4000) && (time_live > 3000)){
 				bombs->state=0;
 			}
-			if(time_live > 4000){
-				bombs->state=-1;
+			else if((time_live > 4000) && (time_live < 5000)){
+				bombs->state=-1; //bomb en train d'exploser
+			}
+			if(time_live > 5000){
+				bombs->state=-2; //bomb après explosion
 			}
 			bombs=bombs->next;
 		}
