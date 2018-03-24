@@ -29,7 +29,7 @@ struct bomb* bombs_init(){
 struct bomb* bomb_create(struct game* game, int x, int y){
 	struct bomb* bomb;
 	bomb = malloc(sizeof(struct bomb));
-	bomb->range = 1;
+	bomb->range = 2;
 	bomb->x = x;
 	bomb->y = y;
 	bomb->current_level = game_get_current_level(game);
@@ -103,7 +103,43 @@ void bomb_display(struct bomb* bombs, struct game* game) {
 }
 
 void bomb_explosion(struct bomb* bomb, struct game* game){
-	window_display_image(sprite_get_explosion(),bomb->x * SIZE_BLOC, bomb->y * SIZE_BLOC);
+	//SOUTH explosion
+	for (int y = bomb->y; y <= (bomb->y+bomb->range); y++) {
+		if (map_is_inside(game_get_current_map(game), bomb->x, y) && map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_EMPTY) {
+			window_display_image(sprite_get_explosion(),bomb->x * SIZE_BLOC, y * SIZE_BLOC);
+		}
+		else{
+			break;
+		}
+	}
+	//NORTH explosion
+	for (int y = bomb->y; y >= (bomb->y-bomb->range); y--) {
+		if (map_is_inside(game_get_current_map(game), bomb->x, y) && (map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_EMPTY)) {
+			window_display_image(sprite_get_explosion(),bomb->x * SIZE_BLOC, y * SIZE_BLOC);
+		}
+		else{
+			break;
+		}
+	}
+	//WEST explosion
+	for (int x = bomb->x; x >= (bomb->x - bomb->range); x--) {
+		if (map_is_inside(game_get_current_map(game), x, bomb->y) && (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY)) {
+			window_display_image(sprite_get_explosion(),x * SIZE_BLOC, bomb->y * SIZE_BLOC);
+		}
+		else{
+			break;
+		}
+	}
+	//EST explosion
+	for (int x = bomb->x; x <= (bomb->x + bomb->range); x++) {
+		if (map_is_inside(game_get_current_map(game), x, bomb->y) && (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY)) {
+			window_display_image(sprite_get_explosion(),x * SIZE_BLOC, bomb->y * SIZE_BLOC);
+		}
+		else{
+			break;
+		}
+	}
+
 	map_set_cell_type(game_get_current_map(game),bomb->x,bomb->y,CELL_EMPTY);
 }
 
