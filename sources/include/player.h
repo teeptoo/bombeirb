@@ -11,7 +11,7 @@
 struct player;
 
 // Creates a new player with a given number of available bombs
-struct player* player_init(int bomb_number);
+struct player* player_init(int bomb_number, short life_number);
 void   player_free(struct player* player);
 
 // Set the position of the player
@@ -30,7 +30,7 @@ void player_inc_nb_bomb(struct player * player);
 void player_dec_nb_bomb(struct player * player);
 
 // Set, Increase, Decrease the number of life of the player
-int  player_get_nb_life(struct player * player);
+short  player_get_nb_life(struct player * player);
 void player_inc_nb_life(struct player * player);
 void player_dec_nb_life(struct player * player);
 

@@ -15,16 +15,17 @@ struct player {
 	int x, y;
 	enum direction current_direction;
 	int nb_bombs;
-	int nb_life;
+	short nb_life;
 };
 
-struct player* player_init(int bomb_number) {
+struct player* player_init(int bomb_number, short life_number) {
 	struct player* player = malloc(sizeof(*player));
 	if (!player)
 		error("Memory error");
 
 	player->current_direction = SOUTH;
 	player->nb_bombs = bomb_number;
+	player->nb_life = life_number;
 
 	return player;
 }
@@ -72,7 +73,7 @@ void player_dec_nb_bomb(struct player* player) {
 	player->nb_bombs -= 1;
 }
 
-int player_get_nb_life(struct player* player) {
+short player_get_nb_life(struct player* player) {
 	assert(player);
 	return player->nb_life;
 }

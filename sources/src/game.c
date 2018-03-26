@@ -66,7 +66,7 @@ struct game* game_new(struct game_infos* game_infos) {
 	game->maps[0] = map_get_from_file("data/maps/map_0.txt");
 
 	// load player infos
-	game->player = player_init(4);
+	game->player = player_init(4,5);
 	// set location of the player
 	player_set_position(game->player, game_infos->current_x, game_infos->current_y);
 
@@ -132,7 +132,7 @@ void game_banner_display(struct game* game) {
 	window_display_image(sprite_get_banner_life(), x, y);
 
 	x = white_bloc + SIZE_BLOC;
-	window_display_image(sprite_get_number(2), x, y);
+	window_display_image(sprite_get_number(player_get_nb_life(game_get_player(game))), x, y);
 
 	x = 2 * white_bloc + 2 * SIZE_BLOC;
 	window_display_image(sprite_get_banner_bomb(), x, y);
