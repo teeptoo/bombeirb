@@ -123,6 +123,18 @@ void display_scenery(struct map* map, int x, int  y, unsigned char type)
 	}
 }
 
+void display_doors(struct map* map, int x, int y, unsigned char type)
+{
+	switch (type & 0x0f)
+	{
+	case DOOR_CLOSED:
+		window_display_image(sprite_get_door_closed(), x, y);
+		break;
+	case DOOR_OPENED:
+		window_display_image(sprite_get_door_opened(), x, y);
+	}
+}
+
 void map_display(struct map* map)
 {
 	assert(map != NULL);
@@ -150,9 +162,8 @@ void map_display(struct map* map)
 	      window_display_image(sprite_get_key(), x, y);
 	      break;
 	    case CELL_DOOR:
-	      // pas de gestion du type de porte
-	      window_display_image(sprite_get_door_opened(), x, y);
-	      break;
+	    	display_doors(map, x, y, type);
+	    	break;
 	    }
 	  }
 	}
