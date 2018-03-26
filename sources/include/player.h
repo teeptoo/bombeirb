@@ -29,6 +29,11 @@ int  player_get_nb_bomb(struct player * player);
 void player_inc_nb_bomb(struct player * player);
 void player_dec_nb_bomb(struct player * player);
 
+// Set, Increase, Decrease the number of life of the player
+int  player_get_nb_life(struct player * player);
+void player_inc_nb_life(struct player * player);
+void player_dec_nb_life(struct player * player);
+
 
 // Move the player according to the current direction
 int player_move(struct player* player, struct map* map);

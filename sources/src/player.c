@@ -15,6 +15,7 @@ struct player {
 	int x, y;
 	enum direction current_direction;
 	int nb_bombs;
+	int nb_life;
 };
 
 struct player* player_init(int bomb_number) {
@@ -69,6 +70,21 @@ void player_inc_nb_bomb(struct player* player) {
 void player_dec_nb_bomb(struct player* player) {
 	assert(player);
 	player->nb_bombs -= 1;
+}
+
+int player_get_nb_life(struct player* player) {
+	assert(player);
+	return player->nb_life;
+}
+
+void player_inc_nb_life(struct player* player) {
+	assert(player);
+	player->nb_life += 1;
+}
+
+void player_dec_nb_life(struct player* player) {
+	assert(player);
+	player->nb_life -= 1;
 }
 
 static int player_move_aux(struct player* player, struct map* map, int x, int y) {
