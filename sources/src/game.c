@@ -62,10 +62,13 @@ struct game* game_new(struct game_infos* game_infos) {
 	// load game infos
 	game->max_levels = game_infos->max_levels;
 	game->current_level = game_infos->current_level;
-	// load maps
 
-	game->maps[0] = map_get_from_file("data/maps/map_0.txt");
-	game->maps[1] = map_get_from_file("data/maps/map_1.txt");
+	// load maps
+	for (int i = 0; i < game->max_levels; ++i) {
+		char map_to_load[50];
+		sprintf(map_to_load, "data/maps/map_%i.txt", i);
+		game->maps[i] = map_get_from_file(map_to_load);
+	}
 
 	// load player infos
 	game->player = player_init(4,5);
@@ -193,19 +196,19 @@ static short input_keyboard(struct game* game) {
 				return 1;
 			case SDLK_UP:
 				player_set_current_way(player, NORTH);
-				player_move(player, map, game);
+				player_move(game);
 				break;
 			case SDLK_DOWN:
 				player_set_current_way(player, SOUTH);
-				player_move(player, map, game);
+				player_move(game);
 				break;
 			case SDLK_RIGHT:
 				player_set_current_way(player, EAST);
-				player_move(player, map, game);
+				player_move(game);
 				break;
 			case SDLK_LEFT:
 				player_set_current_way(player, WEST);
-				player_move(player, map, game);
+				player_move(game);
 				break;
 			case SDLK_SPACE:
 				game->bombs = bombs_add_bomb(bombs, game, player_get_x(player), player_get_y(player));
