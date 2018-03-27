@@ -6,6 +6,7 @@
 #define PLAYER_H_
 
 #include <map.h>
+#include <game.h>
 #include <constant.h>
 
 struct player;
@@ -36,7 +37,7 @@ void player_dec_nb_life(struct player * player);
 
 
 // Move the player according to the current direction
-int player_move(struct player* player, struct map* map);
+int player_move(struct player* player, struct map* map, struct game* game);
 
 // Display the player on the screen
 void player_display(struct player* player);

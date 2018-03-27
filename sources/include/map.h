@@ -65,7 +65,8 @@ int map_get_width(struct map* map);
 int map_get_height(struct map* map);
 
 // Return the type of a cell
-enum cell_type map_get_cell_type(struct map* map, int x, int y);
+enum cell_type map_get_cell_type(struct map* map, int x, int y); //  4 first bits
+enum compose_type map_get_full_cell(struct map* map, int x, int y); // 8 bits
 
 // Set the type of a cell
 void  map_set_cell_type(struct map* map, int x, int y, enum cell_type type);

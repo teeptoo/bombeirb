@@ -63,7 +63,9 @@ struct game* game_new(struct game_infos* game_infos) {
 	game->max_levels = game_infos->max_levels;
 	game->current_level = game_infos->current_level;
 	// load maps
+
 	game->maps[0] = map_get_from_file("data/maps/map_0.txt");
+	game->maps[1] = map_get_from_file("data/maps/map_1.txt");
 
 	// load player infos
 	game->player = player_init(4,5);
@@ -113,7 +115,22 @@ short game_get_current_level(struct game* game) {
 	return game->current_level;
 }
 
+void game_level_up(struct game* game) {
+	assert(game);
+	game->current_level++;
+	window_resize(SIZE_BLOC * map_get_width(game_get_current_map(game)),
+		SIZE_BLOC * map_get_height(game_get_current_map(game)) + BANNER_HEIGHT + LINE_HEIGHT);
+}
+
+void game_level_down(struct game* game) {
+	assert(game);
+	game->current_level--;
+	window_resize(SIZE_BLOC * map_get_width(game_get_current_map(game)),
+		SIZE_BLOC * map_get_height(game_get_current_map(game)) + BANNER_HEIGHT + LINE_HEIGHT);
+}
+
 void game_set_bomb(struct game * game, struct bomb * bombs){
+	assert(game);
 	game->bombs = bombs;
 }
 
@@ -176,19 +193,19 @@ static short input_keyboard(struct game* game) {
 				return 1;
 			case SDLK_UP:
 				player_set_current_way(player, NORTH);
-				player_move(player, map);
+				player_move(player, map, game);
 				break;
 			case SDLK_DOWN:
 				player_set_current_way(player, SOUTH);
-				player_move(player, map);
+				player_move(player, map, game);
 				break;
 			case SDLK_RIGHT:
 				player_set_current_way(player, EAST);
-				player_move(player, map);
+				player_move(player, map, game);
 				break;
 			case SDLK_LEFT:
 				player_set_current_way(player, WEST);
-				player_move(player, map);
+				player_move(player, map, game);
 				break;
 			case SDLK_SPACE:
 				game->bombs = bombs_add_bomb(bombs, game, player_get_x(player), player_get_y(player));

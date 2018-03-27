@@ -10,6 +10,7 @@
 #include <window.h>
 #include <misc.h>
 #include <constant.h>
+#include <game.h>
 
 struct player {
 	int x, y;
@@ -88,7 +89,7 @@ void player_dec_nb_life(struct player* player) {
 	player->nb_life -= 1;
 }
 
-static int player_move_aux(struct player* player, struct map* map, int x, int y) {
+static int player_move_aux(struct player* player, struct map* map, int x, int y, struct game* game) {
 
 	if (!map_is_inside(map, x, y))
 		return 0;
@@ -111,6 +112,17 @@ static int player_move_aux(struct player* player, struct map* map, int x, int y)
 	case CELL_BOMB:
 		return 0;
 		break;
+	case CELL_DOOR:
+		switch(map_get_full_cell(map, x, y)) {
+		case CELL_DOOR_OPENED:
+			game_level_up(game);
+			break;
+		case CELL_DOOR_CLOSED:
+			break;
+		default:
+			break;
+		}
+		break;
 
 	default:
 		break;
@@ -120,7 +132,7 @@ static int player_move_aux(struct player* player, struct map* map, int x, int y)
 	return 1;
 }
 
-int player_move(struct player* player, struct map* map) {
+int player_move(struct player* player, struct map* map, struct game* game) {
 	int x = player->x;
 	int y = player->y;
 	int move = 0;
@@ -129,7 +141,7 @@ int player_move(struct player* player, struct map* map) {
 
 	switch (player->current_direction) {
 	case NORTH:
-		if (player_move_aux(player, map, x, y - 1)) {
+		if (player_move_aux(player, map, x, y - 1, game)) {
 			player->y--;
 			box_movement_y = player->y - 1;
 			move = 1;
@@ -137,7 +149,7 @@ int player_move(struct player* player, struct map* map) {
 		break;
 
 	case SOUTH:
-		if (player_move_aux(player, map, x, y + 1)) {
+		if (player_move_aux(player, map, x, y + 1, game)) {
 			player->y++;
 			box_movement_y = player->y + 1;
 			move = 1;
@@ -145,7 +157,7 @@ int player_move(struct player* player, struct map* map) {
 		break;
 
 	case WEST:
-		if (player_move_aux(player, map, x - 1, y)) {
+		if (player_move_aux(player, map, x - 1, y, game)) {
 			player->x--;
 			box_movement_x = player->x - 1;
 			move = 1;
@@ -153,7 +165,7 @@ int player_move(struct player* player, struct map* map) {
 		break;
 
 	case EAST:
-		if (player_move_aux(player, map, x + 1, y)) {
+		if (player_move_aux(player, map, x + 1, y, game)) {
 			player->x++;
 			box_movement_x = player->x + 1;
 			move = 1;
