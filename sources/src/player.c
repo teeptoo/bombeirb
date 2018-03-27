@@ -89,7 +89,8 @@ void player_dec_nb_life(struct player* player) {
 	player->nb_life -= 1;
 }
 
-static int player_move_aux(struct player* player, struct map* map, int x, int y, struct game* game) {
+static int player_move_aux(struct game* game, int x, int y) {
+	struct map* map = game_get_current_map(game);
 
 	if (!map_is_inside(map, x, y))
 		return 0;
@@ -132,7 +133,10 @@ static int player_move_aux(struct player* player, struct map* map, int x, int y,
 	return 1;
 }
 
-int player_move(struct player* player, struct map* map, struct game* game) {
+int player_move(struct game* game) {
+	struct player* player = game_get_player(game);
+	struct map* map = game_get_current_map(game);
+
 	int x = player->x;
 	int y = player->y;
 	int move = 0;
@@ -141,7 +145,7 @@ int player_move(struct player* player, struct map* map, struct game* game) {
 
 	switch (player->current_direction) {
 	case NORTH:
-		if (player_move_aux(player, map, x, y - 1, game)) {
+		if (player_move_aux(game, x, y - 1)) {
 			player->y--;
 			box_movement_y = player->y - 1;
 			move = 1;
@@ -149,7 +153,7 @@ int player_move(struct player* player, struct map* map, struct game* game) {
 		break;
 
 	case SOUTH:
-		if (player_move_aux(player, map, x, y + 1, game)) {
+		if (player_move_aux(game, x, y + 1)) {
 			player->y++;
 			box_movement_y = player->y + 1;
 			move = 1;
@@ -157,7 +161,7 @@ int player_move(struct player* player, struct map* map, struct game* game) {
 		break;
 
 	case WEST:
-		if (player_move_aux(player, map, x - 1, y, game)) {
+		if (player_move_aux(game, x - 1, y)) {
 			player->x--;
 			box_movement_x = player->x - 1;
 			move = 1;
@@ -165,7 +169,7 @@ int player_move(struct player* player, struct map* map, struct game* game) {
 		break;
 
 	case EAST:
-		if (player_move_aux(player, map, x + 1, y, game)) {
+		if (player_move_aux(game, x + 1, y)) {
 			player->x++;
 			box_movement_x = player->x + 1;
 			move = 1;
