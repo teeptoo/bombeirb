@@ -131,7 +131,7 @@ void display_scenery(struct map* map, int x, int  y, unsigned char type)
 
 void display_doors(struct map* map, int x, int y, unsigned char type)
 {
-	switch (type & 0x0f)
+	switch (type & 0x01)
 	{
 	case DOOR_CLOSED:
 		window_display_image(sprite_get_door_closed(), x, y);

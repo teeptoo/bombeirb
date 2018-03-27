@@ -118,16 +118,9 @@ short game_get_current_level(struct game* game) {
 	return game->current_level;
 }
 
-void game_level_up(struct game* game) {
-	assert(game);
-	game->current_level++;
-	window_resize(SIZE_BLOC * map_get_width(game_get_current_map(game)),
-		SIZE_BLOC * map_get_height(game_get_current_map(game)) + BANNER_HEIGHT + LINE_HEIGHT);
-}
-
-void game_level_down(struct game* game) {
-	assert(game);
-	game->current_level--;
+void game_set_level(struct game* game, int level) {
+	assert(game && level<game->max_levels);
+	game->current_level = level;
 	window_resize(SIZE_BLOC * map_get_width(game_get_current_map(game)),
 		SIZE_BLOC * map_get_height(game_get_current_map(game)) + BANNER_HEIGHT + LINE_HEIGHT);
 }

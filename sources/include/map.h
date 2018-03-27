@@ -33,8 +33,8 @@ enum scenery_type {
 };
 
 enum door_type {
-	DOOR_OPENED,		// 0000
-	DOOR_CLOSED			// 0001
+	DOOR_CLOSED,		// 0000
+	DOOR_OPENED			// 0001
 };
 
 enum compose_type {
@@ -49,8 +49,8 @@ enum compose_type {
     CELL_BOX_LIFE     = CELL_BOX | BONUS_MONSTER,
     CELL_BOX_MONSTER  = CELL_BOX | BONUS_LIFE,
 
-	CELL_DOOR_OPENED  = CELL_DOOR | DOOR_OPENED,
-	CELL_DOOR_CLOSED  = CELL_DOOR | DOOR_CLOSED
+	CELL_DOOR_CLOSED  = CELL_DOOR | DOOR_CLOSED,
+	CELL_DOOR_OPENED  = CELL_DOOR | DOOR_OPENED
 };
 
 struct map;

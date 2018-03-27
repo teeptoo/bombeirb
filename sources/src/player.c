@@ -114,11 +114,13 @@ static int player_move_aux(struct game* game, int x, int y) {
 		return 0;
 		break;
 	case CELL_DOOR:
-		switch(map_get_full_cell(map, x, y)) {
+		switch(map_get_full_cell(map, x, y) & 0x31 ) {
 		case CELL_DOOR_OPENED:
-			game_level_up(game);
+			game_set_level(game, (map_get_full_cell(map, x, y) & 0x0E) >> 1);
+			return 0;
 			break;
 		case CELL_DOOR_CLOSED:
+			return 0;
 			break;
 		default:
 			break;

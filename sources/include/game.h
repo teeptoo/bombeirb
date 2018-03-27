@@ -35,8 +35,7 @@ struct map* game_get_current_map(struct game* game);
 short game_get_current_level(struct game* game);
 
 // Change game level
-void game_level_up(struct game* game);
-void game_level_down(struct game* game);
+void game_set_level(struct game* game, int level);
 
 // Update the bombs list
 void game_set_bomb(struct game * game, struct bomb * bombs);
