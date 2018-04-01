@@ -189,6 +189,7 @@ void bomb_destruction(struct bomb* bombs, struct game* game){
 		  temp = NULL;
 		  game_set_bomb(game, bombs);
 	  }
+	  player_inc_nb_bomb(game_get_player(game));
 
 }
 
