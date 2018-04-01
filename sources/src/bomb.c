@@ -98,7 +98,9 @@ void bomb_display(struct bomb* bombs, struct game* game) {
 			bomb_destruction(bombs, game);
 			break;
 		default:
-			window_display_image(sprite_get_bomb(state),temp_bomb->x * SIZE_BLOC, temp_bomb->y * SIZE_BLOC);
+			if (bombs->current_level==game_get_current_level(game)){
+				window_display_image(sprite_get_bomb(state),temp_bomb->x * SIZE_BLOC, temp_bomb->y * SIZE_BLOC);
+			}
 		}
 		temp_bomb=temp_bomb->next;
 	}
@@ -107,7 +109,23 @@ void bomb_display(struct bomb* bombs, struct game* game) {
 void bomb_explosion(struct bomb* bomb, struct game* game){
 	//SOUTH explosion
 	for (int y = bomb->y; y <= (bomb->y+bomb->range); y++) {
-		if (map_is_inside(game_get_current_map(game), bomb->x, y) && map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_EMPTY) {
+		if (map_is_inside(game_get_current_map(game), bomb->x, y) && map_get_cell_type(game_get_current_map(game), bomb->x, y) == (CELL_EMPTY) && bomb->current_level==game_get_current_level(game)) {
+			window_display_image(sprite_get_explosion(),bomb->x * SIZE_BLOC, y * SIZE_BLOC);
+			if ((player_get_x(game_get_player(game))==bomb->x) && (player_get_y(game_get_player(game))==y) && bomb->mortality==0){
+				player_dec_nb_life(game_get_player(game));
+				bomb->mortality=1;
+			}
+			if ( (map_get_cell_type(game_get_current_map(game), bomb->x, y) & CELL_BOX) == CELL_BOX){
+				map_set_cell_type(game_get_current_map(game), bomb->x, y, bomb_explosion_box_type(map_get_cell_type(game_get_current_map(game), bomb->x, y)));
+			}
+		}
+		else{
+			break;
+		}
+	}
+	//NORTH explosion
+	for (int y = bomb->y; y >= (bomb->y-bomb->range); y--) {
+		if (map_is_inside(game_get_current_map(game), bomb->x, y) && (map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_EMPTY) && bomb->current_level==game_get_current_level(game)) {
 			window_display_image(sprite_get_explosion(),bomb->x * SIZE_BLOC, y * SIZE_BLOC);
 			if ((player_get_x(game_get_player(game))==bomb->x) && (player_get_y(game_get_player(game))==y) && bomb->mortality==0){
 				player_dec_nb_life(game_get_player(game));
@@ -118,24 +136,11 @@ void bomb_explosion(struct bomb* bomb, struct game* game){
 			break;
 		}
 	}
-	//NORTH explosion
-	for (int y = bomb->y; y >= (bomb->y-bomb->range); y--) {
-		if (map_is_inside(game_get_current_map(game), bomb->x, y) && (map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_EMPTY)) {
-			window_display_image(sprite_get_explosion(),bomb->x * SIZE_BLOC, y * SIZE_BLOC);
-			if ((player_get_x(game_get_player(game))==bomb->x) && (player_get_y(game_get_player(game))==bomb->y) && bomb->mortality==0){
-				player_dec_nb_life(game_get_player(game));
-				bomb->mortality=1;
-			}
-		}
-		else{
-			break;
-		}
-	}
 	//WEST explosion
 	for (int x = bomb->x; x >= (bomb->x - bomb->range); x--) {
-		if (map_is_inside(game_get_current_map(game), x, bomb->y) && (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY)) {
+		if (map_is_inside(game_get_current_map(game), x, bomb->y) && (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY) && bomb->current_level==game_get_current_level(game)) {
 			window_display_image(sprite_get_explosion(),x * SIZE_BLOC, bomb->y * SIZE_BLOC);
-			if ((player_get_x(game_get_player(game))==bomb->x) && (player_get_y(game_get_player(game))==bomb->y) && bomb->mortality==0){
+			if ((player_get_x(game_get_player(game))==x) && (player_get_y(game_get_player(game))==bomb->y) && bomb->mortality==0){
 				player_dec_nb_life(game_get_player(game));
 				bomb->mortality=1;
 			}
@@ -146,9 +151,9 @@ void bomb_explosion(struct bomb* bomb, struct game* game){
 	}
 	//EST explosion
 	for (int x = bomb->x; x <= (bomb->x + bomb->range); x++) {
-		if (map_is_inside(game_get_current_map(game), x, bomb->y) && (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY)) {
+		if (map_is_inside(game_get_current_map(game), x, bomb->y) && (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY) && bomb->current_level==game_get_current_level(game)) {
 			window_display_image(sprite_get_explosion(),x * SIZE_BLOC, bomb->y * SIZE_BLOC);
-			if ((player_get_x(game_get_player(game))==bomb->x) && (player_get_y(game_get_player(game))==bomb->y) && bomb->mortality==0){
+			if ((player_get_x(game_get_player(game))==x) && (player_get_y(game_get_player(game))==bomb->y) && bomb->mortality==0){
 				player_dec_nb_life(game_get_player(game));
 				bomb->mortality=1;
 			}
