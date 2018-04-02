@@ -176,7 +176,7 @@ void game_display(struct game* game) {
 static short input_keyboard(struct game* game) {
 	SDL_Event event;
 	struct player* player = game_get_player(game);
-	struct map* map = game_get_current_map(game);
+	//struct map* map = game_get_current_map(game);
 	struct bomb* bombs=game_get_bombs(game);
 
 	while (SDL_PollEvent(&event)) {
