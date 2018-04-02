@@ -113,7 +113,11 @@ void display_bonus(struct map* map, int x, int y, unsigned char type)
 	case BONUS_BOMB_NB_INC:
 		window_display_image(sprite_get_bonus(BONUS_BOMB_NB_INC), x, y);
 		break;
-	}
+	// bonnus des vie non gérer (pas d'image assocsier)
+	/*case BONUS_LIFE:
+		window_display_image(sprite_get_bonus(à compléter), x, y);
+		break;
+	}*/
 }
 
 void display_scenery(struct map* map, int x, int  y, unsigned char type)
