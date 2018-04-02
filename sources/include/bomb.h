@@ -16,6 +16,8 @@ void bomb_update(struct bomb *bombs, struct game* game);
 
 void bomb_display(struct bomb* bombs, struct game* game);
 
+void bomb_explosion_box_type(struct game* game, int x, int y);
+
 void bomb_explosion(struct bomb* bomb, struct game* game);
 
 void bomb_destruction(struct bomb* bombs, struct game* game);

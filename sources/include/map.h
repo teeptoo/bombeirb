@@ -9,7 +9,7 @@ enum cell_type {
 	CELL_EMPTY=0x00,   		//  0000 0000
 	CELL_SCENERY=0x10, 		//  0001 0000
 	CELL_BOX=0x20,   		//  0010 0000
-	CELL_DOOR=0x30,      	//  0011	 0000
+	CELL_DOOR=0x30,      	//  0011 0000
 	CELL_KEY=0x40,       	//  0100 0000
 	CELL_BONUS=0x50, 		// 	0101 0000
 	CELL_MONSTER=0x60, 		// 	0110 0000
