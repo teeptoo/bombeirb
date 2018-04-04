@@ -103,6 +103,11 @@ struct map* game_get_current_map(struct game* game) {
 	return game->maps[game->current_level];
 }
 
+struct map* game_get_map_level(struct game* game,short level) {
+	assert(game);
+	return game->maps[level];
+}
+
 struct player* game_get_player(struct game* game) {
 	assert(game);
 	return game->player;

@@ -31,6 +31,9 @@ struct player* game_get_player(struct game* game);
 // Return the current map
 struct map* game_get_current_map(struct game* game);
 
+// Return the map from selected level
+struct map* game_get_map_level(struct game* game,short level);
+
 // Return the current level
 short game_get_current_level(struct game* game);
 

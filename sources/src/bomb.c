@@ -98,7 +98,7 @@ void bomb_display(struct bomb* bombs, struct game* game) {
 			bomb_destruction(bombs, game);
 			break;
 		default:
-			if (bombs->current_level==game_get_current_level(game)){
+			if (temp_bomb->current_level==game_get_current_level(game)){
 				window_display_image(sprite_get_bomb(state),temp_bomb->x * SIZE_BLOC, temp_bomb->y * SIZE_BLOC);
 			}
 		}
@@ -199,7 +199,7 @@ void bomb_explosion(struct bomb* bomb, struct game* game){
 		}
 	}
 
-	map_set_cell_type(game_get_current_map(game),bomb->x,bomb->y,CELL_EMPTY);
+	map_set_cell_type(game_get_map_level(game, bomb->current_level),bomb->x,bomb->y,CELL_EMPTY);
 }
 
 void bomb_destruction(struct bomb* bombs, struct game* game){
