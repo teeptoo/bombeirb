@@ -27,10 +27,10 @@ struct bomb* bombs_init(){
 	return bombs;
 }
 
-struct bomb* bomb_create(struct game* game, int x, int y){
+struct bomb* bomb_create(struct game* game, int x, int y, int range){
 	struct bomb* bomb;
 	bomb = malloc(sizeof(struct bomb));
-	bomb->range = 2;
+	bomb->range = range;
 	bomb->x = x;
 	bomb->y = y;
 	bomb->current_level = game_get_current_level(game);
@@ -44,11 +44,11 @@ struct bomb* bomb_create(struct game* game, int x, int y){
 
 
 
-struct bomb* bombs_add_bomb(struct bomb *bombs, struct game* game, int x, int y){
+struct bomb* bombs_add_bomb(struct bomb *bombs, struct game* game, int x, int y, int range){
 	if (player_get_nb_bomb(game_get_player(game))==0){
 		return bombs;
 	}
-	struct bomb* bomb = bomb_create(game, x, y);
+	struct bomb* bomb = bomb_create(game, x, y, range);
 	bomb->next = bombs;
 	bomb->time_init = SDL_GetTicks();
 	player_dec_nb_bomb(game_get_player(game));
