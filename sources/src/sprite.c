@@ -56,7 +56,7 @@
 #define PLAYER_DOWN     "sprite/player_down.png"
 
 // Sprites of Menu
-#define MENU_LOGO		"sprite/logo.jpg"
+#define MENU_LOGO		"sprite/logo.png"
 #define MENU_CREDITS 	"sprite/credits.jpg"
 #define MENU_BUTTON_REPRENDRE			"sprite/button_reprendre.jpg"
 #define MENU_BUTTON_REPRENDRE_HOVER		"sprite/button_reprendre_hover.jpg"
