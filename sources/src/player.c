@@ -106,6 +106,30 @@ void player_dec_nb_life(struct player* player) {
 	player->nb_life -= 1;
 }
 
+void player_move_bonus(struct game* game, int x, int y){
+	struct map* map = game_get_current_map(game);
+	struct player* player = game_get_player(game);
+
+	switch (map_get_full_cell(map, x, y)){
+	case (CELL_BONUS_RANGEDEC):
+		player_dec_range(player);
+		break;
+	case CELL_BONUS_RANGEINC:
+		player_inc_range(player);
+		break;
+	case CELL_BONUS_BOMBDEC:
+		player_dec_nb_bomb(player);
+		break;
+	case CELL_BONUS_BOMBINC:
+		player_inc_nb_bomb(player);
+		break;
+	case CELL_BONUS_LIFE:
+		player_inc_nb_life(player);
+		break;
+
+	}
+}
+
 static int player_move_aux(struct game* game, int x, int y) {
 	struct map* map = game_get_current_map(game);
 
@@ -122,6 +146,8 @@ static int player_move_aux(struct game* game, int x, int y) {
 		break;
 
 	case CELL_BONUS:
+		player_move_bonus(game, x, y);
+		return 1;
 		break;
 
 	case CELL_MONSTER:
