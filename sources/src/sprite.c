@@ -57,6 +57,7 @@
 
 // Sprites of Menu
 #define MENU_LOGO		"sprite/logo.png"
+#define MENU_WALLPAPER	"sprite/menu_wallpaper.jpg"
 #define MENU_CREDITS 	"sprite/credits.jpg"
 #define MENU_BUTTON_REPRENDRE			"sprite/button_reprendre.jpg"
 #define MENU_BUTTON_REPRENDRE_HOVER		"sprite/button_reprendre_hover.jpg"
@@ -96,6 +97,7 @@ SDL_Surface* player_img[4];
 // menu elements
 #define NB_BUTTONS 6
 SDL_Surface* logo;
+SDL_Surface* menu_wallpaper;
 SDL_Surface* credits;
 SDL_Surface* buttons[NB_BUTTONS];
 
@@ -207,12 +209,14 @@ static void menu_load()
 {
 	logo = load_image(MENU_LOGO);
 	credits = load_image(MENU_CREDITS);
+	menu_wallpaper = load_image(MENU_WALLPAPER);
 }
 
 static void menu_unload()
 {
 	SDL_FreeSurface(logo);
 	SDL_FreeSurface(credits);
+	SDL_FreeSurface(menu_wallpaper);
 }
 
 static void buttons_load()
@@ -353,6 +357,12 @@ SDL_Surface* sprite_get_logo()
 {
 	assert(logo);
 	return logo;
+}
+
+SDL_Surface* sprite_get_menu_wallpaper()
+{
+	assert(menu_wallpaper);
+	return menu_wallpaper;
 }
 
 SDL_Surface* sprite_get_credits()
