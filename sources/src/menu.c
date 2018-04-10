@@ -21,10 +21,20 @@ void splashScreen(void)
 	// wallpaper
 	window_display_image(sprite_get_menu_wallpaper(), 0, 0);
 
-	// logo
-	int x = MENU_WIDTH/2 - (sprite_get_logo()->w)/2; // centering logo
-	window_display_image(sprite_get_logo(), x, SPLASH_MARGIN);
+	int current_height = SPLASH_MARGIN;
+	int x = MENU_WIDTH/2 - (sprite_get_logo()->w)/2; // width logo center
 
+	// logo
+	window_display_image(sprite_get_logo(), x, current_height);
+
+	// buttons
+	x = MENU_WIDTH/2 - (sprite_get_button(0)->w)/2; // width logo center
+	current_height += SPLASH_MARGIN + sprite_get_logo()->h;
+	window_display_image(sprite_get_button(0), x, current_height);
+	current_height += SPLASH_MARGIN/2 + sprite_get_button(0)->h;
+	window_display_image(sprite_get_button(2), x, current_height);
+	current_height += SPLASH_MARGIN/2 + sprite_get_button(0)->h;
+	window_display_image(sprite_get_button(4), x, current_height);
 
 	// credits
 	x = MENU_WIDTH/2 - (sprite_get_credits()->w)/2;
