@@ -31,7 +31,7 @@ SDL_Surface* sprite_get_explosion();
 
 SDL_Surface* sprite_get_logo();
 SDL_Surface* sprite_get_credits();
-
+SDL_Surface* sprite_get_button(int button_number);
 
 
 #endif /* SPRITE_H_ */

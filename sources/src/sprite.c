@@ -58,6 +58,12 @@
 // Sprites of Menu
 #define MENU_LOGO		"sprite/logo.jpg"
 #define MENU_CREDITS 	"sprite/credits.jpg"
+#define MENU_BUTTON_REPRENDRE			"sprite/button_reprendre.jpg"
+#define MENU_BUTTON_REPRENDRE_HOVER		"sprite/button_reprendre_hover.jpg"
+#define MENU_BUTTON_FACILE				"sprite/button_facile.jpg"
+#define MENU_BUTTON_FACILE_HOVER		"sprite/button_facile_hover.jpg"
+#define MENU_BUTTON_DIFFICILE			"sprite/button_difficile.jpg"
+#define MENU_BUTTON_DIFFICILE_HOVER		"sprite/button_difficile_hover.jpg"
 
 // banner
 SDL_Surface* numbers[10];
@@ -88,8 +94,10 @@ SDL_Surface* bonus[NB_BONUS + 1];
 SDL_Surface* player_img[4];
 
 // menu elements
+#define NB_BUTTONS 6
 SDL_Surface* logo;
 SDL_Surface* credits;
+SDL_Surface* buttons[NB_BUTTONS];
 
 static void banner_load() {
 	// numbers imgs
@@ -207,6 +215,22 @@ static void menu_unload()
 	SDL_FreeSurface(credits);
 }
 
+static void buttons_load()
+{
+	buttons[0] = load_image(MENU_BUTTON_REPRENDRE);
+	buttons[1] = load_image(MENU_BUTTON_REPRENDRE_HOVER);
+	buttons[2] = load_image(MENU_BUTTON_FACILE);
+	buttons[3] = load_image(MENU_BUTTON_FACILE_HOVER);
+	buttons[4] = load_image(MENU_BUTTON_DIFFICILE);
+	buttons[5] = load_image(MENU_BUTTON_DIFFICILE_HOVER);
+}
+
+static void buttons_unload()
+{
+	for (int i = 0; i < 6; i++)
+		SDL_FreeSurface(buttons[i]);
+}
+
 void sprite_load() {
 	map_load();
 	bonus_load();
@@ -215,6 +239,7 @@ void sprite_load() {
 	explosion_load();
 	player_load();
 	menu_load();
+	buttons_load();
 }
 
 void sprite_free() {
@@ -225,6 +250,7 @@ void sprite_free() {
 	explosion_unload();
 	player_unload();
 	menu_unload();
+	buttons_unload();
 }
 
 SDL_Surface* sprite_get_number(short number) {
@@ -333,4 +359,9 @@ SDL_Surface* sprite_get_credits()
 {
 	assert(credits);
 	return credits;
+}
+
+SDL_Surface* sprite_get_button(int button_number) {
+	assert(button_number >= 0 && button_number < NB_BUTTONS - 1);
+	return buttons[button_number];
 }
