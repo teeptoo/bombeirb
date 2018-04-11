@@ -10,7 +10,7 @@ struct bomb* bombs_init();
 
 struct bomb* bomb_create(struct game* game, int x, int y, int range);
 
-struct bomb* bombs_add_bomb(struct bomb *bomb, struct game* , int x, int y, int range);
+struct bomb* bombs_add_bomb(struct bomb *bomb, struct game* game, int x, int y, int range);
 
 void bomb_update(struct bomb *bombs, struct game* game);
 
