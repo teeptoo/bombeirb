@@ -23,7 +23,8 @@ int main(int argc, char *argv[]) {
 	window_create(1, 1);
 	launchMenu();
 
-	SDL_Quit();
 
+	SDL_Quit();
+	// sprite_free(); // pourquoi on free pas ? Pb de memoire à corriger
 	return EXIT_SUCCESS;
 }

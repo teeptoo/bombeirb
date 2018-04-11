@@ -72,17 +72,31 @@ void launchMenu(void)
 			case SDL_QUIT:
 				done=1;
 				break;
-
+			case SDL_MOUSEBUTTONUP:
+				if (event.button.button == SDL_BUTTON_LEFT)
+				{
+					switch (button_pressed) {
+					case 0: // Reprendre
+						done = 1;
+						launchGame();
+						break;
+					case 1: // Facile
+						done = 1;
+						break;
+					case 2: // Difficile
+						done = 1;
+						break;
+					} // END switch (button_pressed)
+				} // END if (event.button.button == SDL_BUTTON_LEFT)
+				break;
 			}
 		}
 
 		window_refresh();
-
 		execution_speed = SDL_GetTicks() - timer;
 		if (execution_speed < ideal_speed)
 			SDL_Delay(ideal_speed - execution_speed);
 	}
-	launchGame();
 }
 
 void launchGame(void)
