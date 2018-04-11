@@ -55,15 +55,17 @@ void launchMenu(void)
 			button_pressed=0;
 		}
 		// Hover button "Facile"
-		if (mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[1] && mouse_y<=buttons_placement_height[1]+button_height) {
+		else if (mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[1] && mouse_y<=buttons_placement_height[1]+button_height) {
 			button_pressed = 1;
 			window_display_image(sprite_get_button(3), x_buttons, buttons_placement_height[1]);
 		}
 		// Hover button "Difficile"
-		if (mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[2] && mouse_y<=buttons_placement_height[2]+button_height) {
+		else if (mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[2] && mouse_y<=buttons_placement_height[2]+button_height) {
 			button_pressed = 2;
 			window_display_image(sprite_get_button(5), x_buttons, buttons_placement_height[2]);
 		}
+		else
+			button_pressed=-1;
 
 
 		timer = SDL_GetTicks();
