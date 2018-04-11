@@ -372,6 +372,6 @@ SDL_Surface* sprite_get_credits()
 }
 
 SDL_Surface* sprite_get_button(int button_number) {
-	assert(button_number >= 0 && button_number < NB_BUTTONS - 1);
+	assert(button_number >= 0 && button_number < NB_BUTTONS);
 	return buttons[button_number];
 }

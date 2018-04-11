@@ -6,7 +6,7 @@
 #define MENU_H_
 
 // print logo before game starts
-void splashScreen();
+void launchMenu();
 
 void launchGame();
 

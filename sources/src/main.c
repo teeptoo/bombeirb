@@ -21,8 +21,7 @@ int main(int argc, char *argv[]) {
 
 	sprite_load(); // load sprites into process memory
 	window_create(1, 1);
-	splashScreen();
-	launchGame();
+	launchMenu();
 
 	SDL_Quit();
 

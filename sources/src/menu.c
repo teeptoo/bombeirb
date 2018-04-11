@@ -13,35 +13,76 @@
 #include <sprite.h>
 #include <misc.h>
 
-void splashScreen(void)
+void display_menu_fixed_elements()
 {
-	window_resize(MENU_WIDTH, MENU_HEIGHT);
-	window_clear();
-
 	// wallpaper
 	window_display_image(sprite_get_menu_wallpaper(), 0, 0);
-
-	int current_height = SPLASH_MARGIN;
-	int x = MENU_WIDTH/2 - (sprite_get_logo()->w)/2; // width logo center
-
 	// logo
-	window_display_image(sprite_get_logo(), x, current_height);
-
-	// buttons
-	x = MENU_WIDTH/2 - (sprite_get_button(0)->w)/2; // width logo center
-	current_height += SPLASH_MARGIN + sprite_get_logo()->h;
-	window_display_image(sprite_get_button(0), x, current_height);
-	current_height += SPLASH_MARGIN/2 + sprite_get_button(0)->h;
-	window_display_image(sprite_get_button(2), x, current_height);
-	current_height += SPLASH_MARGIN/2 + sprite_get_button(0)->h;
-	window_display_image(sprite_get_button(4), x, current_height);
-
+	window_display_image(sprite_get_logo(), MENU_WIDTH/2-(sprite_get_logo()->w)/2, SPLASH_MARGIN);
 	// credits
-	x = MENU_WIDTH/2 - (sprite_get_credits()->w)/2;
-	window_display_image(sprite_get_credits(), x, MENU_HEIGHT-SPLASH_MARGIN); // centering credits
+	window_display_image(sprite_get_credits(), MENU_WIDTH/2-(sprite_get_credits()->w)/2, MENU_HEIGHT-SPLASH_MARGIN); // centering credits
 
-	window_refresh();
-	SDL_Delay(SPLASH_DELAY);
+}
+
+void launchMenu(void)
+{
+	int buttons_placement_height[3], x_buttons=MENU_WIDTH/2-(sprite_get_button(0)->w)/2, button_pressed=-1;
+	int button_width=sprite_get_button(0)->w, button_height=sprite_get_button(0)->h;
+	int ideal_speed = 1000 / DEFAULT_GAME_FPS;
+	int timer, execution_speed, done=0;
+	int mouse_x, mouse_y;
+	SDL_Event event;
+
+	window_resize(MENU_WIDTH, MENU_HEIGHT);
+	while(!done)
+	{
+		window_clear();
+		// fixed elements
+		display_menu_fixed_elements();
+
+		// buttons
+		buttons_placement_height[0] = 2*SPLASH_MARGIN + sprite_get_logo()->h;
+		window_display_image(sprite_get_button(0), x_buttons, buttons_placement_height[0]); // "Reprendre"
+		buttons_placement_height[1] = buttons_placement_height[0] + SPLASH_MARGIN/2 + button_height;
+		window_display_image(sprite_get_button(2), x_buttons, buttons_placement_height[1]); // "Facile"
+		buttons_placement_height[2] = buttons_placement_height[1] + SPLASH_MARGIN/2 + button_height;
+		window_display_image(sprite_get_button(4), x_buttons, buttons_placement_height[2]); // "Difficile"
+
+		SDL_GetMouseState(&mouse_x, &mouse_y);
+		// Hover button "Reprendre"
+		if (mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[0] && mouse_y<=buttons_placement_height[0]+button_height) {
+			window_display_image(sprite_get_button(1), x_buttons, buttons_placement_height[0]);
+			button_pressed=0;
+		}
+		// Hover button "Facile"
+		if (mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[1] && mouse_y<=buttons_placement_height[1]+button_height) {
+			button_pressed = 1;
+			window_display_image(sprite_get_button(3), x_buttons, buttons_placement_height[1]);
+		}
+		// Hover button "Difficile"
+		if (mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[2] && mouse_y<=buttons_placement_height[2]+button_height) {
+			button_pressed = 2;
+			window_display_image(sprite_get_button(5), x_buttons, buttons_placement_height[2]);
+		}
+
+
+		timer = SDL_GetTicks();
+		while (SDL_PollEvent(&event)) {
+			switch (event.type) {
+			case SDL_QUIT:
+				done=1;
+				break;
+
+			}
+		}
+
+		window_refresh();
+
+		execution_speed = SDL_GetTicks() - timer;
+		if (execution_speed < ideal_speed)
+			SDL_Delay(ideal_speed - execution_speed);
+	}
+	launchGame();
 }
 
 void launchGame(void)
