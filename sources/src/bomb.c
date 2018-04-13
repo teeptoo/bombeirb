@@ -10,17 +10,8 @@
 #include <window.h>
 #include <misc.h>
 #include <constant.h>
-
-
-struct bomb {
-  int range;
-  int x, y;
-  short current_level;
-  unsigned int time_init;
-  int state;
-  short mortality;
-  struct bomb *next;
-};
+#include <game.h>
+#include <player.h>
 
 struct bomb* bombs_init(){
 	struct bomb* bombs = NULL;

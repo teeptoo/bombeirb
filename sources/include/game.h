@@ -5,12 +5,8 @@
 #ifndef GAME_H_
 #define GAME_H_
 
-#include <player.h>
-#include <map.h>
-#include <bomb.h>
+#include <structures.h>
 
-// Abstract data type
-struct game;
 struct game_infos;
 
 // Get infos from config file

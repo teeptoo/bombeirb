@@ -11,14 +11,7 @@
 #include <misc.h>
 #include <constant.h>
 #include <game.h>
-
-struct player {
-	int x, y;
-	enum direction current_direction;
-	int nb_bombs;
-	short nb_life;
-	int range;
-};
+#include <map.h>
 
 struct player* player_init(int bomb_number, short life_number) {
 	struct player* player = malloc(sizeof(*player));

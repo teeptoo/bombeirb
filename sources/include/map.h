@@ -5,6 +5,8 @@
 #ifndef MAP_H_
 #define MAP_H_
 
+#include <structures.h>
+
 enum cell_type {
 	CELL_EMPTY=0x00,   		//  0000 0000
 	CELL_SCENERY=0x10, 		//  0001 0000
@@ -58,8 +60,6 @@ enum compose_type {
 	CELL_BONUS_BOMBINC = CELL_BONUS | BONUS_BOMB_NB_INC,
 	CELL_BONUS_LIFE = CELL_BONUS | BONUS_LIFE
 };
-
-struct map;
 
 // Create a new empty map
 struct map* map_new(int width, int height);

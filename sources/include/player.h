@@ -5,11 +5,7 @@
 #ifndef PLAYER_H_
 #define PLAYER_H_
 
-#include <map.h>
-#include <game.h>
-#include <constant.h>
-
-struct player;
+#include <structures.h>
 
 // Creates a new player with a given number of available bombs
 struct player* player_init(int bomb_number, short life_number);

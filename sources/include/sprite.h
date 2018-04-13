@@ -7,7 +7,6 @@
 
 #include <SDL/SDL.h>
 #include <map.h>
-#include <constant.h>
 
 // load game's sprites
 void		 sprite_load();

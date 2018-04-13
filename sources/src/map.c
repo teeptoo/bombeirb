@@ -15,11 +15,7 @@
 #include <sprite.h>
 #include <window.h>
 
-struct map {
-	int width;
-	int height;
-	unsigned char* grid;
-};
+
 
 #define CELL(i,j) ( (i) + (j) * map->width)
 

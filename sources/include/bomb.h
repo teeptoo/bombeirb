@@ -1,10 +1,7 @@
 #ifndef BOMB_H_
 #define BOMB_H_
 
-#include <map.h>
-#include <game.h>
-
-struct bomb;
+#include <structures.h>
 
 struct bomb* bombs_init();
 
