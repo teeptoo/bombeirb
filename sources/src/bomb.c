@@ -132,19 +132,26 @@ void bomb_explosion_box_type(struct game* game, int x, int y){
 		}
 }
 
+void bomb_explosion_aux(struct bomb* bomb, struct game* game, int x, int y){
+	window_display_image(sprite_get_explosion(),x * SIZE_BLOC, y * SIZE_BLOC);
+	if ((player_get_x(game_get_player(game))==x) && (player_get_y(game_get_player(game))==y) && bomb->mortality==0){
+		player_dec_nb_life(game_get_player(game));
+		bomb->mortality=1;
+	}
+	if ( (map_get_cell_type(game_get_current_map(game), x, y) & CELL_BOX) == CELL_BOX){
+		bomb_explosion_box_type(game, x, y);
+	}
+}
+
 void bomb_explosion(struct bomb* bomb, struct game* game){
 	//SOUTH explosion
 	for (int y = bomb->y; y <= (bomb->y+bomb->range); y++) {
-		if (map_is_inside(game_get_current_map(game), bomb->x, y) && (map_get_cell_type(game_get_current_map(game), bomb->x, y) == (CELL_EMPTY) || map_get_cell_type(game_get_current_map(game), bomb->x, y) == (CELL_BOX)) && bomb->current_level==game_get_current_level(game)) {
-			window_display_image(sprite_get_explosion(),bomb->x * SIZE_BLOC, y * SIZE_BLOC);
-			if ((player_get_x(game_get_player(game))==bomb->x) && (player_get_y(game_get_player(game))==y) && bomb->mortality==0){
-				player_dec_nb_life(game_get_player(game));
-				bomb->mortality=1;
-			}
-			if ( (map_get_cell_type(game_get_current_map(game), bomb->x, y) & CELL_BOX) == CELL_BOX){
-				bomb_explosion_box_type(game, bomb->x, y);
-
-			}
+		if (map_is_inside(game_get_current_map(game), bomb->x, y)
+				&& (map_get_cell_type(game_get_current_map(game), bomb->x, y) == (CELL_EMPTY)
+						|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == (CELL_BOX)
+						|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == (CELL_BOMB))
+				&& bomb->current_level==game_get_current_level(game)) {
+			bomb_explosion_aux(bomb, game, bomb->x, y);
 		}
 		else{
 			break;
@@ -152,15 +159,11 @@ void bomb_explosion(struct bomb* bomb, struct game* game){
 	}
 	//NORTH explosion
 	for (int y = bomb->y; y >= (bomb->y-bomb->range); y--) {
-		if (map_is_inside(game_get_current_map(game), bomb->x, y) && (map_get_cell_type(game_get_current_map(game), bomb->x, y) == (CELL_EMPTY) || map_get_cell_type(game_get_current_map(game), bomb->x, y) == (CELL_BOX)) && bomb->current_level==game_get_current_level(game)) {
-			window_display_image(sprite_get_explosion(),bomb->x * SIZE_BLOC, y * SIZE_BLOC);
-			if ((player_get_x(game_get_player(game))==bomb->x) && (player_get_y(game_get_player(game))==y) && bomb->mortality==0){
-				player_dec_nb_life(game_get_player(game));
-				bomb->mortality=1;
-			}
-			if ( (map_get_cell_type(game_get_current_map(game), bomb->x, y) & CELL_BOX) == CELL_BOX){
-				bomb_explosion_box_type(game, bomb->x, y);
-			}
+		if (map_is_inside(game_get_current_map(game), bomb->x, y)
+				&& (map_get_cell_type(game_get_current_map(game), bomb->x, y) == (CELL_EMPTY)
+					|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == (CELL_BOX))
+				&& bomb->current_level==game_get_current_level(game)) {
+			bomb_explosion_aux(bomb, game, bomb->x, y);
 		}
 		else{
 			break;
@@ -168,15 +171,11 @@ void bomb_explosion(struct bomb* bomb, struct game* game){
 	}
 	//WEST explosion
 	for (int x = bomb->x; x >= (bomb->x - bomb->range); x--) {
-		if (map_is_inside(game_get_current_map(game), x, bomb->y) && (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY || map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_BOX) && bomb->current_level==game_get_current_level(game)) {
-			window_display_image(sprite_get_explosion(),x * SIZE_BLOC, bomb->y * SIZE_BLOC);
-			if ((player_get_x(game_get_player(game))==x) && (player_get_y(game_get_player(game))==bomb->y) && bomb->mortality==0){
-				player_dec_nb_life(game_get_player(game));
-				bomb->mortality=1;
-			}
-			if ( (map_get_cell_type(game_get_current_map(game), x, bomb->y) & CELL_BOX) == CELL_BOX){
-				bomb_explosion_box_type(game, x, bomb->y);
-			}
+		if (map_is_inside(game_get_current_map(game), x, bomb->y)
+				&& (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY
+					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_BOX)
+				&& bomb->current_level==game_get_current_level(game)) {
+			bomb_explosion_aux(bomb, game, x, bomb->y);
 		}
 		else{
 			break;
@@ -184,15 +183,11 @@ void bomb_explosion(struct bomb* bomb, struct game* game){
 	}
 	//EST explosion
 	for (int x = bomb->x; x <= (bomb->x + bomb->range); x++) {
-		if (map_is_inside(game_get_current_map(game), x, bomb->y) && (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY || map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_BOX) && bomb->current_level==game_get_current_level(game)) {
-			window_display_image(sprite_get_explosion(),x * SIZE_BLOC, bomb->y * SIZE_BLOC);
-			if ((player_get_x(game_get_player(game))==x) && (player_get_y(game_get_player(game))==bomb->y) && bomb->mortality==0){
-				player_dec_nb_life(game_get_player(game));
-				bomb->mortality=1;
-			}
-			if ( (map_get_cell_type(game_get_current_map(game), x, bomb->y) & CELL_BOX) == CELL_BOX){
-				bomb_explosion_box_type(game, x, bomb->y);
-			}
+		if (map_is_inside(game_get_current_map(game), x, bomb->y)
+				&& (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY
+					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_BOX)
+				&& bomb->current_level==game_get_current_level(game)) {
+			bomb_explosion_aux(bomb, game, x, bomb->y);
 		}
 		else{
 			break;
