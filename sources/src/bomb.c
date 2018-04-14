@@ -141,6 +141,19 @@ void bomb_explosion_aux(struct bomb* bomb, struct game* game, int x, int y){
 	if ( (map_get_cell_type(game_get_current_map(game), x, y) & CELL_BOX) == CELL_BOX){
 		bomb_explosion_box_type(game, x, y);
 	}
+	if (map_get_cell_type(game_get_current_map(game), x, y) == CELL_BOMB) {
+		window_display_image(sprite_get_banner_life(),1 * SIZE_BLOC, 1 * SIZE_BLOC);//test
+		struct bomb* temp_bomb = game_get_bombs(game);
+		while (temp_bomb != bomb)
+		{
+			if(temp_bomb->x==x && temp_bomb->y==y)
+			{
+				temp_bomb->time_init = SDL_GetTicks() - 4000;
+				window_display_image(sprite_get_explosion(),0 * SIZE_BLOC, 0 * SIZE_BLOC);//test
+			}
+			temp_bomb=temp_bomb->next;
+		}
+	}
 }
 
 void bomb_explosion(struct bomb* bomb, struct game* game){
