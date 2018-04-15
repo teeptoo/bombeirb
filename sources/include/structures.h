@@ -32,6 +32,7 @@ struct player {
 	enum direction current_direction;
 	int nb_bombs;
 	short nb_life;
+	short nb_keys;
 	int range;
 };
 

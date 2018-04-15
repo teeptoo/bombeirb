@@ -21,7 +21,8 @@ struct player* player_init(int bomb_number, short life_number) {
 	player->current_direction = SOUTH;
 	player->nb_bombs = bomb_number;
 	player->nb_life = life_number;
-	player->range = 2; //à modifier
+	player->range = 2;
+	player->nb_keys = 1;
 
 	return player;
 }
