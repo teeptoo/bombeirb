@@ -21,7 +21,8 @@ struct player* player_init(int bomb_number, short life_number) {
 	player->current_direction = SOUTH;
 	player->nb_bombs = bomb_number;
 	player->nb_life = life_number;
-	player->range = 2; //à modifier
+	player->range = 2;
+	player->nb_keys = 1;
 
 	return player;
 }
@@ -99,6 +100,21 @@ void player_dec_nb_life(struct player* player) {
 	player->nb_life -= 1;
 }
 
+short player_get_nb_keys(struct player* player) {
+	assert(player);
+	return player->nb_keys;
+}
+
+void player_inc_nb_keys(struct player* player) {
+	assert(player);
+	player->nb_keys += 1;
+}
+
+void player_dec_nb_keys(struct player* player) {
+	assert(player);
+	player->nb_keys -= 1;
+}
+
 void player_move_bonus(struct game* game, int x, int y){
 	struct map* map = game_get_current_map(game);
 	struct player* player = game_get_player(game);
@@ -140,6 +156,11 @@ static int player_move_aux(struct game* game, int x, int y) {
 
 	case CELL_BONUS:
 		player_move_bonus(game, x, y);
+		return 1;
+		break;
+
+	case CELL_KEY:
+		player_inc_nb_keys(game_get_player(game));
 		return 1;
 		break;
 
