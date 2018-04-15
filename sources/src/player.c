@@ -100,6 +100,21 @@ void player_dec_nb_life(struct player* player) {
 	player->nb_life -= 1;
 }
 
+short player_get_nb_keys(struct player* player) {
+	assert(player);
+	return player->nb_keys;
+}
+
+void player_inc_nb_keys(struct player* player) {
+	assert(player);
+	player->nb_keys += 1;
+}
+
+void player_dec_nb_keys(struct player* player) {
+	assert(player);
+	player->nb_keys -= 1;
+}
+
 void player_move_bonus(struct game* game, int x, int y){
 	struct map* map = game_get_current_map(game);
 	struct player* player = game_get_player(game);

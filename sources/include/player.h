@@ -36,6 +36,10 @@ short  player_get_nb_life(struct player * player);
 void player_inc_nb_life(struct player * player);
 void player_dec_nb_life(struct player * player);
 
+// Set, Increase, Decrease the number of keys collected by the player
+short  player_get_nb_keys(struct player * player);
+void player_inc_nb_keys(struct player * player);
+void player_dec_nb_keys(struct player * player);
 
 // Move the player according to the current direction
 int player_move(struct game* game);
