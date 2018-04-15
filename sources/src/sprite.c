@@ -286,6 +286,11 @@ SDL_Surface* sprite_get_banner_line() {
 	return banner_line;
 }
 
+SDL_Surface* sprite_get_banner_divider() {
+	assert(banner_divider);
+	return banner_divider;
+}
+
 SDL_Surface* sprite_get_banner_range() {
 	assert(banner_range);
 	return banner_range;

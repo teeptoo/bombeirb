@@ -25,6 +25,6 @@ int main(int argc, char *argv[]) {
 
 
 	SDL_Quit();
-	sprite_free(); // pourquoi on free pas ? Pb de memoire à corriger
+	sprite_free();
 	return EXIT_SUCCESS;
 }
