@@ -8,7 +8,6 @@
 #include <map.h>
 #include <sprite.h>
 #include <window.h>
-#include <misc.h>
 #include <constant.h>
 #include <game.h>
 #include <player.h>
@@ -21,6 +20,7 @@ struct bomb* bombs_init(){
 struct bomb* bomb_create(struct game* game, int x, int y, int range){
 	struct bomb* bomb;
 	bomb = malloc(sizeof(struct bomb));
+
 	bomb->range = range;
 	bomb->x = x;
 	bomb->y = y;
@@ -28,17 +28,17 @@ struct bomb* bomb_create(struct game* game, int x, int y, int range){
 	bomb->state = 3;
 	bomb->mortality = 0;
 	bomb->next = NULL;
-	map_set_cell_type(game_get_current_map(game), x, y ,CELL_BOMB);
 
+	map_set_cell_type(game_get_current_map(game), x, y ,CELL_BOMB);
 	return bomb;
 }
 
 
 
 struct bomb* bombs_add_bomb(struct bomb *bombs, struct game* game, int x, int y, int range){
-	if (player_get_nb_bomb(game_get_player(game))==0){
+	if (player_get_nb_bomb(game_get_player(game))==0)
 		return bombs;
-	}
+
 	struct bomb* bomb = bomb_create(game, x, y, range);
 	bomb->next = bombs;
 	bomb->time_init = SDL_GetTicks();
@@ -51,24 +51,19 @@ void bomb_update(struct bomb *bombs, struct game* game){
 	while (bombs != NULL){
 			time_live = SDL_GetTicks() - bombs->time_init;
 			// time in milliseconds
-			if(time_live < 1000){
+			if(time_live <= 1000)
 				bombs->state=3;
-			}
-			else if((time_live < 2000) && (time_live > 1000)){
+			else if((time_live > 1000) && (time_live <= 2000))
 				bombs->state=2;
-			}
-			else if((time_live < 3000) && (time_live > 2000)){
+			else if((time_live > 2000) && (time_live <= 3000))
 				bombs->state=1;
-			}
-			else if((time_live < 4000) && (time_live > 3000)){
+			else if((time_live > 3000) && (time_live <= 4000))
 				bombs->state=0;
-			}
-			else if((time_live > 4000) && (time_live < 5000)){
-				bombs->state=-1; //bomb en train d'exploser
-			}
-			if(time_live > 5000){
-				bombs->state=-2; //bomb après explosion
-			}
+			else if((time_live > 4000) && (time_live <= 5000))
+				bombs->state=-1; // bomb during explosion
+			else if(time_live > 5000)
+				bombs->state=-2; //bomb after explosion
+
 			bombs=bombs->next;
 		}
 }
@@ -100,8 +95,8 @@ void bomb_explosion_box_type(struct game* game, int x, int y){
 	unsigned char type = map_get_full_cell(game_get_current_map(game), x, y);
 	switch (type & 0x0f) {
 		case BONUS_BOMB_RANGE_DEC:
-				map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS | BONUS_BOMB_RANGE_DEC);
-				break;
+			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS | BONUS_BOMB_RANGE_DEC);
+			break;
 
 		case BONUS_BOMB_RANGE_INC:
 			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS | BONUS_BOMB_RANGE_INC);
@@ -210,7 +205,6 @@ void bomb_destruction(struct bomb* bombs, struct game* game){
 	  }
 	  else
 	  {
-
 		  struct bomb* temp = bombs;
 		  struct bomb* before = bombs;
 
@@ -225,7 +219,6 @@ void bomb_destruction(struct bomb* bombs, struct game* game){
 		  game_set_bomb(game, bombs);
 	  }
 	  player_inc_nb_bomb(game_get_player(game));
-
 }
 
 
@@ -236,9 +229,8 @@ int bomb_get_state(struct bomb* bomb){
 int bombs_get_size(struct bomb *bombs)
 {
   if (bombs==NULL)
-  {
     return 0;
-  }
+
   int size=0;
   while (bombs!=NULL) {
     size++;
