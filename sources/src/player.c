@@ -141,6 +141,7 @@ void player_move_bonus(struct game* game, int x, int y){
 
 static int player_move_aux(struct game* game, int x, int y) {
 	struct map* map = game_get_current_map(game);
+	struct player* player = game_get_player(game);
 
 	if (!map_is_inside(map, x, y))
 		return 0;
@@ -177,6 +178,11 @@ static int player_move_aux(struct game* game, int x, int y) {
 			return 0;
 			break;
 		case CELL_DOOR_CLOSED:
+			if(player_get_nb_keys(player)) {
+				int destination_map_mask = (map_get_full_cell(map, x, y)) & 0x0E;
+				map_set_cell_type(map, x, y, CELL_DOOR_OPENED | destination_map_mask);
+				player_dec_nb_keys(player);
+			}
 			return 0;
 			break;
 		default:
