@@ -95,7 +95,7 @@ void bomb_explosion_box_type(struct game* game, int x, int y){
 	unsigned char type = map_get_full_cell(game_get_current_map(game), x, y);
 	switch (type & 0x0f) {
 		case BONUS_BOMB_RANGE_DEC:
-			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS | BONUS_BOMB_RANGE_DEC);
+			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS_RANGEDEC);
 			break;
 
 		case BONUS_BOMB_RANGE_INC:
