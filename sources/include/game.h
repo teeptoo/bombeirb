@@ -28,6 +28,12 @@ struct bomb* game_get_bombs(struct game* game);
 // Return the current level
 short game_get_current_level(struct game* game);
 
+// Return the current map
+struct map* game_get_current_map(struct game* game);
+
+// Return a specified map
+struct map* game_get_map_level(struct game* game,short level)
+
 // Change game level
 void game_set_level(struct game* game, int level);
 
