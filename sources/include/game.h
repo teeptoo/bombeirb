@@ -24,6 +24,9 @@ void game_infos_free(struct game_infos* game_infos);
 // Return the player of the current game
 struct player* game_get_player(struct game* game);
 
+// Return the list of bombs
+struct bomb* game_get_bombs(struct game* game);
+
 // Return the current map
 struct map* game_get_current_map(struct game* game);
 
