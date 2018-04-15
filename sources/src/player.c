@@ -22,7 +22,7 @@ struct player* player_init(int bomb_number, short life_number) {
 	player->nb_bombs = bomb_number;
 	player->nb_life = life_number;
 	player->range = 2;
-	player->nb_keys = 1;
+	player->nb_keys = 0;
 
 	return player;
 }
