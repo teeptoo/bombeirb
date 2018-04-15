@@ -13,6 +13,7 @@
 #include <sprite.h>
 #include <constant.h>
 #include <player.h>
+#include <bomb.h>
 
 struct game_infos* game_get_config_from_file(char * file)
 {
