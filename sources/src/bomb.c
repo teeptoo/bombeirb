@@ -99,19 +99,19 @@ void bomb_explosion_box_type(struct game* game, int x, int y){
 			break;
 
 		case BONUS_BOMB_RANGE_INC:
-			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS | BONUS_BOMB_RANGE_INC);
+			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS_RANGEINC);
 			break;
 
 		case BONUS_BOMB_NB_DEC:
-			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS | BONUS_BOMB_NB_DEC);
+			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS_BOMBDEC);
 			break;
 
 		case BONUS_BOMB_NB_INC:
-			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS | BONUS_BOMB_NB_INC);
+			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS_BOMBINC);
 			break;
 
 		case BONUS_LIFE:
-			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS | BONUS_LIFE);
+			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS_LIFE);
 			break;
 		default:
 			map_set_cell_type(game_get_current_map(game), x, y, CELL_EMPTY);
