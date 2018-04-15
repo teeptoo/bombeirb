@@ -129,7 +129,7 @@ void game_banner_display(struct game* game) {
 	for (int i = 0; i < map_get_width(map); i++)
 		window_display_image(sprite_get_banner_line(), i * SIZE_BLOC, y);
 
-	int white_bloc = ((map_get_width(map) * SIZE_BLOC) - 6 * SIZE_BLOC) / 7;
+	int white_bloc = ((map_get_width(map) * SIZE_BLOC) - 6 * SIZE_BLOC) / 11;
 	int x = white_bloc;
 	y = (map_get_height(map) * SIZE_BLOC) + LINE_HEIGHT;
 	window_display_image(sprite_get_banner_life(), x, y);
@@ -155,6 +155,12 @@ void game_banner_display(struct game* game) {
 
 	x = 4 * white_bloc + 7 * SIZE_BLOC;
 	window_display_image(sprite_get_number(player_get_nb_keys(game_get_player(game))), x, y);
+
+	x = 5 * white_bloc + 8 * SIZE_BLOC;
+	window_display_image(sprite_get_banner_divider(), x, y);
+	x = x + 2 * sprite_get_banner_divider()->w;
+	window_display_image(sprite_get_number(game_get_current_level(game)+1), x, y);
+
 }
 
 void game_display(struct game* game) {
