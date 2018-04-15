@@ -20,6 +20,7 @@
 
 // Sprites of Banner
 #define BANNER_LINE		"sprite/banner_line.png"
+#define BANNER_DIVIDER	"sprite/banner_divider.png"
 #define BANNER_LIFE		"sprite/banner_life.png"
 #define BANNER_BOMB		"sprite/bomb3.png"
 #define BANNER_RANGE		"sprite/banner_range.png"
@@ -72,6 +73,7 @@ SDL_Surface* banner_life;
 SDL_Surface* banner_bomb;
 SDL_Surface* banner_range;
 SDL_Surface* banner_line;
+SDL_Surface* banner_divider;
 
 // map
 SDL_Surface* box;
@@ -119,6 +121,7 @@ static void banner_load() {
 	banner_bomb = load_image(BANNER_BOMB);
 	banner_range = load_image(BANNER_RANGE);
 	banner_line = load_image(BANNER_LINE);
+	banner_divider = load_image(BANNER_DIVIDER);
 }
 
 static void banner_unload() {
@@ -131,7 +134,8 @@ static void banner_unload() {
 	SDL_FreeSurface(banner_life);
 	SDL_FreeSurface(banner_bomb);
 	SDL_FreeSurface(banner_range);
-	SDL_FreeSurface(banner_life);
+	SDL_FreeSurface(banner_line);
+	SDL_FreeSurface(banner_divider);
 }
 // static void bomb_load et bomb_unload (cf banner laod)
 static void bombs_load() {
