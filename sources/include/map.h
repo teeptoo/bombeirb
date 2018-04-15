@@ -62,7 +62,7 @@ enum compose_type {
 };
 
 // Create a new empty map
-struct map* map_new(int width, int height);
+struct map* map_new(int width, int height, int starting_x, int starting_y);
 void map_free(struct map* map);
 
 

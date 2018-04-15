@@ -5,7 +5,7 @@
 
 struct game {
 	struct map** maps;       // the game's map - tableau des maps
-	short max_levels;        // nb maps of the game
+	short nb_levels;        // nb maps of the game
 	short current_level;
 	struct player* player;
 	struct bomb* bombs;
@@ -13,16 +13,13 @@ struct game {
 
 struct game_infos
 {
-	short max_levels;
-	short current_level;
-	int current_x;
-	int current_y;
+	short nb_levels;
 	char * map_prefix;
 };
 
 struct map {
-	int width;
-	int height;
+	int width, height;
+	int starting_x, starting_y;
 	unsigned char* grid;
 };
 

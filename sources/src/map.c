@@ -19,7 +19,7 @@
 
 #define CELL(i,j) ( (i) + (j) * map->width)
 
-struct map* map_new(int width, int height)
+struct map* map_new(int width, int height, int starting_x, int starting_y)
 {
 	assert(width > 0 && height > 0);
 
@@ -29,6 +29,8 @@ struct map* map_new(int width, int height)
 
 	map->width = width;
 	map->height = height;
+	map->starting_x = starting_x;
+	map->starting_y = starting_y;
 
 	map->grid = malloc(height * width);
 	if (map->grid == NULL) {
@@ -177,7 +179,7 @@ void map_display(struct map* map)
 
 struct map* map_get_from_file(char* file)
 {
-	int map_width=0, map_height=0, pos_line, pos_elt;
+	int map_width=0, map_height=0, map_starting_x=0, map_starting_y=0, pos_line, pos_elt;
 	char *line_temp=NULL, *token=NULL;
 
 	// open file
@@ -185,15 +187,18 @@ struct map* map_get_from_file(char* file)
 	map_file=fopen(file, "r");
 	assert(map_file);
 
-	// get map's size
+	// get map size
 	assert(fscanf(map_file, "%d x %d\n", &map_width, &map_height));
+
+	// get map starting point
+	assert(fscanf(map_file, "%d ; %d\n", &map_starting_x, &map_starting_y));
 
 	// init pointers
 	line_temp = malloc(3 * (map_width+1) * sizeof(char)); // 2 digits and 1 blank max per grid element + 3*1 for delimiters (\n and \0)
 	assert(line_temp);
 
 	// init map
-	struct map* map = map_new(map_width, map_height);
+	struct map* map = map_new(map_width, map_height, map_starting_x, map_starting_y);
 	assert(map);
 
 	// get map's content

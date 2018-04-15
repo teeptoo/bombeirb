@@ -80,10 +80,10 @@ void launchMenu(void)
 					switch (button_pressed) {
 					case 0: // Reprendre
 						done = 1;
-						launchGame();
 						break;
 					case 1: // Facile
 						done = 1;
+						launchGame("data/game_default_easy.txt");
 						break;
 					case 2: // Difficile
 						done = 1;
@@ -101,9 +101,9 @@ void launchMenu(void)
 	}
 }
 
-void launchGame(void)
+void launchGame(char* config_file)
 {
-	struct game_infos* game_infos = game_get_config_from_file("data/games/default.txt");
+	struct game_infos* game_infos = game_get_config_from_file(config_file);
 	struct game* game = game_new(game_infos);
 	game_infos_free(game_infos);
 
