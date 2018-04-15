@@ -87,6 +87,7 @@ void launchMenu(void)
 						break;
 					case 2: // Difficile
 						done = 1;
+						launchGame("data/game_default_hard.txt");
 						break;
 					} // END switch (button_pressed)
 				} // END if (event.button.button == SDL_BUTTON_LEFT)
