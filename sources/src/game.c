@@ -27,10 +27,7 @@ struct game_infos* game_get_config_from_file(char * file)
 	assert(game_config_file);
 
 	// read nb levels
-	assert(fscanf(game_config_file, "%d\n", (int *)&game_infos->max_levels));
-
-	// read current level and pos
-	assert(fscanf(game_config_file, "%d:%d,%d\n", (int *)&game_infos->current_level, &game_infos->current_x, &game_infos->current_y));
+	assert(fscanf(game_config_file, "%d\n", (int *)&game_infos->nb_levels));
 
 	// read map prefix
 	assert(fscanf(game_config_file, "%s", (char *)game_infos->map_prefix));
@@ -45,20 +42,21 @@ struct game* game_new(struct game_infos* game_infos) {
 
 	game->maps = malloc(sizeof(struct game));
 	// load game infos
-	game->max_levels = game_infos->max_levels;
-	game->current_level = game_infos->current_level;
+	game->nb_levels = game_infos->nb_levels;
+	game->current_level = 0;
 
 	// load maps
-	for (int i = 0; i < game->max_levels; ++i) {
+	for (int i = 0; i < game->nb_levels; ++i) {
 		char map_to_load[50];
-		sprintf(map_to_load, "data/maps/map_%i.txt", i);
+		sprintf(map_to_load, "data/map_%s_%i.txt", game_infos->map_prefix, i);
 		game->maps[i] = map_get_from_file(map_to_load);
 	}
 
 	// load player infos
-	game->player = player_init(4,5);
+	game->player = player_init(4, 5);
+
 	// set location of the player
-	player_set_position(game->player, game_infos->current_x, game_infos->current_y);
+	player_set_position(game->player, game->maps[0]->starting_x, game->maps[0]->starting_y);
 
 	// set list bombs
 	game->bombs=bombs_init(game->maps);
@@ -70,7 +68,7 @@ void game_free(struct game* game) {
 	assert(game);
 
 	player_free(game->player);
-	for (int i = 0; i < game->max_levels; i++)
+	for (int i = 0; i < game->nb_levels; i++)
 		map_free(game->maps[i]);
 
 	free(game);
@@ -109,10 +107,11 @@ short game_get_current_level(struct game* game) {
 }
 
 void game_set_level(struct game* game, int level) {
-	assert(game && level<game->max_levels);
+	assert(game && level<game->nb_levels);
 	game->current_level = level;
 	window_resize(SIZE_BLOC * map_get_width(game_get_current_map(game)),
 		SIZE_BLOC * map_get_height(game_get_current_map(game)) + BANNER_HEIGHT + LINE_HEIGHT);
+	player_set_position(game->player, game->maps[level]->starting_x, game->maps[level]->starting_y);
 }
 
 void game_set_bomb(struct game * game, struct bomb * bombs){
