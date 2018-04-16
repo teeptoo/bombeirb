@@ -61,6 +61,9 @@ struct game* game_new(struct game_infos* game_infos) {
 	// set list bombs
 	game->bombs=bombs_init(game->maps);
 
+	// set exit flag to null
+	game->exit_reason = IN_GAME;
+
 	return game;
 }
 

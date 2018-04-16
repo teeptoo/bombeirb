@@ -119,8 +119,8 @@ void launchGame(char* config_file)
 
 	// game loop
 	// static time rate implementation
-	int done = 0, exit_reason=-1;
-	while (!done) {
+	int done = 0;
+	while (!done && !game->exit_reason) {
 		timer = SDL_GetTicks();
 
 		done = game_update(game);
@@ -129,19 +129,9 @@ void launchGame(char* config_file)
 		execution_speed = SDL_GetTicks() - timer;
 		if (execution_speed < ideal_speed)
 			SDL_Delay(ideal_speed - execution_speed); // we are ahead of ideal time. let's wait.
-
-		if(game->player->nb_life==0) {
-			done = 1;
-			exit_reason = EXIT_GAME_OVER;
-		}
-		if(map_get_full_cell(game_get_current_map(game), game->player->x, game->player->y) == CELL_PRINCESS) {
-			done = 1;
-			exit_reason = EXIT_VICTORY;
-		}
 	}
-	game_free(game);
 
-	switch(exit_reason)
+	switch(game->exit_reason)
 	{
 		case EXIT_GAME_OVER:
 			game_over_display();
@@ -149,24 +139,29 @@ void launchGame(char* config_file)
 		case EXIT_VICTORY:
 			victory_display();
 			break;
+		default:
+			break;
 	}
 
+	game_free(game);
 	launchMenu();
 }
 
 void game_over_display() {
-	int x=MENU_WIDTH/2-(sprite_get_game_over()->w/2), y=MENU_HEIGHT/2-(sprite_get_game_over()->h/2);
+	int x=MENU_WIDTH/2-(sprite_get_game_over()->w/2), y=MENU_HEIGHT/3;
 	window_resize(MENU_WIDTH, MENU_HEIGHT);
 	window_clear();
+	display_menu_fixed_elements();
 	window_display_image(sprite_get_game_over(), x, y);
 	window_refresh();
 	SDL_Delay(3000);
 }
 
 void victory_display() {
-	int x=MENU_WIDTH/2-(sprite_get_victory()->w/2), y=MENU_HEIGHT/2-(sprite_get_victory()->h/2);
+	int x=MENU_WIDTH/2-(sprite_get_victory()->w/2), y=MENU_HEIGHT/3;
 	window_resize(MENU_WIDTH, MENU_HEIGHT);
 	window_clear();
+	display_menu_fixed_elements();
 	window_display_image(sprite_get_victory(), x, y);
 	window_refresh();
 	SDL_Delay(5000);
