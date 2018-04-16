@@ -20,13 +20,6 @@
 // map size
 #define MAP_PREFIX_MAX_LENGTH	10
 
-enum direction {
-	NORTH = 0,
-	SOUTH, // 1
-	WEST, // 2
-	EAST //3
-};
-
 // Splashscreen size
 #define MENU_WIDTH 	800
 #define MENU_HEIGHT	600

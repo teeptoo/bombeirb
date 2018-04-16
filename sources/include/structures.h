@@ -3,46 +3,6 @@
 
 #include <constant.h>
 
-struct game {
-	struct map** maps;       // the game's map - tableau des maps
-	short nb_levels;        // nb maps of the game
-	short current_level;
-	struct player* player;
-	struct bomb* bombs;
-};
-
-struct game_infos
-{
-	short nb_levels;
-	char * map_prefix;
-};
-
-struct map {
-	int width, height;
-	int starting_x, starting_y;
-	unsigned char* grid;
-};
-
-
-struct player {
-	int x, y;
-	enum direction current_direction;
-	int nb_bombs;
-	short nb_life;
-	short nb_keys;
-	int range;
-};
-
-struct bomb {
-  int range;
-  int x, y;
-  short current_level;
-  unsigned int time_init;
-  int state;
-  short mortality;
-  struct bomb *next;
-};
-
 enum cell_type {
 	CELL_EMPTY=0x00,   		//  0000 0000
 	CELL_SCENERY=0x10, 		//  0001 0000
@@ -97,9 +57,59 @@ enum compose_type {
 	CELL_BONUS_LIFE = CELL_BONUS | BONUS_LIFE
 };
 
+enum direction {
+	NORTH = 0,
+	SOUTH, // 1
+	WEST, // 2
+	EAST //3
+};
+
+
 enum exit_reason {
-	EXIT_GAME_OVER,		// 0
-	EXIT_VICTORY		// 1
+	IN_GAME,			// 0
+	EXIT_GAME_OVER,		// 1
+	EXIT_VICTORY		// 2
+};
+
+struct game {
+	struct map** maps;       // the game's map - tableau des maps
+	short nb_levels;        // nb maps of the game
+	short current_level;
+	struct player* player;
+	struct bomb* bombs;
+	enum exit_reason exit_reason;
+};
+
+struct game_infos
+{
+	short nb_levels;
+	char * map_prefix;
+};
+
+struct map {
+	int width, height;
+	int starting_x, starting_y;
+	unsigned char* grid;
+};
+
+
+struct player {
+	int x, y;
+	enum direction current_direction;
+	int nb_bombs;
+	short nb_life;
+	short nb_keys;
+	int range;
+};
+
+struct bomb {
+  int range;
+  int x, y;
+  short current_level;
+  unsigned int time_init;
+  int state;
+  short mortality;
+  struct bomb *next;
 };
 
 #endif /* INCLUDE_STRUCTURES_H_ */
