@@ -156,26 +156,23 @@ static int player_move_aux(struct game* game, int x, int y) {
 
 	switch (map_get_cell_type(map, x, y)) {
 	case CELL_SCENERY:
+		if(map_get_full_cell(map, x, y) == CELL_PRINCESS)
+			game->exit_reason=EXIT_VICTORY;
 		return 0;
 		break;
-
 	case CELL_BOX:
 		return 1;
 		break;
-
 	case CELL_BONUS:
 		player_move_bonus(game, x, y);
 		return 1;
 		break;
-
 	case CELL_KEY:
 		player_inc_nb_keys(game_get_player(game));
 		return 1;
 		break;
-
 	case CELL_MONSTER:
 		break;
-
 	case CELL_BOMB:
 		return 0;
 		break;
