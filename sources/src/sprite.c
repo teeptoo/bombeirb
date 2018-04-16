@@ -55,6 +55,7 @@
 #define PLAYER_UP       "sprite/player_up.png"
 #define PLAYER_RIGHT    "sprite/player_right.png"
 #define PLAYER_DOWN     "sprite/player_down.png"
+#define PLAYER_PRINCESS	"sprite/bomberwoman.png"
 
 // Sprites of Menu
 #define MENU_LOGO		"sprite/logo.png"
@@ -97,6 +98,7 @@ SDL_Surface* bonus[NB_BONUS + 1];
 
 // player
 SDL_Surface* player_img[4];
+SDL_Surface* princess;
 
 // menu elements
 #define NB_BUTTONS 6
@@ -204,6 +206,7 @@ static void player_load() {
 	player_img[EAST] = load_image(PLAYER_RIGHT);
 	player_img[NORTH] = load_image(PLAYER_UP);
 	player_img[SOUTH] = load_image(PLAYER_DOWN);
+	princess = load_image(PLAYER_PRINCESS);
 }
 
 
@@ -211,6 +214,7 @@ static void player_load() {
 static void player_unload() {
 	for (int i = 0; i < 4; i++)
 		SDL_FreeSurface(player_img[i]);
+	SDL_FreeSurface(princess);
 }
 
 static void menu_load()
@@ -277,6 +281,11 @@ SDL_Surface* sprite_get_number(short number) {
 SDL_Surface* sprite_get_player(enum direction direction) {
 	assert(player_img[direction]);
 	return player_img[direction];
+}
+
+SDL_Surface* sprite_get_princess(){
+	assert(princess);
+	return princess;
 }
 
 SDL_Surface* sprite_get_banner_life() {
