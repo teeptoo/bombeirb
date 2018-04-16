@@ -13,7 +13,7 @@
 #include <game.h>
 #include <map.h>
 
-struct player* player_init(int bomb_number, short life_number) {
+struct player* player_init(int bomb_number, short life_number, int range, short nb_keys) {
 	struct player* player = malloc(sizeof(*player));
 	if (!player)
 		error("Memory error");
