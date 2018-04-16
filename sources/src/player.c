@@ -62,7 +62,8 @@ void player_inc_range(struct player* player) {
 
 void player_dec_range(struct player* player) {
 	assert(player);
-	player->range -= 1;
+	if(player->range > 1)
+		player->range -= 1;
 }
 
 void player_set_current_way(struct player* player, enum direction way) {
@@ -82,7 +83,8 @@ void player_inc_nb_bomb(struct player* player) {
 
 void player_dec_nb_bomb(struct player* player) {
 	assert(player);
-	player->nb_bombs -= 1;
+	if(player->nb_bombs > 1)
+		player->nb_bombs -= 1;
 }
 
 short player_get_nb_life(struct player* player) {
@@ -113,7 +115,8 @@ void player_inc_nb_keys(struct player* player) {
 
 void player_dec_nb_keys(struct player* player) {
 	assert(player);
-	player->nb_keys -= 1;
+	if(player->nb_keys)
+		player->nb_keys -= 1;
 }
 
 void player_move_bonus(struct game* game, int x, int y){
@@ -136,7 +139,8 @@ void player_move_bonus(struct game* game, int x, int y){
 	case CELL_BONUS_LIFE:
 		player_inc_nb_life(player);
 		break;
-
+	default:
+		break;
 	}
 }
 
@@ -240,6 +244,8 @@ int player_move(struct game* game) {
 			box_movement_x = player->x + 1;
 			move = 1;
 		}
+		break;
+	default:
 		break;
 	}
 	if (move)
