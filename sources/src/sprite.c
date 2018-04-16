@@ -55,6 +55,7 @@
 #define PLAYER_UP       "sprite/player_up.png"
 #define PLAYER_RIGHT    "sprite/player_right.png"
 #define PLAYER_DOWN     "sprite/player_down.png"
+#define PLAYER_PRINCESS	"sprite/bomberwoman.png"
 
 // Sprites of Menu
 #define MENU_LOGO		"sprite/logo.png"
@@ -66,6 +67,8 @@
 #define MENU_BUTTON_FACILE_HOVER		"sprite/button_facile_hover.jpg"
 #define MENU_BUTTON_DIFFICILE			"sprite/button_difficile.jpg"
 #define MENU_BUTTON_DIFFICILE_HOVER		"sprite/button_difficile_hover.jpg"
+#define MENU_GAME_OVER					"sprite/game_over.png"
+#define MENU_VICTORY					"sprite/victory.png"
 
 // banner
 SDL_Surface* numbers[10];
@@ -95,6 +98,7 @@ SDL_Surface* bonus[NB_BONUS + 1];
 
 // player
 SDL_Surface* player_img[4];
+SDL_Surface* princess;
 
 // menu elements
 #define NB_BUTTONS 6
@@ -102,6 +106,8 @@ SDL_Surface* logo;
 SDL_Surface* menu_wallpaper;
 SDL_Surface* credits;
 SDL_Surface* buttons[NB_BUTTONS];
+SDL_Surface* game_over;
+SDL_Surface* victory;
 
 static void banner_load() {
 	// numbers imgs
@@ -200,6 +206,7 @@ static void player_load() {
 	player_img[EAST] = load_image(PLAYER_RIGHT);
 	player_img[NORTH] = load_image(PLAYER_UP);
 	player_img[SOUTH] = load_image(PLAYER_DOWN);
+	princess = load_image(PLAYER_PRINCESS);
 }
 
 
@@ -207,6 +214,7 @@ static void player_load() {
 static void player_unload() {
 	for (int i = 0; i < 4; i++)
 		SDL_FreeSurface(player_img[i]);
+	SDL_FreeSurface(princess);
 }
 
 static void menu_load()
@@ -214,6 +222,8 @@ static void menu_load()
 	logo = load_image(MENU_LOGO);
 	credits = load_image(MENU_CREDITS);
 	menu_wallpaper = load_image(MENU_WALLPAPER);
+	game_over=load_image(MENU_GAME_OVER);
+	victory=load_image(MENU_VICTORY);
 }
 
 static void menu_unload()
@@ -221,6 +231,8 @@ static void menu_unload()
 	SDL_FreeSurface(logo);
 	SDL_FreeSurface(credits);
 	SDL_FreeSurface(menu_wallpaper);
+	SDL_FreeSurface(game_over);
+	SDL_FreeSurface(victory);
 }
 
 static void buttons_load()
@@ -269,6 +281,11 @@ SDL_Surface* sprite_get_number(short number) {
 SDL_Surface* sprite_get_player(enum direction direction) {
 	assert(player_img[direction]);
 	return player_img[direction];
+}
+
+SDL_Surface* sprite_get_princess(){
+	assert(princess);
+	return princess;
 }
 
 SDL_Surface* sprite_get_banner_life() {
@@ -381,6 +398,17 @@ SDL_Surface* sprite_get_credits()
 }
 
 SDL_Surface* sprite_get_button(int button_number) {
-	assert(button_number >= 0 && button_number < NB_BUTTONS);
+	assert(button_number >= 0 && button_number < NB_BUTTONS && buttons[button_number]);
 	return buttons[button_number];
+}
+
+SDL_Surface* sprite_get_game_over() {
+	assert(game_over);
+	return game_over;
+
+}
+
+SDL_Surface* sprite_get_victory() {
+	assert(victory);
+	return victory;
 }

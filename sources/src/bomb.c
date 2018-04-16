@@ -121,7 +121,7 @@ void bomb_explosion_box_type(struct game* game, int x, int y){
 void bomb_explosion_aux(struct bomb* bomb, struct game* game, int x, int y){
 	window_display_image(sprite_get_explosion(),x * SIZE_BLOC, y * SIZE_BLOC);
 	if ((player_get_x(game_get_player(game))==x) && (player_get_y(game_get_player(game))==y) && bomb->mortality==0){
-		player_dec_nb_life(game_get_player(game));
+		player_dec_nb_life(game);
 		bomb->mortality=1;
 	}
 	if ( (map_get_cell_type(game_get_current_map(game), x, y) & CELL_BOX) == CELL_BOX){

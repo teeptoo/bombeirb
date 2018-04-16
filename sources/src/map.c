@@ -115,6 +115,8 @@ void display_bonus(struct map* map, int x, int y, unsigned char type)
 	/*case BONUS_LIFE:
 		window_display_image(sprite_get_bonus(à compléter), x, y);
 		break;*/
+	default:
+		break;
 	}
 }
 
@@ -124,9 +126,13 @@ void display_scenery(struct map* map, int x, int  y, unsigned char type)
 	case SCENERY_STONE:
 		window_display_image(sprite_get_stone(), x, y);
 		break;
-
 	case SCENERY_TREE:
 		window_display_image(sprite_get_tree(), x, y);
+		break;
+	case SCENERY_PRINCESS:
+		window_display_image(sprite_get_princess(), x, y);
+		break;
+	default:
 		break;
 	}
 }
@@ -171,6 +177,8 @@ void map_display(struct map* map)
 	      break;
 	    case CELL_DOOR:
 	    	display_doors(map, x, y, type);
+	    	break;
+	    default:
 	    	break;
 	    }
 	  }

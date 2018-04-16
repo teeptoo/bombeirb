@@ -13,6 +13,7 @@ void sprite_load();
 void sprite_free();
 
 SDL_Surface* sprite_get_player(enum direction direction);
+SDL_Surface* sprite_get_princess();
 SDL_Surface* sprite_get_bonus(enum bonus_type bonus_type);
 SDL_Surface* sprite_get_tree();
 SDL_Surface* sprite_get_box();
@@ -34,6 +35,8 @@ SDL_Surface* sprite_get_logo();
 SDL_Surface* sprite_get_menu_wallpaper();
 SDL_Surface* sprite_get_credits();
 SDL_Surface* sprite_get_button(int button_number);
+SDL_Surface* sprite_get_game_over();
+SDL_Surface* sprite_get_victory();
 
 
 #endif /* SPRITE_H_ */

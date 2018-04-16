@@ -8,7 +8,7 @@
 #include <structures.h>
 
 // Creates a new player with a given number of available bombs
-struct player* player_init(int bomb_number, short life_number);
+struct player* player_init(int bomb_number, short life_number, int range, short nb_keys);
 void   player_free(struct player* player);
 
 // Set the position of the player
@@ -34,7 +34,7 @@ void player_dec_nb_bomb(struct player * player);
 // Set, Increase, Decrease the number of life of the player
 short  player_get_nb_life(struct player * player);
 void player_inc_nb_life(struct player * player);
-void player_dec_nb_life(struct player * player);
+void player_dec_nb_life(struct game* game);
 
 // Set, Increase, Decrease the number of keys collected by the player
 short  player_get_nb_keys(struct player * player);

@@ -120,7 +120,7 @@ void launchGame(char* config_file)
 	// game loop
 	// static time rate implementation
 	int done = 0;
-	while (!done) {
+	while (!done && !game->exit_reason) {
 		timer = SDL_GetTicks();
 
 		done = game_update(game);
@@ -131,5 +131,38 @@ void launchGame(char* config_file)
 			SDL_Delay(ideal_speed - execution_speed); // we are ahead of ideal time. let's wait.
 	}
 
+	switch(game->exit_reason)
+	{
+		case EXIT_GAME_OVER:
+			game_over_display();
+			break;
+		case EXIT_VICTORY:
+			victory_display();
+			break;
+		default:
+			break;
+	}
+
 	game_free(game);
+	launchMenu();
+}
+
+void game_over_display() {
+	int x=MENU_WIDTH/2-(sprite_get_game_over()->w/2), y=MENU_HEIGHT/3;
+	window_resize(MENU_WIDTH, MENU_HEIGHT);
+	window_clear();
+	display_menu_fixed_elements();
+	window_display_image(sprite_get_game_over(), x, y);
+	window_refresh();
+	SDL_Delay(3000);
+}
+
+void victory_display() {
+	int x=MENU_WIDTH/2-(sprite_get_victory()->w/2), y=MENU_HEIGHT/3;
+	window_resize(MENU_WIDTH, MENU_HEIGHT);
+	window_clear();
+	display_menu_fixed_elements();
+	window_display_image(sprite_get_victory(), x, y);
+	window_refresh();
+	SDL_Delay(5000);
 }

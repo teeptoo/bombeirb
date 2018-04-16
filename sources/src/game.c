@@ -53,13 +53,16 @@ struct game* game_new(struct game_infos* game_infos) {
 	}
 
 	// load player infos
-	game->player = player_init(4, 5);
+	game->player = player_init(3, 1, 1, 0);
 
 	// set location of the player
 	player_set_position(game->player, game->maps[0]->starting_x, game->maps[0]->starting_y);
 
 	// set list bombs
 	game->bombs=bombs_init(game->maps);
+
+	// set exit flag to null
+	game->exit_reason = IN_GAME;
 
 	return game;
 }

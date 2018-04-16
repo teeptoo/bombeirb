@@ -13,7 +13,7 @@
 #include <game.h>
 #include <map.h>
 
-struct player* player_init(int bomb_number, short life_number) {
+struct player* player_init(int bomb_number, short life_number, int range, short nb_keys) {
 	struct player* player = malloc(sizeof(*player));
 	if (!player)
 		error("Memory error");
@@ -21,8 +21,8 @@ struct player* player_init(int bomb_number, short life_number) {
 	player->current_direction = SOUTH;
 	player->nb_bombs = bomb_number;
 	player->nb_life = life_number;
-	player->range = 2;
-	player->nb_keys = 0;
+	player->range = range;
+	player->nb_keys = nb_keys;
 
 	return player;
 }
@@ -62,7 +62,8 @@ void player_inc_range(struct player* player) {
 
 void player_dec_range(struct player* player) {
 	assert(player);
-	player->range -= 1;
+	if(player->range > 1)
+		player->range -= 1;
 }
 
 void player_set_current_way(struct player* player, enum direction way) {
@@ -82,7 +83,8 @@ void player_inc_nb_bomb(struct player* player) {
 
 void player_dec_nb_bomb(struct player* player) {
 	assert(player);
-	player->nb_bombs -= 1;
+	if(player->nb_bombs > 1)
+		player->nb_bombs -= 1;
 }
 
 short player_get_nb_life(struct player* player) {
@@ -95,9 +97,13 @@ void player_inc_nb_life(struct player* player) {
 	player->nb_life += 1;
 }
 
-void player_dec_nb_life(struct player* player) {
-	assert(player);
-	player->nb_life -= 1;
+void player_dec_nb_life(struct game* game) {
+	assert(game);
+	if(game->player->nb_life > 1)
+		game->player->nb_life -= 1;
+	else
+		game->exit_reason = EXIT_GAME_OVER;
+
 }
 
 short player_get_nb_keys(struct player* player) {
@@ -112,7 +118,8 @@ void player_inc_nb_keys(struct player* player) {
 
 void player_dec_nb_keys(struct player* player) {
 	assert(player);
-	player->nb_keys -= 1;
+	if(player->nb_keys)
+		player->nb_keys -= 1;
 }
 
 void player_move_bonus(struct game* game, int x, int y){
@@ -135,7 +142,8 @@ void player_move_bonus(struct game* game, int x, int y){
 	case CELL_BONUS_LIFE:
 		player_inc_nb_life(player);
 		break;
-
+	default:
+		break;
 	}
 }
 
@@ -148,26 +156,23 @@ static int player_move_aux(struct game* game, int x, int y) {
 
 	switch (map_get_cell_type(map, x, y)) {
 	case CELL_SCENERY:
+		if(map_get_full_cell(map, x, y) == CELL_PRINCESS)
+			game->exit_reason=EXIT_VICTORY;
 		return 0;
 		break;
-
 	case CELL_BOX:
 		return 1;
 		break;
-
 	case CELL_BONUS:
 		player_move_bonus(game, x, y);
 		return 1;
 		break;
-
 	case CELL_KEY:
 		player_inc_nb_keys(game_get_player(game));
 		return 1;
 		break;
-
 	case CELL_MONSTER:
 		break;
-
 	case CELL_BOMB:
 		return 0;
 		break;
@@ -188,8 +193,7 @@ static int player_move_aux(struct game* game, int x, int y) {
 		default:
 			break;
 		}
-		break;
-
+		break; // END case CELL_DOOR
 	default:
 		break;
 	}
@@ -239,6 +243,8 @@ int player_move(struct game* game) {
 			box_movement_x = player->x + 1;
 			move = 1;
 		}
+		break;
+	default:
 		break;
 	}
 	if (move)
