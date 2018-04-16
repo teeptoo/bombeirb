@@ -112,4 +112,12 @@ struct bomb {
   struct bomb *next;
 };
 
+struct monster {
+	int x, y;
+	enum direction current_direction;
+	short current_level;
+	unsigned int speed;
+	struct monster* next;
+};
+
 #endif /* INCLUDE_STRUCTURES_H_ */
