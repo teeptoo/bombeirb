@@ -124,12 +124,16 @@ void launchGame(char* config_file)
 		timer = SDL_GetTicks();
 
 		done = game_update(game);
-		game_display(game);
+		if (!game->game_status) {
+			game_display(game);
+		}
+
 
 		execution_speed = SDL_GetTicks() - timer;
 		if (execution_speed < ideal_speed)
 			SDL_Delay(ideal_speed - execution_speed); // we are ahead of ideal time. let's wait.
 	}
+
 
 	switch(game->exit_reason)
 	{
