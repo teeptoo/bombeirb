@@ -17,4 +17,7 @@ void game_over_display();
 // Display "Victoire" centered and resize window before returning to the menu
 void victory_display();
 
+// Display pause sprite
+void break_menu_display();
+
 #endif /* MENU_H_ */
