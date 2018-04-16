@@ -21,8 +21,8 @@ struct player* player_init(int bomb_number, short life_number) {
 	player->current_direction = SOUTH;
 	player->nb_bombs = bomb_number;
 	player->nb_life = life_number;
-	player->range = 2;
-	player->nb_keys = 0;
+	player->range = range;
+	player->nb_keys = nb_keys;
 
 	return player;
 }
@@ -97,7 +97,8 @@ void player_inc_nb_life(struct player* player) {
 
 void player_dec_nb_life(struct player* player) {
 	assert(player);
-	player->nb_life -= 1;
+	if(player->nb_life)
+		player->nb_life -= 1;
 }
 
 short player_get_nb_keys(struct player* player) {
