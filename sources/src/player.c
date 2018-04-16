@@ -97,10 +97,13 @@ void player_inc_nb_life(struct player* player) {
 	player->nb_life += 1;
 }
 
-void player_dec_nb_life(struct player* player) {
-	assert(player);
-	if(player->nb_life)
-		player->nb_life -= 1;
+void player_dec_nb_life(struct game* game) {
+	assert(game);
+	if(game->player->nb_life > 1)
+		game->player->nb_life -= 1;
+	else
+		game->exit_reason = EXIT_GAME_OVER;
+
 }
 
 short player_get_nb_keys(struct player* player) {
@@ -193,8 +196,7 @@ static int player_move_aux(struct game* game, int x, int y) {
 		default:
 			break;
 		}
-		break;
-
+		break; // END case CELL_DOOR
 	default:
 		break;
 	}
