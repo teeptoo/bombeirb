@@ -127,6 +127,9 @@ void launchGame(char* config_file)
 		if (!game->game_status) {
 			game_display(game);
 		}
+		else{
+			break_menu_display();
+		}
 
 
 		execution_speed = SDL_GetTicks() - timer;
@@ -170,3 +173,9 @@ void victory_display() {
 	window_refresh();
 	SDL_Delay(5000);
 }
+
+void break_menu_display() {
+	window_display_image(sprite_get_credits(), 5, 5);
+	window_refresh();
+}
+
