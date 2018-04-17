@@ -18,6 +18,6 @@ void game_over_display();
 void victory_display();
 
 // Display pause sprite
-void break_menu_display();
+void break_menu_display(struct game* game);
 
 #endif /* MENU_H_ */

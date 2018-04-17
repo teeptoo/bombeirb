@@ -37,6 +37,7 @@ SDL_Surface* sprite_get_credits();
 SDL_Surface* sprite_get_button(int button_number);
 SDL_Surface* sprite_get_game_over();
 SDL_Surface* sprite_get_victory();
+SDL_Surface* sprite_get_menu_break();
 
 
 #endif /* SPRITE_H_ */

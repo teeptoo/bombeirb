@@ -69,6 +69,9 @@
 #define MENU_BUTTON_DIFFICILE_HOVER		"sprite/button_difficile_hover.jpg"
 #define MENU_GAME_OVER					"sprite/game_over.png"
 #define MENU_VICTORY					"sprite/victory.png"
+#define MENU_BREAK	"sprite/break.png"
+#define MENU_BOUTON_SAUVER_QUITTER			"sprite/bouton_sauver_quitter.jpg"
+#define MENU_BOUTON_SAUVER_QUITTER_HOVER	"sprite/bouton_sauver_quitter_hover.jpg"
 
 // banner
 SDL_Surface* numbers[10];
@@ -101,13 +104,15 @@ SDL_Surface* player_img[4];
 SDL_Surface* princess;
 
 // menu elements
-#define NB_BUTTONS 6
+#define NB_BUTTONS 8
 SDL_Surface* logo;
 SDL_Surface* menu_wallpaper;
 SDL_Surface* credits;
 SDL_Surface* buttons[NB_BUTTONS];
 SDL_Surface* game_over;
 SDL_Surface* victory;
+SDL_Surface* menu_break;
+
 
 static void banner_load() {
 	// numbers imgs
@@ -224,6 +229,7 @@ static void menu_load()
 	menu_wallpaper = load_image(MENU_WALLPAPER);
 	game_over=load_image(MENU_GAME_OVER);
 	victory=load_image(MENU_VICTORY);
+	menu_break=load_image(MENU_BREAK);
 }
 
 static void menu_unload()
@@ -233,6 +239,7 @@ static void menu_unload()
 	SDL_FreeSurface(menu_wallpaper);
 	SDL_FreeSurface(game_over);
 	SDL_FreeSurface(victory);
+	SDL_FreeSurface(menu_break);
 }
 
 static void buttons_load()
@@ -243,6 +250,8 @@ static void buttons_load()
 	buttons[3] = load_image(MENU_BUTTON_FACILE_HOVER);
 	buttons[4] = load_image(MENU_BUTTON_DIFFICILE);
 	buttons[5] = load_image(MENU_BUTTON_DIFFICILE_HOVER);
+	buttons[6] = load_image(MENU_BOUTON_SAUVER_QUITTER);
+	buttons[7] = load_image(MENU_BOUTON_SAUVER_QUITTER_HOVER);
 }
 
 static void buttons_unload()
@@ -411,4 +420,9 @@ SDL_Surface* sprite_get_game_over() {
 SDL_Surface* sprite_get_victory() {
 	assert(victory);
 	return victory;
+}
+
+SDL_Surface* sprite_get_menu_break() {
+	assert(menu_break);
+	return menu_break;
 }
