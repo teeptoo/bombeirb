@@ -198,8 +198,8 @@ void break_menu_display(struct game* game) {
 			// buttons
 			buttons_placement_height[0] = 2*SPLASH_MARGIN + sprite_get_logo()->h;
 			window_display_image(sprite_get_button(0), x_buttons, buttons_placement_height[0]); // "Reprendre"
-			buttons_placement_height[6] = buttons_placement_height[0] + SPLASH_MARGIN/2 + button_height;
-			window_display_image(sprite_get_button(6), x_buttons, buttons_placement_height[6]); // "Sauver et quitter"
+			buttons_placement_height[1] = buttons_placement_height[0] + SPLASH_MARGIN/2 + button_height;
+			window_display_image(sprite_get_button(6), x_buttons, buttons_placement_height[1]); // "Sauver et quitter"
 
 
 			SDL_GetMouseState(&mouse_x, &mouse_y);
@@ -209,9 +209,9 @@ void break_menu_display(struct game* game) {
 				button_pressed=1;
 			}
 			// Hover button "Sauver et quitter"
-			else if (mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[6] && mouse_y<=buttons_placement_height[6]+button_height) {
+			else if (mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[1] && mouse_y<=buttons_placement_height[1]+button_height) {
 				button_pressed = 2;
-				window_display_image(sprite_get_button(7), x_buttons, buttons_placement_height[6]);
+				window_display_image(sprite_get_button(7), x_buttons, buttons_placement_height[1]);
 			}
 			else
 				button_pressed=-1;
@@ -250,6 +250,7 @@ void break_menu_display(struct game* game) {
 			execution_speed = SDL_GetTicks() - timer;
 			if (execution_speed < ideal_speed)
 				SDL_Delay(ideal_speed - execution_speed);
+
 		}
 }
 
