@@ -41,7 +41,7 @@ struct bomb* bombs_add_bomb(struct bomb *bombs, struct game* game, int x, int y,
 
 	struct bomb* bomb = bomb_create(game, x, y, range);
 	bomb->next = bombs;
-	bomb->time_init = SDL_GetTicks();
+	bomb->time_init = SDL_GetTicks() - game->break_time;
 	player_dec_nb_bomb(game_get_player(game));
 	return bomb;
 }
@@ -49,7 +49,7 @@ struct bomb* bombs_add_bomb(struct bomb *bombs, struct game* game, int x, int y,
 void bomb_update(struct bomb *bombs, struct game* game){
 	unsigned int time_live;
 	while (bombs != NULL){
-			time_live = SDL_GetTicks() - bombs->time_init;
+			time_live = SDL_GetTicks() - bombs->time_init - game->break_time;
 			// time in milliseconds
 			if(time_live <= 1000)
 				bombs->state=3;

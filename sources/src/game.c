@@ -64,6 +64,10 @@ struct game* game_new(struct game_infos* game_infos) {
 	// set exit flag to null
 	game->exit_reason = IN_GAME;
 
+	//set break flag to null
+	game->game_status = GAME;
+	game->break_time=0;
+
 	return game;
 }
 
@@ -192,23 +196,42 @@ static short input_keyboard(struct game* game) {
 			case SDLK_ESCAPE:
 				return 1;
 			case SDLK_UP:
-				player_set_current_way(player, NORTH);
-				player_move(game);
+				if (game->game_status == GAME){
+					player_set_current_way(player, NORTH);
+					player_move(game);
+				}
 				break;
 			case SDLK_DOWN:
-				player_set_current_way(player, SOUTH);
-				player_move(game);
+				if (game->game_status == GAME){
+					player_set_current_way(player, SOUTH);
+					player_move(game);
+				}
 				break;
 			case SDLK_RIGHT:
-				player_set_current_way(player, EAST);
-				player_move(game);
+				if (game->game_status == GAME){
+					player_set_current_way(player, EAST);
+					player_move(game);
+				}
 				break;
 			case SDLK_LEFT:
-				player_set_current_way(player, WEST);
-				player_move(game);
+				if (game->game_status == GAME){
+					player_set_current_way(player, WEST);
+					player_move(game);
+				}
 				break;
 			case SDLK_SPACE:
-				game->bombs = bombs_add_bomb(bombs, game, player_get_x(player), player_get_y(player), player_get_range(player));
+				if (game->game_status == GAME)
+					game->bombs = bombs_add_bomb(bombs, game, player_get_x(player), player_get_y(player), player_get_range(player));
+				break;
+			case SDLK_p:
+				if (!game->game_status){
+					game->game_status = BREAK;
+					game->break_time_begin = SDL_GetTicks();
+				}
+				else{
+					game->game_status = GAME;
+					game->break_time = game->break_time + SDL_GetTicks()- game->break_time_begin;
+				}
 				break;
 			default:
 				break;

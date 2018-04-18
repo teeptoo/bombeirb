@@ -71,6 +71,11 @@ enum exit_reason {
 	EXIT_VICTORY		// 2
 };
 
+enum game_status {
+	GAME,			// 0
+	BREAK		// 1
+};
+
 struct game {
 	struct map** maps;       // the game's map - tableau des maps
 	short nb_levels;        // nb maps of the game
@@ -78,6 +83,9 @@ struct game {
 	struct player* player;
 	struct bomb* bombs;
 	enum exit_reason exit_reason;
+	enum game_status game_status;
+	unsigned int break_time;
+	unsigned int break_time_begin;
 };
 
 struct game_infos
