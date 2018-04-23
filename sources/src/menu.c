@@ -192,7 +192,7 @@ void break_menu_display(struct game* game) {
 			// fixed elements
 			map_display(map);
 			window_display_image(sprite_get_menu_break(), x/2-(sprite_get_menu_break()->w)/2, SPLASH_MARGIN);
-			window_display_image(sprite_get_credits(), x/2-(sprite_get_credits()->w)/2, y-5);
+			window_display_image(sprite_get_credits(), x/2-(sprite_get_credits()->w)/2, y);
 
 
 			// buttons
