@@ -15,6 +15,7 @@
 #include <player.h>
 #include <bomb.h>
 
+
 struct game_infos* game_get_config_from_file(char * file)
 {
 	struct game_infos* game_infos = malloc(sizeof(*game_infos));
@@ -59,7 +60,12 @@ struct game* game_new(struct game_infos* game_infos) {
 	player_set_position(game->player, game->maps[0]->starting_x, game->maps[0]->starting_y);
 
 	// set list bombs
-	game->bombs=bombs_init(game->maps);
+	game->bombs=bombs_init();
+
+	// set list monsters
+//	game->monsters = monsters_init();
+//	game->monsters=monsters_add_monster(game, 3,3);
+	game->monsters=monster_create(game,3,0);
 
 	// set exit flag to null
 	game->exit_reason = IN_GAME;
@@ -102,6 +108,11 @@ struct player* game_get_player(struct game* game) {
 struct bomb* game_get_bombs(struct game* game) {
 	assert(game);
 	return game->bombs;
+}
+
+struct monster* game_get_monsters(struct game* game){
+	assert(game);
+	return game->monsters;
 }
 
 short game_get_current_level(struct game* game) {
@@ -173,6 +184,7 @@ void game_display(struct game* game) {
 	map_display(game_get_current_map(game));
 	player_display(game->player);
 	bomb_display(game->bombs, game);
+	monsters_display(game->monsters, game);
 
 	window_refresh();
 }

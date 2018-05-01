@@ -1,6 +1,7 @@
 #ifndef STRUCTURES_H_
 #define STRUCTURES_H_
 
+
 #include <constant.h>
 
 enum cell_type {
@@ -77,6 +78,7 @@ struct game {
 	short current_level;
 	struct player* player;
 	struct bomb* bombs;
+	struct monster* monsters;
 	enum exit_reason exit_reason;
 };
 
