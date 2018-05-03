@@ -4,5 +4,5 @@ sources/.obj/
 .project
 .cproject
 sources/\.cproject
-
 sources/\.settings/language\.settings\.xml
+sources/data/player_saved.txt
