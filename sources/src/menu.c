@@ -225,6 +225,7 @@ void break_menu_display(struct game* game) {
 				case SDL_KEYDOWN:
 					if (event.key.keysym.sym == SDLK_p){
 						game->game_status = GAME;
+						game->break_time = game->break_time + SDL_GetTicks()- game->break_time_begin;
 						done = 1;
 					}
 					break;
@@ -235,6 +236,7 @@ void break_menu_display(struct game* game) {
 						case 1: // Reprendre
 							done = 1;
 							game->game_status = GAME;
+							game->break_time = game->break_time + SDL_GetTicks()- game->break_time_begin;
 							break;
 						case 2: // Sauver et quitter
 							game->exit_reason = EXIT_GAME_OVER;

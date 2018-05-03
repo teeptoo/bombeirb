@@ -224,14 +224,8 @@ static short input_keyboard(struct game* game) {
 					game->bombs = bombs_add_bomb(bombs, game, player_get_x(player), player_get_y(player), player_get_range(player));
 				break;
 			case SDLK_p:
-				if (!game->game_status){
-					game->game_status = BREAK;
-					game->break_time_begin = SDL_GetTicks();
-				}
-				else{
-					game->game_status = GAME;
-					game->break_time = game->break_time + SDL_GetTicks()- game->break_time_begin;
-				}
+				game->game_status = BREAK;
+				game->break_time_begin = SDL_GetTicks();
 				break;
 			default:
 				break;
