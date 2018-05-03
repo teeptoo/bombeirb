@@ -147,7 +147,7 @@ void launchGame(char* config_file)
 			victory_display();
 			break;
 		case EXIT_SAVE:
-			game_save(game);
+			game_save(game, "data/player_saved.txt");
 			break;
 		default:
 			break;
