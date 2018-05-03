@@ -68,7 +68,8 @@ enum direction {
 enum exit_reason {
 	IN_GAME,			// 0
 	EXIT_GAME_OVER,		// 1
-	EXIT_VICTORY		// 2
+	EXIT_VICTORY,		// 2
+	EXIT_SAVE			// 3
 };
 
 enum game_status {

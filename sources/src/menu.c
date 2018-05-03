@@ -146,6 +146,9 @@ void launchGame(char* config_file)
 		case EXIT_VICTORY:
 			victory_display();
 			break;
+		case EXIT_SAVE:
+			game_save(game);
+			break;
 		default:
 			break;
 	}
@@ -239,7 +242,7 @@ void break_menu_display(struct game* game) {
 							game->break_time = game->break_time + SDL_GetTicks()- game->break_time_begin;
 							break;
 						case 2: // Sauver et quitter
-							game->exit_reason = EXIT_GAME_OVER;
+							game->exit_reason = EXIT_SAVE;
 							done = 1;
 							break;
 						} // END switch (button_pressed)

@@ -6,6 +6,7 @@
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include <game.h>
 #include <misc.h>
@@ -242,4 +243,24 @@ int game_update(struct game* game) {
 		return 1; // exit game
 
 	return 0;
+}
+
+void game_save(struct game* game) {
+	if(access("data/player_saved.txt", F_OK) != -1) // if player_saved.txt exists
+		remove("data/player_saved.txt");
+
+	struct player* player = game_get_player(game);
+
+	FILE *f = fopen("data/player_saved.txt", "w");
+
+	// PLAYER
+	fprintf(f, "Player: x=%i, y=%i, current_direction=%i, nb_bombs=%i, nb_life=%i, nb_keys=%i, range=%i\n",
+			player_get_x(player), player_get_y(player),
+			player->current_direction,
+			player_get_nb_bomb(player),
+			player_get_nb_life(player),
+			player_get_nb_keys(player),
+			player_get_range(player));
+
+	fclose(f);
 }
