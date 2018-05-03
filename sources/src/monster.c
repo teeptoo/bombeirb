@@ -70,6 +70,9 @@ int monster_move_aux(struct game* game,  int x, int y) {
 }
 
 enum direction monster_move_direction(){
+	//int x = rand();
+	int x =0;
+	if (x < 0,25)
 
 	int x = rand()%100;
 	if (x < 25)
