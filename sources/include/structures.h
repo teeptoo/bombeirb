@@ -78,11 +78,11 @@ enum game_status {
 };
 
 struct game {
-	struct map** maps;       // the game's map - tableau des maps
 	short nb_levels;        // nb maps of the game
 	short current_level;
 	struct player* player;
 	struct bomb* bombs;
+	struct map** maps;       // the game's map - tableau des maps
 	enum exit_reason exit_reason;
 	enum game_status game_status;
 	unsigned int break_time;

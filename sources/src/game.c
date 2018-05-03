@@ -246,21 +246,39 @@ int game_update(struct game* game) {
 }
 
 void game_save(struct game* game) {
-	if(access("data/player_saved.txt", F_OK) != -1) // if player_saved.txt exists
-		remove("data/player_saved.txt");
+	char * save_file = "data/player_saved.txt";
+	if(access(save_file, F_OK) != -1) // if player_saved.txt exists
+		remove(save_file);
 
 	struct player* player = game_get_player(game);
+	struct bomb* bombs = game_get_bombs(game);
 
-	FILE *f = fopen("data/player_saved.txt", "w");
+	FILE *file = fopen(save_file, "w");
+
+	// GAME
+	fprintf(file, "Game: nb_levels=%i, current_level=%i\n", game->nb_levels, game->current_level);
 
 	// PLAYER
-	fprintf(f, "Player: x=%i, y=%i, current_direction=%i, nb_bombs=%i, nb_life=%i, nb_keys=%i, range=%i\n",
+	fprintf(file, "Player: x=%i, y=%i, current_direction=%i, nb_bombs=%i, nb_life=%i, nb_keys=%i, range=%i\n",
 			player_get_x(player), player_get_y(player),
 			player->current_direction,
-			player_get_nb_bomb(player),
+			player_get_nb_bomb(player) + bombs_get_size(bombs), // We delete all non-exploded bombs and increase bomb counter of the player
 			player_get_nb_life(player),
 			player_get_nb_keys(player),
 			player_get_range(player));
 
-	fclose(f);
+	// MAPS
+	for(int i=0; i<game->nb_levels; i++) // parse all maps
+	{
+		fprintf(file, "Map %i:\n", i);
+		struct map* temp_map = game_get_map_level(game, i);
+		int map_array_size = temp_map->height * temp_map->width;
+
+		for(int j=0; j < map_array_size; j++) // parse all grid elements in map i
+			fprintf(file, "%i ", temp_map->grid[j]);
+		fprintf(file, "\n");
+	}
+
+
+	fclose(file);
 }
