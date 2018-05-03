@@ -131,9 +131,8 @@ int monster_move(struct game* game) {
 }
 
 void monsters_display(struct monster* monsters, struct game* game) {
-	monster_move(game);
+	// monster_move(game);
 	struct monster* temp_monster = monsters;
-
 	while (temp_monster != NULL){
 		window_display_image(sprite_get_monster(temp_monster->current_direction),
 				temp_monster->x * SIZE_BLOC, temp_monster->y * SIZE_BLOC);
