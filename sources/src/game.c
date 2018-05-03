@@ -278,6 +278,62 @@ void game_save(struct game* game, char * save_file) {
 		fprintf(file, "\n");
 	}
 
+	fclose(file);
+}
+
+struct game* game_load_from_file(char * save_file) {
+	struct game* game = malloc(sizeof(*game));
+	assert(game);
+
+	FILE *file = fopen(save_file, "r");
+
+	// Import game infos
+	assert(fscanf(file, "Game: nb_levels=%i, current_level=%i",
+			(short int)&game->nb_levels ,(short int)&game->current_level));
+
+	// Import player infos
+	assert(fscanf(file, "Player: x=%i, y=%i, current_direction=%i, nb_bombs=%i, nb_life=%i, nb_keys=%i, range=%i",
+			&(game->player->x), &(game->player->y),
+			&(game->player->current_direction),
+			&(game->player->nb_bombs),
+			&(short int)game->player->nb_life,
+			&(short int)game->player->nb_keys,
+			&(game->player->range)));
+
+	// Import maps
+	game->maps = malloc(sizeof(struct game));
+	for (int i = 0; i < game->nb_levels; ++i) {
+		char map_to_load[50];
+		sprintf(map_to_load, "data/map_%s_%i.txt", game_infos->map_prefix, i);
+		game->maps[i] = map_get_from_file(map_to_load);
+	}
+
 
 	fclose(file);
+
+	/*
+	// load maps
+	for (int i = 0; i < game->nb_levels; ++i) {
+		char map_to_load[50];
+		sprintf(map_to_load, "data/map_%s_%i.txt", game_infos->map_prefix, i);
+		game->maps[i] = map_get_from_file(map_to_load);
+	}
+
+	// load player infos
+	game->player = player_init(3, 1, 1, 0);
+
+	// set location of the player
+	player_set_position(game->player, game->maps[0]->starting_x, game->maps[0]->starting_y);
+
+	// set list bombs
+	game->bombs=bombs_init(game->maps);
+
+	// set exit flag to null
+	game->exit_reason = IN_GAME;
+
+	//set break flag to null
+	game->game_status = GAME;
+	game->break_time=0;
+
+	return game;*/
 }
