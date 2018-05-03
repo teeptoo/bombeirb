@@ -1,2 +1,2 @@
-2
-easy
+Number of levels: 2
+Map prefix: easy

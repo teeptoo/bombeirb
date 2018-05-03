@@ -27,10 +27,10 @@ struct game_infos* game_get_config_from_file(char * file)
 	assert(game_config_file);
 
 	// read nb levels
-	assert(fscanf(game_config_file, "%d\n", (int *)&game_infos->nb_levels));
+	assert(fscanf(game_config_file, "Number of levels: %d\n", (int *)&game_infos->nb_levels));
 
 	// read map prefix
-	assert(fscanf(game_config_file, "%s", (char *)game_infos->map_prefix));
+	assert(fscanf(game_config_file, "Map prefix: %s", (char *)game_infos->map_prefix));
 
 	fclose(game_config_file);
 	return game_infos;
