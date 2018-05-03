@@ -73,13 +73,10 @@ enum direction monster_move_direction(){
 	//int x = rand();
 	int x =0;
 	if (x < 0,25)
-
-	int x = rand()%100;
-	if (x < 25)
 		return NORTH;
-	else if (x < 50)
+	else if (x < 0,5)
 		return SOUTH;
-	else if (x< 75)
+	else if (x< 0,75)
 		return WEST;
 	else
 		return EAST;
@@ -87,12 +84,12 @@ enum direction monster_move_direction(){
 
 int monster_move(struct game* game) {
 	struct map* map = game_get_current_map(game);
-	struct monster* monster = game_get_monsters(game);
+	struct monster* monsters = game_get_monsters(game); //fonction à créer
 	int move = 0;
 
-	while(monster!=NULL){
-		int x = monster->x;
-		int y = monster->y;
+	while(monsters!=NULL){
+		int x = monsters->x;
+		int y = monsters->y;
 		enum direction direction = monster_move_direction();
 		switch (direction) {
 		case NORTH:
@@ -127,16 +124,14 @@ int monster_move(struct game* game) {
 		}
 		if (move){
 			map_set_cell_type(map, x, y, CELL_EMPTY);
-			map_set_cell_type(map, monster->x, monster->y, CELL_MONSTER);
+			map_set_cell_type(map, monsters->x, monsters->y, CELL_MONSTER);
 		}
 	}
 	return move;
 }
 
 void monsters_display(struct monster* monsters, struct game* game) {
-	if (SDL_GetTicks()%20<0.01) {
-		monster_move(game);
-	}
+	monster_move(game);
 	struct monster* temp_monster = monsters;
 	while (temp_monster != NULL){
 		window_display_image(sprite_get_monster(temp_monster->current_direction),
