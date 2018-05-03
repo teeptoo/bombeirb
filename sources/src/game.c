@@ -245,8 +245,7 @@ int game_update(struct game* game) {
 	return 0;
 }
 
-void game_save(struct game* game) {
-	char * save_file = "data/player_saved.txt";
+void game_save(struct game* game, char * save_file) {
 	if(access(save_file, F_OK) != -1) // if player_saved.txt exists
 		remove(save_file);
 

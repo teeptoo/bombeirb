@@ -47,6 +47,6 @@ void game_display(struct game* game);
 int game_update(struct game* game);
 
 // save game & player infos
-void game_save(struct game* game);
+void game_save(struct game* game, char * save_file);
 
 #endif /* GAME_H_ */
