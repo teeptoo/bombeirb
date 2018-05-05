@@ -5,6 +5,7 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
+#include <unistd.h>
 
 #include <constant.h>
 #include <game.h>
@@ -34,6 +35,14 @@ void launchMenu(void)
 	SDL_Event event;
 
 	window_resize(MENU_WIDTH, MENU_HEIGHT);
+
+	// Check if a game is saved
+	int game_saved;
+	if(access("data/player_saved.txt", F_OK) != -1) // if player_saved.txt exists
+		game_saved=1;
+	else
+		game_saved=0;
+
 	while(!done)
 	{
 		window_clear();
@@ -42,7 +51,10 @@ void launchMenu(void)
 
 		// buttons
 		buttons_placement_height[0] = 2*SPLASH_MARGIN + sprite_get_logo()->h;
-		window_display_image(sprite_get_button(0), x_buttons, buttons_placement_height[0]); // "Reprendre"
+		if(game_saved)
+			window_display_image(sprite_get_button(0), x_buttons, buttons_placement_height[0]); // "Reprendre"
+		else
+			window_display_image(sprite_get_button(8), x_buttons, buttons_placement_height[0]); // "Reprendre" disabled
 		buttons_placement_height[1] = buttons_placement_height[0] + SPLASH_MARGIN/2 + button_height;
 		window_display_image(sprite_get_button(2), x_buttons, buttons_placement_height[1]); // "Facile"
 		buttons_placement_height[2] = buttons_placement_height[1] + SPLASH_MARGIN/2 + button_height;
@@ -50,7 +62,7 @@ void launchMenu(void)
 
 		SDL_GetMouseState(&mouse_x, &mouse_y);
 		// Hover button "Reprendre"
-		if (mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[0] && mouse_y<=buttons_placement_height[0]+button_height) {
+		if (game_saved && mouse_x>=x_buttons && mouse_x<=x_buttons+button_width && mouse_y>=buttons_placement_height[0] && mouse_y<=buttons_placement_height[0]+button_height) {
 			window_display_image(sprite_get_button(1), x_buttons, buttons_placement_height[0]);
 			button_pressed=0;
 		}
@@ -80,14 +92,15 @@ void launchMenu(void)
 					switch (button_pressed) {
 					case 0: // Reprendre
 						done = 1;
+						launchGame(game_load_from_file("data/player_saved.txt"));
 						break;
 					case 1: // Facile
 						done = 1;
-						launchGame("data/game_default_easy.txt");
+						launchGame(game_load_from_game_infos("data/game_default_easy.txt"));
 						break;
 					case 2: // Difficile
 						done = 1;
-						launchGame("data/game_default_hard.txt");
+						launchGame(game_load_from_game_infos("data/game_default_hard.txt"));
 						break;
 					} // END switch (button_pressed)
 				} // END if (event.button.button == SDL_BUTTON_LEFT)
@@ -102,12 +115,8 @@ void launchMenu(void)
 	}
 }
 
-void launchGame(char* config_file)
+void launchGame(struct game* game)
 {
-	struct game_infos* game_infos = game_get_config_from_file(config_file);
-	struct game* game = game_new(game_infos);
-	game_infos_free(game_infos);
-
 	window_resize(SIZE_BLOC * map_get_width(game_get_current_map(game)),
 	SIZE_BLOC * map_get_height(game_get_current_map(game)) + BANNER_HEIGHT + LINE_HEIGHT);
 
@@ -141,9 +150,13 @@ void launchGame(char* config_file)
 	switch(game->exit_reason)
 	{
 		case EXIT_GAME_OVER:
+			if(access("data/player_saved.txt", F_OK) != -1) // if player_saved.txt exists
+				remove("data/player_saved.txt");
 			game_over_display();
 			break;
 		case EXIT_VICTORY:
+			if(access("data/player_saved.txt", F_OK) != -1) // if player_saved.txt exists
+				remove("data/player_saved.txt");
 			victory_display();
 			break;
 		case EXIT_SAVE:

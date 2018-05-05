@@ -8,8 +8,8 @@
 // Display menu with mode selection
 void launchMenu();
 
-// Launch depending on a configuration file
-void launchGame(char* config_file);
+// Launch the given game
+void launchGame(struct game* game);
 
 // Display "Game Oveirb" centered and resize window before returning to the menu
 void game_over_display();
