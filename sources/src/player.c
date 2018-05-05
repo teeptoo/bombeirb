@@ -84,7 +84,7 @@ void player_inc_nb_bomb(struct player* player) {
 
 void player_dec_nb_bomb(struct player* player) {
 	assert(player);
-	if(player->nb_bombs > 1)
+	if(player->nb_bombs > 0)
 		player->nb_bombs -= 1;
 }
 
