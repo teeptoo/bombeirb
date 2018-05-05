@@ -196,10 +196,10 @@ struct map* map_get_from_file(char* file)
 	assert(map_file);
 
 	// get map size
-	assert(fscanf(map_file, "%d x %d\n", &map_width, &map_height));
+	assert(fscanf(map_file, "Size: %d x %d\n", &map_width, &map_height));
 
 	// get map starting point
-	assert(fscanf(map_file, "%d ; %d\n", &map_starting_x, &map_starting_y));
+	assert(fscanf(map_file, "Pop coords: %d ; %d\n", &map_starting_x, &map_starting_y));
 
 	// init pointers
 	line_temp = malloc(3 * (map_width+1) * sizeof(char)); // 2 digits and 1 blank max per grid element + 3*1 for delimiters (\n and \0)

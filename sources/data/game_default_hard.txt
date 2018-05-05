@@ -1,2 +1,2 @@
-2
-hard
+Number of levels: 2
+Map prefix: hard

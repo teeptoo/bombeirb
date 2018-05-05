@@ -63,6 +63,7 @@
 #define MENU_CREDITS 	"sprite/credits.png"
 #define MENU_BUTTON_REPRENDRE			"sprite/button_reprendre.jpg"
 #define MENU_BUTTON_REPRENDRE_HOVER		"sprite/button_reprendre_hover.jpg"
+#define MENU_BUTTON_REPRENDRE_DISABLED	"sprite/button_reprendre_disabled.jpg"
 #define MENU_BUTTON_FACILE				"sprite/button_facile.jpg"
 #define MENU_BUTTON_FACILE_HOVER		"sprite/button_facile_hover.jpg"
 #define MENU_BUTTON_DIFFICILE			"sprite/button_difficile.jpg"
@@ -104,7 +105,7 @@ SDL_Surface* player_img[4];
 SDL_Surface* princess;
 
 // menu elements
-#define NB_BUTTONS 8
+#define NB_BUTTONS 9
 SDL_Surface* logo;
 SDL_Surface* menu_wallpaper;
 SDL_Surface* credits;
@@ -252,11 +253,12 @@ static void buttons_load()
 	buttons[5] = load_image(MENU_BUTTON_DIFFICILE_HOVER);
 	buttons[6] = load_image(MENU_BOUTON_SAUVER_QUITTER);
 	buttons[7] = load_image(MENU_BOUTON_SAUVER_QUITTER_HOVER);
+	buttons[8] = load_image(MENU_BUTTON_REPRENDRE_DISABLED);
 }
 
 static void buttons_unload()
 {
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < NB_BUTTONS; i++)
 		SDL_FreeSurface(buttons[i]);
 }
 
