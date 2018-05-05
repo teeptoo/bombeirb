@@ -126,7 +126,7 @@ struct monster {
 	int x, y;
 	enum direction current_direction;
 	short current_level;
-	unsigned int speed;
+	unsigned int time_speed;
 	struct monster* next;
 };
 

@@ -23,7 +23,7 @@ struct monster* monster_create(struct game* game, int x, int y){
 	monster->y = y;
 	monster->current_direction = SOUTH;
 	monster->current_level = game_get_current_level(game);
-	monster->speed = 1;
+	monster->time_speed = SDL_GetTicks();
 	monster->next = NULL;
 
 	map_set_cell_type(game_get_current_map(game), x, y ,CELL_MONSTER);
@@ -83,12 +83,11 @@ enum direction monster_move_direction(){
 		return EAST;
 }
 
-int monster_move(struct game* game) {
+void monster_move(struct game* game) {
 	struct map* map = game_get_current_map(game);
 	struct monster* monsters = game_get_monsters(game);
 	int move = 0;
 
-	while(monsters!=NULL){
 		int x = monsters->x;
 		int y = monsters->y;
 		enum direction direction = monster_move_direction();
@@ -127,18 +126,17 @@ int monster_move(struct game* game) {
 			map_set_cell_type(map, x, y, CELL_EMPTY);
 			map_set_cell_type(map, monsters->x, monsters->y, CELL_MONSTER);
 		}
-		monsters=monsters->next;
-	}
-	return move;
+
+	monsters->time_speed=SDL_GetTicks();
 }
 
 void monsters_display(struct monster* monsters, struct game* game) {
 
-	if (SDL_GetTicks()%20<0.1) {
-		monster_move(game);
-	}
 	struct monster* temp_monster = monsters;
 	while (temp_monster != NULL){
+		if (SDL_GetTicks()-temp_monster->time_speed > 1000 - 500*game_get_current_level(game)) {
+				monster_move(game);
+		}
 		if (temp_monster->x==player_get_x(game_get_player(game)) && temp_monster->y==player_get_y(game_get_player(game))) {
 			player_dec_nb_life(game);
 		}

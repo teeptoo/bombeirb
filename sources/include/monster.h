@@ -15,7 +15,7 @@ int monster_move_aux(struct game* game,  int x, int y);
 
 enum direction monster_move_direction();
 
-int monster_move(struct game* game);
+void monster_move(struct game* game);
 
 void monsters_display(struct monster* monsters, struct game* game);
 

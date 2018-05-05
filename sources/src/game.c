@@ -14,6 +14,7 @@
 #include <constant.h>
 #include <player.h>
 #include <bomb.h>
+#include <monster.h>
 
 
 struct game_infos* game_get_config_from_file(char * file)
@@ -64,7 +65,7 @@ struct game* game_new(struct game_infos* game_infos) {
 
 	// set list monsters
 	game->monsters = monsters_init();
-	//game->monsters=monsters_add_monster(game,3,3);
+	game->monsters=monsters_add_monster(game,3,3);
 
 	// set exit flag to null
 	game->exit_reason = IN_GAME;
