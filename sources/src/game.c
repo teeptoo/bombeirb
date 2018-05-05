@@ -15,6 +15,8 @@
 #include <constant.h>
 #include <player.h>
 #include <bomb.h>
+#include <monster.h>
+
 
 struct game_infos* game_get_config_from_file(char * file)
 {
@@ -54,13 +56,17 @@ struct game* game_new(struct game_infos* game_infos) {
 	}
 
 	// load player infos
-	game->player = player_init(3, 1, 1, 0);
+	game->player = player_init(3, 3, 1, 0);
 
 	// set location of the player
 	player_set_position(game->player, game->maps[0]->starting_x, game->maps[0]->starting_y);
 
 	// set list bombs
 	game->bombs=bombs_init();
+
+	// set list monsters
+	game->monsters = monsters_init();
+	game->monsters=monsters_add_monster(game,3,3);
 
 	// set exit flag to null
 	game->exit_reason = IN_GAME;
@@ -109,6 +115,11 @@ struct bomb* game_get_bombs(struct game* game) {
 	return game->bombs;
 }
 
+struct monster* game_get_monsters(struct game* game){
+	assert(game);
+	return game->monsters;
+}
+
 short game_get_current_level(struct game* game) {
 	assert(game);
 	return game->current_level;
@@ -125,6 +136,11 @@ void game_set_level(struct game* game, int level) {
 void game_set_bomb(struct game * game, struct bomb * bombs){
 	assert(game);
 	game->bombs = bombs;
+}
+
+void game_set_monsters(struct game * game, struct monster* monster){
+	assert(game);
+	game->monsters = monster;
 }
 
 void game_banner_display(struct game* game) {
@@ -178,6 +194,7 @@ void game_display(struct game* game) {
 	map_display(game_get_current_map(game));
 	player_display(game->player);
 	bomb_display(game->bombs, game);
+	monsters_display(game->monsters, game);
 
 	window_refresh();
 }

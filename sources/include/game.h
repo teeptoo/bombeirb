@@ -25,6 +25,9 @@ struct player* game_get_player(struct game* game);
 // Return the list of bombs
 struct bomb* game_get_bombs(struct game* game);
 
+// Return the list of monsters
+struct monster* game_get_monsters(struct game* game);
+
 // Return the current level
 short game_get_current_level(struct game* game);
 
@@ -39,6 +42,9 @@ void game_set_level(struct game* game, int level);
 
 // Update the bombs list
 void game_set_bomb(struct game * game, struct bomb * bombs);
+
+// Update the monsters list
+void game_set_monsters(struct game * game, struct monster* monster);
 
 // Display the game on the screen
 void game_display(struct game* game);

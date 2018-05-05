@@ -217,14 +217,14 @@ struct map* map_get_from_file(char* file)
 	assert(map);
 
 	// get map's content
-	for (pos_line=0; pos_line<map->height; pos_line++)
+	for (pos_line=0; pos_line<map_height; pos_line++)
 	{
 		// for each line, read it from file, then split, then filling map grid
-		assert(fgets(line_temp, 3*(map->width+1)*sizeof(char), map_file)); // current line
+		assert(fgets(line_temp, 3*(map_width+1)*sizeof(char), map_file)); // current line
 		token = strtok(line_temp, " "); // split with spaces
-		for(pos_elt=0; pos_elt<map->width; pos_elt++)
+		for(pos_elt=0; pos_elt<map_width; pos_elt++)
 		{
-			map->grid[pos_line*map->width + pos_elt]=(unsigned char)atoi(token); // filling map grip
+			map->grid[pos_line*map_width + pos_elt]=(unsigned char)atoi(token); // filling map grip
 			token=strtok(NULL, " "); // grab next occurrence
 		} // END for(pos_elt=0; pos_elt<map_width; pos_elt++)
 	} // END for (pos_line=O; pos_line<map_height; pos_line++)

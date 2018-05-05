@@ -1,6 +1,7 @@
 #ifndef STRUCTURES_H_
 #define STRUCTURES_H_
 
+
 #include <constant.h>
 
 enum cell_type {
@@ -64,6 +65,10 @@ enum direction {
 	EAST //3
 };
 
+enum immunity {
+	immune,
+	no_immune
+};
 
 enum exit_reason {
 	IN_GAME,			// 0
@@ -83,6 +88,7 @@ struct game {
 	struct player* player;
 	struct bomb* bombs;
 	struct map** maps;       // the game's map - tableau des maps
+	struct monster* monsters;
 	enum exit_reason exit_reason;
 	enum game_status game_status;
 	unsigned int break_time;
@@ -110,6 +116,10 @@ struct player {
 	short nb_life;
 	short nb_keys;
 	int range;
+	enum immunity life_immunity;
+	unsigned int time_immunity_init;
+
+
 };
 
 struct bomb {
@@ -120,6 +130,14 @@ struct bomb {
   int state;
   short mortality;
   struct bomb *next;
+};
+
+struct monster {
+	int x, y;
+	enum direction current_direction;
+	short current_level;
+	unsigned int time_speed;
+	struct monster* next;
 };
 
 #endif /* INCLUDE_STRUCTURES_H_ */
