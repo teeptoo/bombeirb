@@ -99,6 +99,7 @@ struct map {
 	int width, height;
 	int starting_x, starting_y;
 	unsigned char* grid;
+	short background_RGB[3];
 };
 
 
