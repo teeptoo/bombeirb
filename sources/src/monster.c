@@ -7,6 +7,7 @@
 #include <constant.h>
 #include <game.h>
 #include <map.h>
+#include <player.h>
 
 
 struct monster* monsters_init(){

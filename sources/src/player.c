@@ -104,7 +104,6 @@ void player_dec_nb_life(struct game* game) {
 		game->player->nb_life -= 1;
 		game->player->life_immunity=immune;
 		game->player->time_immunity_init=SDL_GetTicks();
-		printf("coucou");
 	}
 	else if (game->player->nb_life == 1 && game->player->life_immunity==no_immune) {
 		game->exit_reason = EXIT_GAME_OVER;
