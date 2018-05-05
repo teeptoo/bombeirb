@@ -285,9 +285,19 @@ void game_save(struct game* game, char * save_file) {
 	fclose(file);
 }
 
+struct game* game_load_from_game_infos(char * config_file)
+{
+	struct game_infos* game_infos = game_get_config_from_file(config_file);
+	struct game* game = game_new(game_infos);
+	game_infos_free(game_infos);
+
+	return game;
+}
+
 struct game* game_load_from_file(char * save_file) {
 	// Init & Allocation
 	int temp_width, temp_height, temp_starting_x, temp_starting_y;
+	unsigned char temp_elt;
 	struct game* game = malloc(sizeof(*game));
 	assert(game);
 
@@ -331,7 +341,11 @@ struct game* game_load_from_file(char * save_file) {
 		token = strtok(line, " "); // divider is a "_"
 		for(int pos_elt=0; pos_elt<temp_width*temp_height; pos_elt++)
 		{
-			game->maps[i]->grid[pos_elt]=(unsigned char)atoi(token); // filling map i->grid[elt]
+			temp_elt = (unsigned char)atoi(token);
+			if(temp_elt != CELL_BOMB) // reset cells with "ghost" bombs
+				game->maps[i]->grid[pos_elt]=temp_elt; // filling map i->grid[elt]
+			else
+				game->maps[i]->grid[pos_elt]=0;
 			token=strtok(NULL, " "); // grab next occurrence
 		} // END for(int pos_elt=0; pos_elt<temp_width*temp_height; pos_elt++)
 		free(line);

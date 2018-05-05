@@ -49,4 +49,10 @@ int game_update(struct game* game);
 // save game & player infos
 void game_save(struct game* game, char * save_file);
 
+// load and init a game from a game infos file
+struct game* game_load_from_game_infos(char * config_file);
+
+// reload a saved game in a specific file
+struct game* game_load_from_file(char * save_file);
+
 #endif /* GAME_H_ */
