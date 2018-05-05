@@ -133,6 +133,11 @@ void game_set_bomb(struct game * game, struct bomb * bombs){
 	game->bombs = bombs;
 }
 
+void game_set_monsters(struct game * game, struct monster* monster){
+	assert(game);
+	game->monsters = monster;
+}
+
 void game_banner_display(struct game* game) {
 	assert(game);
 

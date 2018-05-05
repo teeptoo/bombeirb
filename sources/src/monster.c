@@ -83,9 +83,8 @@ enum direction monster_move_direction(){
 		return EAST;
 }
 
-void monster_move(struct game* game) {
+void monster_move(struct game* game, struct monster* monsters) {
 	struct map* map = game_get_current_map(game);
-	struct monster* monsters = game_get_monsters(game);
 	int move = 0;
 
 		int x = monsters->x;
@@ -135,7 +134,7 @@ void monsters_display(struct monster* monsters, struct game* game) {
 	struct monster* temp_monster = monsters;
 	while (temp_monster != NULL){
 		if (SDL_GetTicks()-temp_monster->time_speed > 1000 - 500*game_get_current_level(game)) {
-				monster_move(game);
+				monster_move(game, temp_monster);
 		}
 		if (temp_monster->x==player_get_x(game_get_player(game)) && temp_monster->y==player_get_y(game_get_player(game))) {
 			player_dec_nb_life(game);

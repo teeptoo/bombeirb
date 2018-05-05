@@ -11,6 +11,7 @@
 #include <constant.h>
 #include <game.h>
 #include <player.h>
+#include <monster.h>
 
 struct bomb* bombs_init(){
 	struct bomb* bombs = NULL;
@@ -112,6 +113,9 @@ void bomb_explosion_box_type(struct game* game, int x, int y){
 
 		case BONUS_LIFE:
 			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS_LIFE);
+			break;
+		case BONUS_MONSTER:
+			game_set_monsters(game, monsters_add_monster(game,x,y));
 			break;
 		default:
 			map_set_cell_type(game_get_current_map(game), x, y, CELL_EMPTY);

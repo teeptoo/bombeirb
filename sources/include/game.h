@@ -43,6 +43,9 @@ void game_set_level(struct game* game, int level);
 // Update the bombs list
 void game_set_bomb(struct game * game, struct bomb * bombs);
 
+// Update the monsters list
+void game_set_monsters(struct game * game, struct monster* monster);
+
 // Display the game on the screen
 void game_display(struct game* game);
 
