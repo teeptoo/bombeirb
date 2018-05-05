@@ -23,6 +23,7 @@ struct player* player_init(int bomb_number, short life_number, int range, short 
 	player->nb_life = life_number;
 	player->range = range;
 	player->nb_keys = nb_keys;
+	player->life_immunity=no_immune;
 
 	return player;
 }
@@ -99,11 +100,15 @@ void player_inc_nb_life(struct player* player) {
 
 void player_dec_nb_life(struct game* game) {
 	assert(game);
-	if(game->player->nb_life > 1)
+	if(game->player->nb_life > 1 && game->player->life_immunity==no_immune){
 		game->player->nb_life -= 1;
-	else
+		game->player->life_immunity=immune;
+		game->player->time_immunity_init=SDL_GetTicks();
+		printf("coucou");
+	}
+	else if (game->player->nb_life == 1 && game->player->life_immunity==no_immune) {
 		game->exit_reason = EXIT_GAME_OVER;
-
+	}
 }
 
 short player_get_nb_keys(struct player* player) {
@@ -172,6 +177,7 @@ static int player_move_aux(struct game* game, int x, int y) {
 		return 1;
 		break;
 	case CELL_MONSTER:
+		player_dec_nb_life(game);
 		break;
 	case CELL_BOMB:
 		return 0;
@@ -264,9 +270,20 @@ int player_move(struct game* game) {
 	}
 	return move;
 }
+void player_update_immunity(struct player* player){
+	if ((SDL_GetTicks()-player->time_immunity_init)>=3000) {
+		player->life_immunity=no_immune;
+
+	}
+}
 
 void player_display(struct player* player) {
 	assert(player);
-	window_display_image(sprite_get_player(player->current_direction),
+	player_update_immunity(player);
+	if (player->life_immunity==immune)
+		window_display_image(sprite_get_player_immune(player->current_direction),
+					player->x * SIZE_BLOC, player->y * SIZE_BLOC);
+	else
+		window_display_image(sprite_get_player(player->current_direction),
 			player->x * SIZE_BLOC, player->y * SIZE_BLOC);
 }

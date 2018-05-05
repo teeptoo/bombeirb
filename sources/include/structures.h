@@ -65,6 +65,10 @@ enum direction {
 	EAST //3
 };
 
+enum immunity {
+	immune,
+	no_immune
+};
 
 enum exit_reason {
 	IN_GAME,			// 0
@@ -102,6 +106,10 @@ struct player {
 	short nb_life;
 	short nb_keys;
 	int range;
+	enum immunity life_immunity;
+	unsigned int time_immunity_init;
+
+
 };
 
 struct bomb {

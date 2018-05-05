@@ -8,6 +8,7 @@
 #include <game.h>
 #include <map.h>
 
+
 struct monster* monsters_init(){
 	struct monster* monsters = NULL;
 	return monsters;
@@ -39,13 +40,14 @@ struct monster* monsters_add_monster(struct game* game, int x, int y){
 int monster_move_aux(struct game* game,  int x, int y) {
 	struct map* map = game_get_current_map(game);
 
-	if (!map_is_inside(map, x, y) || map_get_cell_type(map, x+1, y+1)==CELL_DOOR)//erreur lorsque l'on est au bord de la carte ?
+	if (!map_is_inside(map, x, y))
 		return 0;
 
 	switch (map_get_cell_type(map, x, y)) {
 	case CELL_SCENERY:
 		if(map_get_full_cell(map, x, y) == CELL_PRINCESS)
 			return 0;
+		return 0;
 		break;
 	case CELL_BOX:
 		return 0;
@@ -54,7 +56,7 @@ int monster_move_aux(struct game* game,  int x, int y) {
 		return 1;
 		break;
 	case CELL_KEY:
-		return 1;
+		return 0;
 		break;
 	case CELL_MONSTER:
 		return 0;
@@ -63,20 +65,18 @@ int monster_move_aux(struct game* game,  int x, int y) {
 		return 0;
 		break;
 	default:
+		return 1;
 		break;
 	}
-	// monster has moved
-	return 1;
 }
 
 enum direction monster_move_direction(){
-	//int x = rand();
-	int x =0;
-	if (x < 0,25)
+	int x = rand()%100;
+	if (x < 25)
 		return NORTH;
-	else if (x < 0,5)
+	else if (x < 50)
 		return SOUTH;
-	else if (x< 0,75)
+	else if (x< 75)
 		return WEST;
 	else
 		return EAST;
@@ -84,7 +84,7 @@ enum direction monster_move_direction(){
 
 int monster_move(struct game* game) {
 	struct map* map = game_get_current_map(game);
-	struct monster* monsters = game_get_monsters(game); //fonction à créer
+	struct monster* monsters = game_get_monsters(game);
 	int move = 0;
 
 	while(monsters!=NULL){
@@ -126,14 +126,21 @@ int monster_move(struct game* game) {
 			map_set_cell_type(map, x, y, CELL_EMPTY);
 			map_set_cell_type(map, monsters->x, monsters->y, CELL_MONSTER);
 		}
+		monsters=monsters->next;
 	}
 	return move;
 }
 
 void monsters_display(struct monster* monsters, struct game* game) {
-	monster_move(game);
+
+	if (SDL_GetTicks()%20<0.1) {
+		monster_move(game);
+	}
 	struct monster* temp_monster = monsters;
 	while (temp_monster != NULL){
+		if (temp_monster->x==player_get_x(game_get_player(game)) && temp_monster->y==player_get_y(game_get_player(game))) {
+			player_dec_nb_life(game);
+		}
 		window_display_image(sprite_get_monster(temp_monster->current_direction),
 				temp_monster->x * SIZE_BLOC, temp_monster->y * SIZE_BLOC);
 		temp_monster=temp_monster->next;
