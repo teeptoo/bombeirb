@@ -41,7 +41,7 @@ struct game* game_new(struct game_infos* game_infos) {
 	struct game* game = malloc(sizeof(*game));
 	assert(game);
 
-	game->maps = malloc(sizeof(struct game));
+	game->maps = malloc(sizeof(struct map));
 	// load game infos
 	game->nb_levels = game_infos->nb_levels;
 	game->current_level = 0;
@@ -60,7 +60,7 @@ struct game* game_new(struct game_infos* game_infos) {
 	player_set_position(game->player, game->maps[0]->starting_x, game->maps[0]->starting_y);
 
 	// set list bombs
-	game->bombs=bombs_init(game->maps);
+	game->bombs=bombs_init();
 
 	// set exit flag to null
 	game->exit_reason = IN_GAME;
@@ -269,10 +269,14 @@ void game_save(struct game* game, char * save_file) {
 	// MAPS
 	for(int i=0; i<game->nb_levels; i++) // parse all maps
 	{
-		fprintf(file, "Map %i:\n", i);
 		struct map* temp_map = game_get_map_level(game, i);
 		int map_array_size = temp_map->height * temp_map->width;
-
+		fprintf(file, "Map %i: %i x %i ; starting_x=%i, starting_y=%i\n",
+				i,
+				temp_map->width,
+				temp_map->height,
+				temp_map->starting_x,
+				temp_map->starting_y);
 		for(int j=0; j < map_array_size; j++) // parse all grid elements in map i
 			fprintf(file, "%i ", temp_map->grid[j]);
 		fprintf(file, "\n");
@@ -282,58 +286,63 @@ void game_save(struct game* game, char * save_file) {
 }
 
 struct game* game_load_from_file(char * save_file) {
+	// Init & Allocation
+	int temp_width, temp_height, temp_starting_x, temp_starting_y;
 	struct game* game = malloc(sizeof(*game));
 	assert(game);
+
+	game->player = malloc(sizeof(*(game->player)));
+	assert(game->player);
+
+	game->bombs=bombs_init();
 
 	FILE *file = fopen(save_file, "r");
 
 	// Import game infos
-	assert(fscanf(file, "Game: nb_levels=%i, current_level=%i",
-			(short int)&game->nb_levels ,(short int)&game->current_level));
+	assert(fscanf(file, "Game: nb_levels=%i, current_level=%i\n",
+			(int*)&game->nb_levels, (int*)&game->current_level ));
 
 	// Import player infos
-	assert(fscanf(file, "Player: x=%i, y=%i, current_direction=%i, nb_bombs=%i, nb_life=%i, nb_keys=%i, range=%i",
-			&(game->player->x), &(game->player->y),
-			&(game->player->current_direction),
-			&(game->player->nb_bombs),
-			&(short int)game->player->nb_life,
-			&(short int)game->player->nb_keys,
-			&(game->player->range)));
+	assert(fscanf(file, "Player: x=%i, y=%i, current_direction=%i, nb_bombs=%i, nb_life=%i, nb_keys=%i, range=%i\n",
+			&game->player->x, &game->player->y,
+			(int*)&game->player->current_direction,
+			&game->player->nb_bombs,
+			(int*)&game->player->nb_life,
+			(int*)&game->player->nb_keys,
+			&game->player->range));
+
 
 	// Import maps
-	game->maps = malloc(sizeof(struct game));
-	for (int i = 0; i < game->nb_levels; ++i) {
-		char map_to_load[50];
-		sprintf(map_to_load, "data/map_%s_%i.txt", game_infos->map_prefix, i);
-		game->maps[i] = map_get_from_file(map_to_load);
-	}
-
+	game->maps = malloc(sizeof(struct map));
+	for (int i = 0; i < game->nb_levels; ++i) { // for all maps
+		// Get map i properties from file
+		fscanf(file, "Map %*c: %i x %i ; starting_x=%i, starting_y=%i\n",
+				&temp_width,
+				&temp_height,
+				&temp_starting_x,
+				&temp_starting_y);
+		// Init map i
+		game->maps[i] = map_new(temp_width, temp_height, temp_starting_x, temp_starting_y);
+		// Filling the grid for map i
+		char *line=NULL, *token=NULL;
+		line = malloc(3 * (temp_width*temp_height+1) * sizeof(char)); // everything is on one line
+		assert(line);
+		assert(fgets(line, 3*(temp_width*temp_height+1)*sizeof(char), file));
+		token = strtok(line, " "); // divider is a "_"
+		for(int pos_elt=0; pos_elt<temp_width*temp_height; pos_elt++)
+		{
+			game->maps[i]->grid[pos_elt]=(unsigned char)atoi(token); // filling map i->grid[elt]
+			token=strtok(NULL, " "); // grab next occurrence
+		} // END for(int pos_elt=0; pos_elt<temp_width*temp_height; pos_elt++)
+		free(line);
+	} // END for (int i = 0; i < game->nb_levels; ++i)
 
 	fclose(file);
 
-	/*
-	// load maps
-	for (int i = 0; i < game->nb_levels; ++i) {
-		char map_to_load[50];
-		sprintf(map_to_load, "data/map_%s_%i.txt", game_infos->map_prefix, i);
-		game->maps[i] = map_get_from_file(map_to_load);
-	}
-
-	// load player infos
-	game->player = player_init(3, 1, 1, 0);
-
-	// set location of the player
-	player_set_position(game->player, game->maps[0]->starting_x, game->maps[0]->starting_y);
-
-	// set list bombs
-	game->bombs=bombs_init(game->maps);
-
-	// set exit flag to null
+	// Finishing game creation
 	game->exit_reason = IN_GAME;
-
-	//set break flag to null
 	game->game_status = GAME;
-	game->break_time=0;
+	game->break_time = 0;
 
-	return game;*/
+	return game;
 }
