@@ -1,5 +1,5 @@
 Size: 12 x 12
-Background : R=0, G=0, B=255
+Background : R=149, G=232, B=233
 Pop coords: 2 ; 0
 0 0 0 0 0 0 0 0 0 0 0 0 
 0 0 0 0 0 0 0 0 0 0 0 0 
