@@ -5,6 +5,7 @@
 #include <SDL/SDL_image.h> // IMG_Load
 #include <assert.h>
 
+#include <window.h>
 #include <constant.h>
 #include <misc.h>
 
@@ -45,6 +46,11 @@ void window_display_image(SDL_Surface* sprite, int x, int y) {
 void window_clear() {
 	assert(window);
 	SDL_FillRect(window, NULL, SDL_MapRGB(window->format, 255, 255, 255));
+}
+
+void window_color(short * background_RGB) {
+	assert(window);
+	SDL_FillRect(window, NULL, SDL_MapRGB(window->format, background_RGB[0], background_RGB[1], background_RGB[2]));
 }
 
 void window_refresh() {

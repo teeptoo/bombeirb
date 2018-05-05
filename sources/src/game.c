@@ -172,7 +172,7 @@ void game_banner_display(struct game* game) {
 
 void game_display(struct game* game) {
 	assert(game);
-	window_clear();
+	window_color(game_get_current_map(game)->background_RGB);
 
 	game_banner_display(game);
 	map_display(game_get_current_map(game));
@@ -271,12 +271,15 @@ void game_save(struct game* game, char * save_file) {
 	{
 		struct map* temp_map = game_get_map_level(game, i);
 		int map_array_size = temp_map->height * temp_map->width;
-		fprintf(file, "Map %i: %i x %i ; starting_x=%i, starting_y=%i\n",
+		fprintf(file, "Map %i: %i x %i ; starting_x=%i, starting_y=%i, R=%i, G=%i, B=%i\n",
 				i,
 				temp_map->width,
 				temp_map->height,
 				temp_map->starting_x,
-				temp_map->starting_y);
+				temp_map->starting_y,
+				temp_map->background_RGB[0],
+				temp_map->background_RGB[1],
+				temp_map->background_RGB[2]);
 		for(int j=0; j < map_array_size; j++) // parse all grid elements in map i
 			fprintf(file, "%i ", temp_map->grid[j]);
 		fprintf(file, "\n");
@@ -297,6 +300,7 @@ struct game* game_load_from_game_infos(char * config_file)
 struct game* game_load_from_file(char * save_file) {
 	// Init & Allocation
 	int temp_width, temp_height, temp_starting_x, temp_starting_y;
+	short temp_background[3];
 	unsigned char temp_elt;
 	struct game* game = malloc(sizeof(*game));
 	assert(game);
@@ -326,13 +330,16 @@ struct game* game_load_from_file(char * save_file) {
 	game->maps = malloc(sizeof(struct map));
 	for (int i = 0; i < game->nb_levels; ++i) { // for all maps
 		// Get map i properties from file
-		fscanf(file, "Map %*c: %i x %i ; starting_x=%i, starting_y=%i\n",
+		fscanf(file, "Map %*c: %i x %i ; starting_x=%i, starting_y=%i, R=%i, G=%i, B=%i\n",
 				&temp_width,
 				&temp_height,
 				&temp_starting_x,
-				&temp_starting_y);
+				&temp_starting_y,
+				(int*)&temp_background[0],
+				(int*)&temp_background[1],
+				(int*)&temp_background[2]);
 		// Init map i
-		game->maps[i] = map_new(temp_width, temp_height, temp_starting_x, temp_starting_y);
+		game->maps[i] = map_new(temp_width, temp_height, temp_starting_x, temp_starting_y, temp_background);
 		// Filling the grid for map i
 		char *line=NULL, *token=NULL;
 		line = malloc(3 * (temp_width*temp_height+1) * sizeof(char)); // everything is on one line

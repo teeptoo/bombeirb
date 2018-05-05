@@ -19,7 +19,7 @@
 
 #define CELL(i,j) ( (i) + (j) * map->width)
 
-struct map* map_new(int width, int height, int starting_x, int starting_y)
+struct map* map_new(int width, int height, int starting_x, int starting_y, short * background_RGB)
 {
 	assert(width > 0 && height > 0);
 
@@ -31,6 +31,9 @@ struct map* map_new(int width, int height, int starting_x, int starting_y)
 	map->height = height;
 	map->starting_x = starting_x;
 	map->starting_y = starting_y;
+	map->background_RGB[0] = background_RGB[0];
+	map->background_RGB[1] = background_RGB[1];
+	map->background_RGB[2] = background_RGB[2];
 
 	map->grid = malloc(height * width);
 	if (map->grid == NULL) {
@@ -188,6 +191,7 @@ void map_display(struct map* map)
 struct map* map_get_from_file(char* file)
 {
 	int map_width=0, map_height=0, map_starting_x=0, map_starting_y=0, pos_line, pos_elt;
+	short map_background[3];
 	char *line_temp=NULL, *token=NULL;
 
 	// open file
@@ -198,6 +202,9 @@ struct map* map_get_from_file(char* file)
 	// get map size
 	assert(fscanf(map_file, "Size: %d x %d\n", &map_width, &map_height));
 
+	// get map background color
+	assert(fscanf(map_file, "Background : R=%i, G=%i, B=%i\n", (int*)&map_background[0], (int*)&map_background[1], (int*)&map_background[2]));
+
 	// get map starting point
 	assert(fscanf(map_file, "Pop coords: %d ; %d\n", &map_starting_x, &map_starting_y));
 
@@ -206,7 +213,7 @@ struct map* map_get_from_file(char* file)
 	assert(line_temp);
 
 	// init map
-	struct map* map = map_new(map_width, map_height, map_starting_x, map_starting_y);
+	struct map* map = map_new(map_width, map_height, map_starting_x, map_starting_y, map_background);
 	assert(map);
 
 	// get map's content

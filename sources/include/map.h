@@ -8,7 +8,7 @@
 #include <structures.h>
 
 // Create a new empty map
-struct map* map_new(int width, int height, int starting_x, int starting_y);
+struct map* map_new(int width, int height, int starting_x, int starting_y, short * background_RGB);
 void map_free(struct map* map);
 
 
