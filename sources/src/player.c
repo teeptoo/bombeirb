@@ -79,7 +79,8 @@ int player_get_nb_bomb(struct player* player) {
 
 void player_inc_nb_bomb(struct player* player) {
 	assert(player);
-	player->nb_bombs += 1;
+	if(player->nb_bombs < 9)
+		player->nb_bombs += 1;
 }
 
 void player_dec_nb_bomb(struct player* player) {
@@ -95,7 +96,8 @@ short player_get_nb_life(struct player* player) {
 
 void player_inc_nb_life(struct player* player) {
 	assert(player);
-	player->nb_life += 1;
+	if(player->nb_life < 9)
+		player->nb_life += 1;
 }
 
 void player_dec_nb_life(struct game* game) {
