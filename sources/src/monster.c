@@ -15,14 +15,14 @@ struct monster* monsters_init(){
 	return monsters;
 }
 
-struct monster* monster_create(struct game* game, int x, int y){
+struct monster* monster_create(struct game* game, int x, int y, short map_level){
 	struct monster* monster;
 	monster = malloc(sizeof(struct monster));
 
 	monster->x = x;
 	monster->y = y;
 	monster->current_direction = SOUTH;
-	monster->current_level = game_get_current_level(game);
+	monster->current_level = map_level;
 	monster->time_speed = SDL_GetTicks();
 	monster->next = NULL;
 
@@ -30,16 +30,15 @@ struct monster* monster_create(struct game* game, int x, int y){
 	return monster;
 }
 
-struct monster* monsters_add_monster(struct game* game, int x, int y){
+struct monster* monsters_add_monster(struct game* game, int x, int y, short map_level){
 	struct monster* monsters = game_get_monsters(game);//fonction à créer
 
-	struct monster* monster = monster_create(game, x, y);
+	struct monster* monster = monster_create(game, x, y, map_level);
 	monster->next = monsters;
 	return monster;
 }
 
-int monster_move_aux(struct game* game,  int x, int y) {
-	struct map* map = game_get_current_map(game);
+int monster_move_aux(struct game* game,  int x, int y, struct map* map) {
 
 	if (!map_is_inside(map, x, y))
 		return 0;
@@ -84,7 +83,7 @@ enum direction monster_move_direction(){
 }
 
 void monster_move(struct game* game, struct monster* monsters) {
-	struct map* map = game_get_current_map(game);
+	struct map* map = game_get_map_level(game, monsters->current_level);
 	int move = 0;
 
 		int x = monsters->x;
@@ -92,7 +91,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 		enum direction direction = monster_move_direction();
 		switch (direction) {
 		case NORTH:
-			if (monster_move_aux(game, x, y - 1)) {
+			if (monster_move_aux(game, x, y - 1, map)) {
 				monsters->current_direction=NORTH;
 				monsters->y--;
 				move = 1;
@@ -100,7 +99,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 			break;
 
 		case SOUTH:
-			if (monster_move_aux(game, x, y + 1)) {
+			if (monster_move_aux(game, x, y + 1, map)) {
 				monsters->current_direction=SOUTH;
 				monsters->y++;
 				move = 1;
@@ -108,7 +107,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 			break;
 
 		case WEST:
-			if (monster_move_aux(game, x - 1, y)) {
+			if (monster_move_aux(game, x - 1, y, map)) {
 				monsters->current_direction=WEST;
 				monsters->x--;
 				move = 1;
@@ -116,7 +115,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 			break;
 
 		case EAST:
-			if (monster_move_aux(game, x + 1, y)) {
+			if (monster_move_aux(game, x + 1, y, map)) {
 				monsters->current_direction=EAST;
 				monsters->x++;
 				move = 1;
@@ -140,11 +139,14 @@ void monsters_display(struct monster* monsters, struct game* game) {
 		if (SDL_GetTicks()-temp_monster->time_speed > 1000 - 500*game_get_current_level(game)) {
 				monster_move(game, temp_monster);
 		}
-		if (temp_monster->x==player_get_x(game_get_player(game)) && temp_monster->y==player_get_y(game_get_player(game))) {
+		if (temp_monster->x==player_get_x(game_get_player(game)) && temp_monster->y==player_get_y(game_get_player(game)) && temp_monster->current_level==game_get_current_level(game)) {
 			player_dec_nb_life(game);
 		}
-		window_display_image(sprite_get_monster(temp_monster->current_direction),
-				temp_monster->x * SIZE_BLOC, temp_monster->y * SIZE_BLOC);
-		temp_monster=temp_monster->next;
+		if (temp_monster->current_level == game_get_current_level(game)) {
+			window_display_image(sprite_get_monster(temp_monster->current_direction),
+							temp_monster->x * SIZE_BLOC, temp_monster->y * SIZE_BLOC);
+
+		}
+				temp_monster=temp_monster->next;
 	}
 }

@@ -115,7 +115,7 @@ void bomb_explosion_box_type(struct game* game, int x, int y){
 			map_set_cell_type(game_get_current_map(game), x, y, CELL_BONUS_LIFE);
 			break;
 		case BONUS_MONSTER:
-			game_set_monsters(game, monsters_add_monster(game,x,y));
+			game_set_monsters(game, monsters_add_monster(game,x,y,game_get_current_level(game)));
 			break;
 		default:
 			map_set_cell_type(game_get_current_map(game), x, y, CELL_EMPTY);

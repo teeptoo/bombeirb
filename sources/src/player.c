@@ -176,7 +176,7 @@ static int player_move_aux(struct game* game, int x, int y) {
 		return 1;
 		break;
 	case CELL_MONSTER:
-		player_dec_nb_life(game);
+		//player_dec_nb_life(game);
 		break;
 	case CELL_BOMB:
 		return 0;

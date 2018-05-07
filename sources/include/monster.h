@@ -7,11 +7,11 @@
 
 struct monster* monsters_init();
 
-struct monster* monster_create(struct game* game, int x, int y);
+struct monster* monster_create(struct game* game, int x, int y, short map_level);
 
-struct monster* monsters_add_monster(struct game* game, int x, int y);
+struct monster* monsters_add_monster(struct game* game, int x, int y, short map_level);
 
-int monster_move_aux(struct game* game,  int x, int y);
+int monster_move_aux(struct game* game,  int x, int y, struct map* map);
 
 enum direction monster_move_direction();
 
