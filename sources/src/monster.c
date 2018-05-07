@@ -86,10 +86,13 @@ enum direction monster_move_direction(){
 void monster_move(struct game* game, struct monster* monsters) {
 	struct map* map = game_get_current_map(game);
 	int move = 0;
+	enum direction direction;
 
-		int x = monsters->x;
-		int y = monsters->y;
-		enum direction direction = monster_move_direction();
+	int x = monsters->x;
+	int y = monsters->y;
+	while(!move)
+	{
+		direction = monster_move_direction();
 		switch (direction) {
 		case NORTH:
 			if (monster_move_aux(game, x, y - 1)) {
@@ -125,10 +128,10 @@ void monster_move(struct game* game, struct monster* monsters) {
 		default:
 			break;
 		}
-		if (move){
-			map_set_cell_type(map, x, y, CELL_EMPTY);
-			map_set_cell_type(map, monsters->x, monsters->y, CELL_MONSTER);
-		}
+	}
+
+	map_set_cell_type(map, x, y, CELL_EMPTY);
+	map_set_cell_type(map, monsters->x, monsters->y, CELL_MONSTER);
 
 	monsters->time_speed=SDL_GetTicks();
 }
