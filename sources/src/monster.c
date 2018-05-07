@@ -93,6 +93,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 		switch (direction) {
 		case NORTH:
 			if (monster_move_aux(game, x, y - 1)) {
+				monsters->current_direction=NORTH;
 				monsters->y--;
 				move = 1;
 			}
@@ -100,6 +101,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 
 		case SOUTH:
 			if (monster_move_aux(game, x, y + 1)) {
+				monsters->current_direction=SOUTH;
 				monsters->y++;
 				move = 1;
 			}
@@ -107,6 +109,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 
 		case WEST:
 			if (monster_move_aux(game, x - 1, y)) {
+				monsters->current_direction=WEST;
 				monsters->x--;
 				move = 1;
 			}
@@ -114,6 +117,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 
 		case EAST:
 			if (monster_move_aux(game, x + 1, y)) {
+				monsters->current_direction=EAST;
 				monsters->x++;
 				move = 1;
 			}
