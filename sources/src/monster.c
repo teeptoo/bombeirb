@@ -15,6 +15,15 @@ struct monster* monsters_init(){
 	return monsters;
 }
 
+int monster_get_size(struct monster* monsters){
+	int i = 0;
+	while(monsters!=NULL){
+		i++;
+		monsters=monsters->next;
+	}
+	return i;
+}
+
 struct monster* monster_create(struct game* game, int x, int y, short map_level){
 	struct monster* monster;
 	monster = malloc(sizeof(struct monster));
