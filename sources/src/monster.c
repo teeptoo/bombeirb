@@ -156,8 +156,9 @@ void monsters_display(struct monster* monsters, struct game* game) {
 
 	struct monster* temp_monster = monsters;
 	while (temp_monster != NULL){
-		if (SDL_GetTicks()-temp_monster->time_speed > 1000 - 500*game_get_current_level(game)) {
+		if (SDL_GetTicks()-temp_monster->time_speed>(2000-game_get_current_level(game)*1000)) {
 				monster_move(game, temp_monster);
+				temp_monster->time_speed = SDL_GetTicks();
 		}
 		if (temp_monster->x==player_get_x(game_get_player(game)) && temp_monster->y==player_get_y(game_get_player(game)) && temp_monster->current_level==game_get_current_level(game)) {
 			player_dec_nb_life(game);
