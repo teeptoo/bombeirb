@@ -9,12 +9,6 @@
 #include <map.h>
 #include <player.h>
 
-
-struct monster* monsters_init(){
-	struct monster* monsters = NULL;
-	return monsters;
-}
-
 int monster_get_size(struct monster* monsters){
 	int i = 0;
 	while(monsters!=NULL){
@@ -23,6 +17,18 @@ int monster_get_size(struct monster* monsters){
 	}
 	return i;
 }
+
+void monsters_init(struct game* game){
+	game->monsters = NULL;
+	for (int i = 0; i < game->nb_levels; i++)
+		for (int x = 0; x < game->maps[i]->width; x++)
+			for (int y = 0; y < game->maps[i]->height; y++)
+				if (map_get_cell_type(game->maps[i], x, y)==CELL_MONSTER){
+					game_set_monsters(game, monsters_add_monster(game, x, y, i));
+				}
+}
+
+
 
 struct monster* monster_create(struct game* game, int x, int y, short map_level){
 	struct monster* monster;
@@ -33,6 +39,7 @@ struct monster* monster_create(struct game* game, int x, int y, short map_level)
 	monster->current_direction = SOUTH;
 	monster->current_level = map_level;
 	monster->time_speed = SDL_GetTicks();
+	monster->time_init = SDL_GetTicks();
 	monster->next = NULL;
 
 	map_set_cell_type(game_get_current_map(game), x, y ,CELL_MONSTER);
@@ -111,7 +118,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 		direction = monster_move_direction();
 		switch (direction) {
 		case NORTH:
-			if (monster_move_aux(game, x, y - 1, map) && monster_move_aux(game, x, y - 2, map)) {
+			if (monster_move_aux(game, x, y - 1, map) && monster_move_aux_door(game, x, y - 2, map)) {
 				monsters->current_direction=NORTH;
 				monsters->y--;
 				move = 1;
@@ -119,7 +126,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 			break;
 
 		case SOUTH:
-			if (monster_move_aux(game, x, y + 1, map) && monster_move_aux(game, x, y + 2, map)) {
+			if (monster_move_aux(game, x, y + 1, map) && monster_move_aux_door(game, x, y + 2, map)) {
 				monsters->current_direction=SOUTH;
 				monsters->y++;
 				move = 1;
@@ -127,7 +134,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 			break;
 
 		case WEST:
-			if (monster_move_aux(game, x - 1, y, map) && monster_move_aux(game, x - 2, y, map)) {
+			if (monster_move_aux(game, x - 1, y, map) && monster_move_aux_door(game, x - 2, y, map)) {
 				monsters->current_direction=WEST;
 				monsters->x--;
 				move = 1;
@@ -135,7 +142,7 @@ void monster_move(struct game* game, struct monster* monsters) {
 			break;
 
 		case EAST:
-			if (monster_move_aux(game, x + 1, y, map) && monster_move_aux(game, x + 2, y, map)) {
+			if (monster_move_aux(game, x + 1, y, map) && monster_move_aux_door(game, x + 2, y, map)) {
 				monsters->current_direction=EAST;
 				monsters->x++;
 				move = 1;

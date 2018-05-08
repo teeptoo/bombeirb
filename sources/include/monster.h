@@ -5,7 +5,7 @@
 #include <structures.h>
 //#define RAND_MAX 1
 
-struct monster* monsters_init();
+void monsters_init(struct game* game);
 
 struct monster* monster_create(struct game* game, int x, int y, short map_level);
 
