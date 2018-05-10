@@ -17,6 +17,8 @@ enum direction monster_move_direction();
 
 void monster_move(struct game* game, struct monster* monsters);
 
+struct monster *monsters_delete_monster(struct monster *monsters,struct monster *monster);
+
 void monsters_display(struct monster* monsters, struct game* game);
 
 #endif /* MONSTER */

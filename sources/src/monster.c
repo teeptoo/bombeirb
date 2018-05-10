@@ -159,6 +159,38 @@ void monster_move(struct game* game, struct monster* monsters) {
 	monsters->time_speed=SDL_GetTicks();
 }
 
+struct monster *monsters_delete_monster(struct monster *monsters,struct monster *monster){
+	unsigned int time = SDL_GetTicks() - monster->time_init;
+	if(time<1000)
+		return monsters;
+
+	if (monster_get_size(monsters)==1)
+	{
+		if (monsters->x==monster->x && monsters->y==monster->y && monsters->current_level==monster->current_level)
+		  return NULL;
+		else
+		  return monsters;
+	}
+	else
+	{
+	  if (monsters->x==monster->x && monsters->y==monster->y && monsters->current_level==monster->current_level)
+		return monsters=monsters->next;
+	  if (monsters->next->x==monster->x && monsters->next->y==monster->y && monsters->next->current_level==monster->current_level){
+		  monsters->next = NULL;
+		  return monsters;
+	  }
+
+	  while (monsters!=NULL)
+	  {
+		if (monster->x==monsters->next->x && monster->y==monsters->next->y && monster->current_level==monsters->next->current_level)
+		  monsters->next=monsters->next->next;
+		else
+			monsters=monsters->next;
+	  }
+	}
+	return monsters;
+}
+
 void monsters_display(struct monster* monsters, struct game* game) {
 
 	struct monster* temp_monster = monsters;
