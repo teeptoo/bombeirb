@@ -191,7 +191,6 @@ void victory_display() {
 }
 
 void break_menu_display(struct game* game) {
-
 	struct map* map = game_get_current_map(game);
 	int x = SIZE_BLOC *map_get_width(map), y = SIZE_BLOC *map_get_height(map);;
 	int buttons_placement_height[3], x_buttons=x/2-(sprite_get_button(0)->w)/2, button_pressed=-1;
@@ -210,13 +209,11 @@ void break_menu_display(struct game* game) {
 			window_display_image(sprite_get_menu_break(), x/2-(sprite_get_menu_break()->w)/2, SPLASH_MARGIN);
 			window_display_image(sprite_get_credits(), x/2-(sprite_get_credits()->w)/2, y);
 
-
 			// buttons
 			buttons_placement_height[0] = 2*SPLASH_MARGIN + sprite_get_logo()->h;
 			window_display_image(sprite_get_button(0), x_buttons, buttons_placement_height[0]); // "Reprendre"
 			buttons_placement_height[1] = buttons_placement_height[0] + SPLASH_MARGIN/2 + button_height;
 			window_display_image(sprite_get_button(6), x_buttons, buttons_placement_height[1]); // "Sauver et quitter"
-
 
 			SDL_GetMouseState(&mouse_x, &mouse_y);
 			// Hover button "Reprendre"

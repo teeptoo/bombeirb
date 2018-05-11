@@ -17,24 +17,20 @@ struct player* player_init(int bomb_number, short life_number, int range, short 
 	struct player* player = malloc(sizeof(*player));
 	if (!player)
 		error("Memory error");
-
 	player->current_direction = SOUTH;
 	player->nb_bombs = bomb_number;
 	player->nb_life = life_number;
 	player->range = range;
 	player->nb_keys = nb_keys;
 	player->life_immunity=no_immune;
-
 	return player;
 }
-
 
 void player_set_position(struct player *player, int x, int y) {
 	assert(player);
 	player->x = x;
 	player->y = y;
 }
-
 
 void player_free(struct player* player) {
 	assert(player);
@@ -204,7 +200,6 @@ static int player_move_aux(struct game* game, int x, int y) {
 	default:
 		break;
 	}
-
 	// Player has moved
 	return 1;
 }
@@ -212,7 +207,6 @@ static int player_move_aux(struct game* game, int x, int y) {
 int player_move(struct game* game) {
 	struct player* player = game_get_player(game);
 	struct map* map = game_get_current_map(game);
-
 	int x = player->x;
 	int y = player->y;
 	int move = 0;
