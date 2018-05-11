@@ -28,12 +28,9 @@ void monsters_init(struct game* game){
 				}
 }
 
-
-
 struct monster* monster_create(struct game* game, int x, int y, short map_level){
 	struct monster* monster;
 	monster = malloc(sizeof(struct monster));
-
 	monster->x = x;
 	monster->y = y;
 	monster->current_direction = SOUTH;
@@ -41,21 +38,18 @@ struct monster* monster_create(struct game* game, int x, int y, short map_level)
 	monster->time_speed = SDL_GetTicks();
 	monster->time_init = SDL_GetTicks();
 	monster->next = NULL;
-
 	map_set_cell_type(game_get_current_map(game), x, y ,CELL_MONSTER);
 	return monster;
 }
 
 struct monster* monsters_add_monster(struct game* game, int x, int y, short map_level){
-	struct monster* monsters = game_get_monsters(game);//fonction à créer
-
+	struct monster* monsters = game_get_monsters(game);
 	struct monster* monster = monster_create(game, x, y, map_level);
 	monster->next = monsters;
 	return monster;
 }
 
 int monster_move_aux(struct game* game,  int x, int y, struct map* map) {
-
 	if (!map_is_inside(map, x, y))
 		return 0;
 
@@ -124,7 +118,6 @@ void monster_move(struct game* game, struct monster* monsters) {
 				move = 1;
 			}
 			break;
-
 		case SOUTH:
 			if (monster_move_aux(game, x, y + 1, map) && monster_move_aux_door(game, x, y + 2, map)) {
 				monsters->current_direction=SOUTH;
@@ -132,7 +125,6 @@ void monster_move(struct game* game, struct monster* monsters) {
 				move = 1;
 			}
 			break;
-
 		case WEST:
 			if (monster_move_aux(game, x - 1, y, map) && monster_move_aux_door(game, x - 2, y, map)) {
 				monsters->current_direction=WEST;
@@ -140,7 +132,6 @@ void monster_move(struct game* game, struct monster* monsters) {
 				move = 1;
 			}
 			break;
-
 		case EAST:
 			if (monster_move_aux(game, x + 1, y, map) && monster_move_aux_door(game, x + 2, y, map)) {
 				monsters->current_direction=EAST;
@@ -152,10 +143,8 @@ void monster_move(struct game* game, struct monster* monsters) {
 			break;
 		}
 	}
-
 	map_set_cell_type(map, x, y, CELL_EMPTY);
 	map_set_cell_type(map, monsters->x, monsters->y, CELL_MONSTER);
-
 	monsters->time_speed=SDL_GetTicks();
 }
 
@@ -163,25 +152,20 @@ struct monster *monsters_delete_monster(struct monster *monsters,struct monster 
 	unsigned int time = SDL_GetTicks() - monster->time_init;
 	if(time<1000)
 		return monsters;
-
-	if (monster_get_size(monsters)==1)
-	{
+	if (monster_get_size(monsters)==1){
 		if (monsters->x==monster->x && monsters->y==monster->y && monsters->current_level==monster->current_level)
 		  return NULL;
 		else
 		  return monsters;
 	}
-	else
-	{
+	else{
 	  if (monsters->x==monster->x && monsters->y==monster->y && monsters->current_level==monster->current_level)
 		return monsters=monsters->next;
 	  if (monsters->next->x==monster->x && monsters->next->y==monster->y && monsters->next->current_level==monster->current_level){
 		  monsters->next = NULL;
 		  return monsters;
 	  }
-
-	  while (monsters!=NULL)
-	  {
+	  while (monsters!=NULL){
 		if (monster->x==monsters->next->x && monster->y==monsters->next->y && monster->current_level==monsters->next->current_level)
 		  monsters->next=monsters->next->next;
 		else
@@ -192,21 +176,16 @@ struct monster *monsters_delete_monster(struct monster *monsters,struct monster 
 }
 
 void monsters_display(struct monster* monsters, struct game* game) {
-
 	struct monster* temp_monster = monsters;
 	while (temp_monster != NULL){
 		if (SDL_GetTicks()-temp_monster->time_speed>(2000-game_get_current_level(game)*1000)) {
 				monster_move(game, temp_monster);
 				temp_monster->time_speed = SDL_GetTicks();
 		}
-		if (temp_monster->x==player_get_x(game_get_player(game)) && temp_monster->y==player_get_y(game_get_player(game)) && temp_monster->current_level==game_get_current_level(game)) {
+		if (temp_monster->x==player_get_x(game_get_player(game)) && temp_monster->y==player_get_y(game_get_player(game)) && temp_monster->current_level==game_get_current_level(game))
 			player_dec_nb_life(game);
-		}
-		if (temp_monster->current_level == game_get_current_level(game)) {
-			window_display_image(sprite_get_monster(temp_monster->current_direction),
-							temp_monster->x * SIZE_BLOC, temp_monster->y * SIZE_BLOC);
-
-		}
-				temp_monster=temp_monster->next;
+		if (temp_monster->current_level == game_get_current_level(game))
+			window_display_image(sprite_get_monster(temp_monster->current_direction),temp_monster->x * SIZE_BLOC, temp_monster->y * SIZE_BLOC);
+		temp_monster=temp_monster->next;
 	}
 }
