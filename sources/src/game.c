@@ -66,7 +66,6 @@ struct game* game_new(struct game_infos* game_infos) {
 
 	// set list monsters
 	monsters_init(game);
-	//game->monsters=monsters_add_monster(game,3,3,1);
 
 	// set exit flag to null
 	game->exit_reason = IN_GAME;
