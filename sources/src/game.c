@@ -325,6 +325,7 @@ struct game* game_load_from_file(char * save_file) {
 	assert(game->player);
 
 	game->bombs=bombs_init();
+	monsters_init(game);
 
 	FILE *file = fopen(save_file, "r");
 
