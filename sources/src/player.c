@@ -259,7 +259,7 @@ int player_move(struct game* game) {
 					move=0;
 					return move;
 			}
-			map_set_cell_type(map, box_movement_x, box_movement_y, CELL_BOX);
+			map_set_cell_type(map, box_movement_x, box_movement_y, map_get_full_cell(map, player->x, player->y));
 		}
 		map_set_cell_type(map, player->x, player->y, CELL_EMPTY);
 	}
