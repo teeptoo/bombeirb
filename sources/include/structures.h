@@ -129,6 +129,10 @@ struct bomb {
   unsigned int time_init;
   int state;
   short mortality;
+  short destructed_S;
+  short destructed_N;
+  short destructed_W;
+  short destructed_E;
   struct bomb *next;
 };
 

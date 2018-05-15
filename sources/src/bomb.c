@@ -27,6 +27,10 @@ struct bomb* bomb_create(struct game* game, int x, int y, int range){
 	bomb->current_level = game_get_current_level(game);
 	bomb->state = 3;
 	bomb->mortality = 0;
+	short destructed_S = 0;
+	short destructed_N = 0;
+	short destructed_W = 0;
+	short destructed_E = 0;
 	bomb->next = NULL;
 	map_set_cell_type(game_get_current_map(game), x, y ,CELL_BOMB);
 	return bomb;
@@ -110,11 +114,10 @@ void bomb_explosion_box_type(struct game* game, int x, int y){
 		}
 }
 
-void bomb_explosion_aux(struct bomb* bomb, struct game* game, int x, int y, short current_level){
+short bomb_explosion_aux(struct bomb* bomb, struct game* game, int x, int y, short current_level, short destructed){
 	window_display_image(sprite_get_explosion(),x * SIZE_BLOC, y * SIZE_BLOC);
 	if ((player_get_x(game_get_player(game))==x) && (player_get_y(game_get_player(game))==y) && bomb->mortality==0){
 		player_dec_nb_life(game);
-		bomb->mortality=1;
 	}
 	struct monster* monsters = game_get_monsters(game);
 	while(monsters!=NULL){
@@ -124,14 +127,22 @@ void bomb_explosion_aux(struct bomb* bomb, struct game* game, int x, int y, shor
 		}
 		monsters=monsters->next;
 	}
-	if ( (map_get_cell_type(game_get_current_map(game), x, y) & CELL_BOX) == CELL_BOX)
+	if ( map_get_cell_type(game_get_current_map(game), x, y) == CELL_BOX && destructed==0){
 		bomb_explosion_box_type(game, x, y);
+		destructed=1; // bomb a utilisé son quota de destruction de box
+	}
+	if ( map_get_cell_type(game_get_current_map(game), x, y) == CELL_BONUS && destructed==0){
+		map_set_cell_type(game_get_current_map(game), x, y, CELL_EMPTY);
+		//destructed=1;
+	}
+
 	struct bomb* temp_bomb = game_get_bombs(game);
 	while (temp_bomb != bomb){
 		if(temp_bomb->x==x && temp_bomb->y==y)
 			temp_bomb->time_init = SDL_GetTicks() - 4000;
 		temp_bomb=temp_bomb->next;
 	}
+	return destructed;
 }
 
 
@@ -142,9 +153,10 @@ void bomb_explosion(struct bomb* bomb, struct game* game){
 				&& (map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_EMPTY
 						|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_BOX
 						|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_BOMB
-						|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_MONSTER)
+						|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_MONSTER
+						|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_BONUS)
 				&& bomb->current_level==game_get_current_level(game)) {
-			bomb_explosion_aux(bomb, game, bomb->x, y, bomb->current_level);
+			bomb->destructed_S=bomb_explosion_aux(bomb, game, bomb->x, y, bomb->current_level, bomb->destructed_S);
 		}
 		else{
 			break;
@@ -156,9 +168,10 @@ void bomb_explosion(struct bomb* bomb, struct game* game){
 				&& (map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_EMPTY
 					|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_BOX
 					|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_BOMB
-					|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_MONSTER)
+					|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_MONSTER
+					|| map_get_cell_type(game_get_current_map(game), bomb->x, y) == CELL_BONUS)
 				&& bomb->current_level==game_get_current_level(game)) {
-			bomb_explosion_aux(bomb, game, bomb->x, y, bomb->current_level);
+			bomb->destructed_N = bomb_explosion_aux(bomb, game, bomb->x, y, bomb->current_level, bomb->destructed_N);
 		}
 		else{
 			break;
@@ -170,9 +183,10 @@ void bomb_explosion(struct bomb* bomb, struct game* game){
 				&& (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY
 					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_BOX
 					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_BOMB
-					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_MONSTER)
+					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_MONSTER
+					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_BONUS)
 				&& bomb->current_level==game_get_current_level(game)) {
-			bomb_explosion_aux(bomb, game, x, bomb->y, bomb->current_level);
+			bomb_explosion_aux(bomb, game, x, bomb->y, bomb->current_level, bomb->destructed_W);
 		}
 		else{
 			break;
@@ -184,9 +198,10 @@ void bomb_explosion(struct bomb* bomb, struct game* game){
 				&& (map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_EMPTY
 					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_BOX
 					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_BOMB
-					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_MONSTER)
+					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_MONSTER
+					|| map_get_cell_type(game_get_current_map(game), x, bomb->y) == CELL_BONUS)
 				&& bomb->current_level==game_get_current_level(game)) {
-			bomb_explosion_aux(bomb, game, x, bomb->y, bomb->current_level);
+			bomb_explosion_aux(bomb, game, x, bomb->y, bomb->current_level, bomb->destructed_E);
 		}
 		else{
 			break;
