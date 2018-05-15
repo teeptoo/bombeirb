@@ -51,12 +51,12 @@ struct game* game_new(struct game_infos* game_infos) {
 	// load maps
 	for (int i = 0; i < game->nb_levels; ++i) {
 		char map_to_load[50];
-		sprintf(map_to_load, "data/map_%s_%i.txt", game_infos->map_prefix, i);
+		sprintf(map_to_load, "maps/map_%s_%i.txt", game_infos->map_prefix, i);
 		game->maps[i] = map_get_from_file(map_to_load);
 	}
 
 	// load player infos
-	game->player = player_init(3, 3, 2, 0);
+	game->player = player_init(1, 2, 1, 0);
 
 	// set location of the player
 	player_set_position(game->player, game->maps[0]->starting_x, game->maps[0]->starting_y);
