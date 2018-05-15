@@ -118,8 +118,6 @@ struct player {
 	int range;
 	enum immunity life_immunity;
 	unsigned int time_immunity_init;
-
-
 };
 
 struct bomb {
