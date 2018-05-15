@@ -56,7 +56,7 @@ struct game* game_new(struct game_infos* game_infos) {
 	}
 
 	// load player infos
-	game->player = player_init(3, 2, 1, 1);
+	game->player = player_init(1, 2, 1, 0);
 
 	// set location of the player
 	player_set_position(game->player, game->maps[0]->starting_x, game->maps[0]->starting_y);
