@@ -39,7 +39,7 @@ struct monster* monster_create(struct game* game, int x, int y, short map_level)
 	monster->time_speed = SDL_GetTicks();
 	monster->time_init = SDL_GetTicks();
 	monster->next = NULL;
-	map_set_cell_type(game_get_current_map(game), x, y ,CELL_MONSTER);
+	map_set_cell_type(game_get_map_level(game, map_level), x, y ,CELL_MONSTER);
 	return monster;
 }
 
@@ -180,7 +180,7 @@ void monsters_display(struct monster* monsters, struct game* game) {
 	struct monster* temp_monster = monsters;
 	while (temp_monster != NULL){
 		// la vitesse de délpalcement est fonction du level
-		if (SDL_GetTicks()-temp_monster->time_speed>(2000-game_get_current_level(game)*1000)) {
+		if (SDL_GetTicks()-temp_monster->time_speed>(2500-game_get_current_level(game)*1000)) {
 				monster_move(game, temp_monster);
 				temp_monster->time_speed = SDL_GetTicks();
 		}
