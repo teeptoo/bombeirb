@@ -115,7 +115,8 @@ short player_get_nb_keys(struct player* player) {
 
 void player_inc_nb_keys(struct player* player) {
 	assert(player);
-	player->nb_keys += 1;
+	if(player->nb_keys <9)
+		player->nb_keys += 1;
 }
 
 void player_dec_nb_keys(struct player* player) {
