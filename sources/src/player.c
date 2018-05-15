@@ -173,9 +173,6 @@ static int player_move_aux(struct game* game, int x, int y) {
 		player_inc_nb_keys(game_get_player(game));
 		return 1;
 		break;
-	case CELL_MONSTER:
-		//player_dec_nb_life(game);
-		break;
 	case CELL_BOMB:
 		return 0;
 		break;

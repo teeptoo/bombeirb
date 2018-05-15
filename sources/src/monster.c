@@ -20,6 +20,7 @@ int monster_get_size(struct monster* monsters){
 
 void monsters_init(struct game* game){
 	game->monsters = NULL;
+	// détection des monstres sur les cartes
 	for (int i = 0; i < game->nb_levels; i++)
 		for (int x = 0; x < game->maps[i]->width; x++)
 			for (int y = 0; y < game->maps[i]->height; y++)
@@ -145,12 +146,12 @@ void monster_move(struct game* game, struct monster* monsters) {
 	}
 	map_set_cell_type(map, x, y, CELL_EMPTY);
 	map_set_cell_type(map, monsters->x, monsters->y, CELL_MONSTER);
-	monsters->time_speed=SDL_GetTicks();
+	monsters->time_speed=SDL_GetTicks(); // remise à 0 du compteur pour la vietsse quand le monstre a bougé
 }
 
 struct monster *monsters_delete_monster(struct monster *monsters,struct monster *monster){
 	unsigned int time = SDL_GetTicks() - monster->time_init;
-	if(time<1000)
+	if(time<1000)	// le monstre est immunisé pendant sa premiere seconde de vie
 		return monsters;
 	if (monster_get_size(monsters)==1){
 		if (monsters->x==monster->x && monsters->y==monster->y && monsters->current_level==monster->current_level)
@@ -178,6 +179,7 @@ struct monster *monsters_delete_monster(struct monster *monsters,struct monster 
 void monsters_display(struct monster* monsters, struct game* game) {
 	struct monster* temp_monster = monsters;
 	while (temp_monster != NULL){
+		// la vitesse de délpalcement est fonction du level
 		if (SDL_GetTicks()-temp_monster->time_speed>(2000-game_get_current_level(game)*1000)) {
 				monster_move(game, temp_monster);
 				temp_monster->time_speed = SDL_GetTicks();
