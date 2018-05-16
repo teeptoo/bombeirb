@@ -103,12 +103,12 @@ enum direction monster_move_direction(){
 
 void monster_move(struct game* game, struct monster* monsters) {
 	struct map* map = game_get_map_level(game, monsters->current_level);
-	int move = 0;
+	int move = 0, rand_counter=0;
 	enum direction direction;
 
 	int x = monsters->x;
 	int y = monsters->y;
-	while(!move)
+	while(!move && rand_counter < 10)
 	{
 		direction = monster_move_direction();
 		switch (direction) {
@@ -143,10 +143,14 @@ void monster_move(struct game* game, struct monster* monsters) {
 		default:
 			break;
 		}
+		rand_counter++;
 	}
-	map_set_cell_type(map, x, y, CELL_EMPTY);
-	map_set_cell_type(map, monsters->x, monsters->y, CELL_MONSTER);
-	monsters->time_speed=SDL_GetTicks(); // remise à 0 du compteur pour la vietsse quand le monstre a bougé
+	if(rand_counter < 10)
+	{
+		map_set_cell_type(map, x, y, CELL_EMPTY);
+		map_set_cell_type(map, monsters->x, monsters->y, CELL_MONSTER);
+		monsters->time_speed=SDL_GetTicks(); // remise à 0 du compteur pour la vietsse quand le monstre a bougé
+	}
 }
 
 struct monster *monsters_delete_monster(struct monster *monsters,struct monster *monster){
