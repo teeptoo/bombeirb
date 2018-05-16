@@ -214,7 +214,7 @@ void bomb_destruction(struct bomb* bombs, struct game* game){
 }
 
 int bomb_get_state(struct bomb* bomb){
-	return (bomb->&& monster_move_aux_door(game, x + 2, y, map)state);
+	return (bomb->state);
 }
 
 int bombs_get_size(struct bomb *bombs){
