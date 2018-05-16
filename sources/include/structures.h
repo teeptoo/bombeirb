@@ -126,7 +126,6 @@ struct bomb {
   short current_level;
   unsigned int time_init;
   int state;
-  short mortality;
   struct bomb *next;
 };
 
