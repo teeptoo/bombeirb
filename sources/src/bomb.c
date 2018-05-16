@@ -26,7 +26,6 @@ struct bomb* bomb_create(struct game* game, int x, int y, int range){
 	bomb->y = y;
 	bomb->current_level = game_get_current_level(game);
 	bomb->state = 3;
-	bomb->mortality = 0;
 	bomb->next = NULL;
 	map_set_cell_type(game_get_current_map(game), x, y ,CELL_BOMB);
 	return bomb;
@@ -112,10 +111,8 @@ void bomb_explosion_box_type(struct game* game, int x, int y){
 
 void bomb_explosion_aux(struct bomb* bomb, struct game* game, int x, int y, short current_level){
 	window_display_image(sprite_get_explosion(),x * SIZE_BLOC, y * SIZE_BLOC);
-	if ((player_get_x(game_get_player(game))==x) && (player_get_y(game_get_player(game))==y) && bomb->mortality==0){
+	if ((player_get_x(game_get_player(game))==x) && (player_get_y(game_get_player(game))==y))
 		player_dec_nb_life(game);
-		bomb->mortality=1;
-	}
 	struct monster* monsters = game_get_monsters(game);
 	while(monsters!=NULL){
 		if((monsters->x==x) && (monsters->y==y) && (monsters->current_level==current_level)){
@@ -217,7 +214,7 @@ void bomb_destruction(struct bomb* bombs, struct game* game){
 }
 
 int bomb_get_state(struct bomb* bomb){
-	return (bomb->state);
+	return (bomb->&& monster_move_aux_door(game, x + 2, y, map)state);
 }
 
 int bombs_get_size(struct bomb *bombs){

@@ -75,6 +75,8 @@ int monster_move_aux(struct game* game,  int x, int y, struct map* map) {
 	case CELL_BOMB:
 		return 0;
 		break;
+	case CELL_DOOR:
+		return 0;
 	default:
 		return 1;
 		break;
@@ -82,12 +84,13 @@ int monster_move_aux(struct game* game,  int x, int y, struct map* map) {
 }
 
 int monster_move_aux_door(struct game* game,  int x, int y, struct map* map){
-	if (!map_is_inside(map, x, y))
+	if (map_is_inside(map, x, y)==0)
 		return 1;
 	if (map_get_cell_type(map, x, y)==CELL_DOOR)
 		return 0;
 	return 1;
 }
+
 
 enum direction monster_move_direction(){
 	int x = rand()%100;
@@ -113,28 +116,40 @@ void monster_move(struct game* game, struct monster* monsters) {
 		direction = monster_move_direction();
 		switch (direction) {
 		case NORTH:
-			if (monster_move_aux(game, x, y - 1, map) && monster_move_aux_door(game, x, y - 2, map)) {
+			if (monster_move_aux(game, x, y - 1, map)
+					&& monster_move_aux_door(game, x, y-2, map)
+					&& monster_move_aux_door(game, x-1, y-1 , map)
+					&& monster_move_aux_door(game, x+1, y-1, map)) {
 				monsters->current_direction=NORTH;
 				monsters->y--;
 				move = 1;
 			}
 			break;
 		case SOUTH:
-			if (monster_move_aux(game, x, y + 1, map) && monster_move_aux_door(game, x, y + 2, map)) {
+			if (monster_move_aux(game, x, y + 1, map)
+					&& monster_move_aux_door(game, x, y + 2, map)
+					&& monster_move_aux_door(game, x-1, y+1, map)
+					&& monster_move_aux_door(game, x+1, y+1, map)) {
 				monsters->current_direction=SOUTH;
 				monsters->y++;
 				move = 1;
 			}
 			break;
 		case WEST:
-			if (monster_move_aux(game, x - 1, y, map) && monster_move_aux_door(game, x - 2, y, map)) {
+			if (monster_move_aux(game, x - 1, y, map)
+					&& monster_move_aux_door(game, x-2, y, map)
+					&& monster_move_aux_door(game, x-1, y-1, map)
+					&& monster_move_aux_door(game, x-1, y+1, map)) {
 				monsters->current_direction=WEST;
 				monsters->x--;
 				move = 1;
 			}
 			break;
 		case EAST:
-			if (monster_move_aux(game, x + 1, y, map) && monster_move_aux_door(game, x + 2, y, map)) {
+			if (monster_move_aux(game, x + 1, y, map)
+					&& monster_move_aux_door(game, x + 2, y, map)
+					&& monster_move_aux_door(game, x+1, y-1, map)
+					&& monster_move_aux_door(game, x+1, y+1, map)) {
 				monsters->current_direction=EAST;
 				monsters->x++;
 				move = 1;
