@@ -30,6 +30,7 @@ void player_set_current_way(struct player * player, enum direction direction);
 int  player_get_nb_bomb(struct player * player);
 void player_inc_nb_bomb(struct player * player);
 void player_dec_nb_bomb(struct player * player);
+void player_dec_nb_bomb_bonus(struct player* player);
 
 // Set, Increase, Decrease the number of life of the player
 short  player_get_nb_life(struct player * player);

@@ -29,7 +29,7 @@ enum direction monster_move_direction();
 void monster_move(struct game* game, struct monster* monsters);
 
 // Remove monster from monsters list
-struct monster *monsters_delete_monster(struct monster *monsters,struct monster *monster);
+struct monster *monsters_delete_monster(struct game* game,struct monster *monster);
 
 // Display monter according to his position, decrease the number of life of the player if necessary and call movement function
 void monsters_display(struct monster* monsters, struct game* game);

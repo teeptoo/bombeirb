@@ -116,7 +116,7 @@ void bomb_explosion_aux(struct bomb* bomb, struct game* game, int x, int y, shor
 	struct monster* monsters = game_get_monsters(game);
 	while(monsters!=NULL){
 		if((monsters->x==x) && (monsters->y==y) && (monsters->current_level==current_level)){
-			game->monsters=monsters_delete_monster(game_get_monsters(game), monsters);
+			game->monsters=monsters_delete_monster(game, monsters);
 			map_set_cell_type(game_get_current_map(game),x,y,CELL_EMPTY);
 		}
 		monsters=monsters->next;

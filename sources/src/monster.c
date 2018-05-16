@@ -168,31 +168,40 @@ void monster_move(struct game* game, struct monster* monsters) {
 	}
 }
 
-struct monster *monsters_delete_monster(struct monster *monsters,struct monster *monster){
+struct monster *monsters_delete_monster(struct game* game,struct monster *monster){
 	unsigned int time = SDL_GetTicks() - monster->time_init;
+	struct monster* monsters = game->monsters;
+	struct monster* monsters_origin = game->monsters;
 	if(time<1000)	// le monstre est immunisé pendant sa premiere seconde de vie
 		return monsters;
 	if (monster_get_size(monsters)==1){
-		if (monsters->x==monster->x && monsters->y==monster->y && monsters->current_level==monster->current_level)
-		  return NULL;
-		else
+		if (monsters->x==monster->x && monsters->y==monster->y && monsters->current_level==monster->current_level) {
+			return NULL;
+		}
+		else {
 		  return monsters;
+		}
 	}
 	else{
-	  if (monsters->x==monster->x && monsters->y==monster->y && monsters->current_level==monster->current_level)
-		return monsters=monsters->next;
-	  if (monsters->next->x==monster->x && monsters->next->y==monster->y && monsters->next->current_level==monster->current_level){
+	  if (monsters->x==monster->x && monsters->y==monster->y && monsters->current_level==monster->current_level) {
+		  return monsters->next;
+	  }
+	  if (monsters->next->x==monster->x && monsters->next->y==monster->y && monsters->next->current_level==monster->current_level && monsters->next->next==NULL){
 		  monsters->next = NULL;
 		  return monsters;
 	  }
-	  while (monsters!=NULL){
-		if (monster->x==monsters->next->x && monster->y==monsters->next->y && monster->current_level==monsters->next->current_level)
-		  monsters->next=monsters->next->next;
-		else
+	  while (monsters->next!=NULL){
+		  printf("boucle while");
+		if (monster->x==monsters->next->x && monster->y==monsters->next->y && monster->current_level==monsters->next->current_level){
+			monsters->next=monsters->next->next;
+			return monsters_origin;
+		}
+
+		else {
 			monsters=monsters->next;
+		}
 	  }
 	}
-	return monsters;
 }
 
 void monsters_display(struct monster* monsters, struct game* game) {

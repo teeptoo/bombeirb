@@ -81,6 +81,12 @@ void player_inc_nb_bomb(struct player* player) {
 
 void player_dec_nb_bomb(struct player* player) {
 	assert(player);
+	if(player->nb_bombs > 0)
+		player->nb_bombs -= 1;
+}
+
+void player_dec_nb_bomb_bonus(struct player* player) {
+	assert(player);
 	if(player->nb_bombs > 1)
 		player->nb_bombs -= 1;
 }
@@ -137,7 +143,7 @@ void player_move_bonus(struct game* game, int x, int y){
 		player_inc_range(player);
 		break;
 	case CELL_BONUS_BOMBDEC:
-		player_dec_nb_bomb(player);
+		player_dec_nb_bomb_bonus(player);
 		break;
 	case CELL_BONUS_BOMBINC:
 		player_inc_nb_bomb(player);
