@@ -75,6 +75,8 @@ int monster_move_aux(struct game* game,  int x, int y, struct map* map) {
 	case CELL_BOMB:
 		return 0;
 		break;
+	case CELL_DOOR:
+		return 0;
 	default:
 		return 1;
 		break;
