@@ -202,6 +202,7 @@ struct monster *monsters_delete_monster(struct game* game,struct monster *monste
 		}
 	  }
 	}
+	return monsters;
 }
 
 void monsters_display(struct monster* monsters, struct game* game) {
