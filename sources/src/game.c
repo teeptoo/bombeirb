@@ -325,7 +325,6 @@ struct game* game_load_from_file(char * save_file) {
 	assert(game->player);
 
 	game->bombs=bombs_init();
-	monsters_init(game);
 
 	FILE *file = fopen(save_file, "r");
 
@@ -376,6 +375,9 @@ struct game* game_load_from_file(char * save_file) {
 	} // END for (int i = 0; i < game->nb_levels; ++i)
 
 	fclose(file);
+
+	// Init monsters
+	monsters_init(game);
 
 	// Finishing game creation
 	game->exit_reason = IN_GAME;
